@@ -1,0 +1,222 @@
+* {
+    box-sizing: border-box;
+    font-optical-sizing: auto;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primaryWhite: #eeeeee;
+    --hoverWhite: #f5f5f5;
+    --primaryBlack: #222;
+    --primaryGrey: #858585;
+    --secondaryGrey: #d8d8d8;
+    --primaryYellow: #f7d842;
+
+    --fontFamilyPrimary: "Oswald", sans-serif;
+    --fontFamilySecondary: "Roboto", sans-serif;
+    --fontSizePrimary: 1.15rem;
+    --fontSizeSecondary: 1rem;
+    --fontSizeSmallHeading: 1.5rem;
+    --fontSizeMediumHeading: 2rem;
+    --fontSizeLargeHeading: 3.5rem;
+
+    --boxShadowPrimary: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    --boxShadowSecondary: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+
+    --navbarHeight: 100px;
+
+    --transition-delay: 200ms;
+}
+
+.shadow {
+    box-shadow: var(--boxShadowPrimary) !important;
+}
+
+i {
+    transform: scale(1.25) !important;
+}
+
+/* nav */
+
+.navbar {
+    padding: 0 50px;
+    background-color: var(--primaryBlack);
+    font-family: var(--fontFamilyPrimary);
+    font-style: normal;
+    min-height: var(--navbarHeight);
+
+}
+.navbar-nav {
+    flex-direction: row;
+}
+.nav-item {
+    transition: all var(--transition-delay) ease-in-out;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5px;
+}
+.nav-link:after {
+    display:block;
+    content: '';
+    border-bottom: solid 2px var(--primaryYellow);  
+    transform: scaleX(0);  
+    transition: all var(--transition-delay) ease-in-out;
+    margin-top: 5px;
+}
+.nav-link.active {
+    transition: all var(--transition-delay) ease-in-out;
+}
+.nav-link:hover:after,
+.nav-link.active:after { 
+    transform: scaleX(1); 
+    color: var(--primaryYellow);
+}
+.nav-link {
+    padding: 15px;
+}
+
+/* header */
+
+header {
+    height: 250px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--primaryWhite);
+    font-family: var(--fontFamilyPrimary);
+}
+#homepageHeader {
+    height: calc(100vh - var(--navbarHeight));
+}
+
+#homepageHeader h1 {
+    font-size: var(--fontSizeLargeHeading);
+}
+
+#homepageHeader h2 {
+    font-size: var(--fontSizeMediumHeading);
+}
+
+/* footer */
+
+footer {
+    background-color: var(--primaryBlack);
+    color: var(--primaryYellow);
+    font-family: var(--fontFamilyPrimary);
+    font-size: var(--fontSizeSecondary);
+    padding: 1rem;
+    text-align: center;
+}
+
+/* individual components */
+
+/* form */
+.authForm {
+    max-width: 420px !important;
+}
+.authFormGroup {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+}
+.authFormImage img {
+    border-radius: 5px;
+    box-shadow: var(--boxShadowPrimary);
+}
+
+/* tabs */
+
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+    height: 50px;
+    margin: 1rem;
+}
+
+.tabs a {
+    background-color: var(--secondaryGrey);
+    color: var(--primaryBlack);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    margin: 0 0.5rem;
+    text-decoration: none;
+    transition: all var(--transition-delay) ease-in-out;
+    border-radius: 5px;
+}
+
+.tabs a:hover {
+    background-color: var(--primaryYellow);
+    color: var(--primaryBlack);
+}
+
+
+/* body */
+
+#bodyMain {
+    min-height: 100vh;
+}
+
+.halfBody {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1120px;
+    margin: 0 auto;
+    font-size: var(--fontSizePrimary);
+    box-shadow: var(--boxShadowPrimary);
+    padding: 2rem;
+}
+
+.content {
+    font-family: var(--fontFamilySecondary);
+    padding: 2rem;
+}
+
+.content .group {
+    margin: 1rem 0;
+}
+
+/* profile */
+
+.userContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 0 2rem;
+}
+
+/* .userContainerCol {
+    padding: 0 2rem;
+} */
+
+.userContainer .userDetails {
+    width: 30%;
+    border-right: 2px solid var(--secondaryGrey);
+}
+
+.userContainer .userOverview {
+    width: 70%;
+}
+
+.userOverviewSections {
+    border-top: 2px solid var(--secondaryGrey);
+}
+
+.userContainerCol .userImage,
+.userContainerCol .details {
+    transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.userContainerCol .tab-section {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}

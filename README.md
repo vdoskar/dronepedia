@@ -1,0 +1,1 @@
+Semestrální práce na předmět "Tvorba webových stránek" bakalářského studijního programu "Informační Management" na Ekonomické fakultě TUL.

@@ -1,0 +1,4 @@
+{
+  "/knowledge-base": { "label": "Znalostní báze", "parent": "", "icon": "", "inNav": true, "authRequired": false },
+  "/forum": { "label": "Komunitní fórum", "parent": "", "icon": "", "inNav": true, "authRequired": false }
+}
