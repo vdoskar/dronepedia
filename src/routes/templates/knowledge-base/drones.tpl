@@ -10,7 +10,6 @@
     <br>
     <h4>Co jsou drony?</h4>
     <p>Drony jsou autonomní, dálkově řízené nebo předem naprogramované letouny, které se mohou pohybovat bez lidského pilota na palubě. Jejich účel a podoba se liší v závislosti na kategorii a účelu, pro který jsou navrženy. Svoji popularitu získaly díky své schopnosti provádět širokou škálu úkolů, od průzkumu a monitorování po zábavné aktivity a profesionální služby.</p>
-
     <hr>
     <br>
     <h3>Kategorie dronů</h3>
@@ -19,12 +18,19 @@
         <a class="tab" href="#tab_miniDrones">Mini drony</a>
         <a class="tab" href="#tab_fpvDrones">FPV drony</a>
         <a class="tab" href="#tab_profiDrones">Profesionální drony</a>
-        <a class="tab" href="#tab_armyDrones">Armádní a vojenské drony</a>
+        <a class="tab" href="#tab_armyDrones">Armádní drony</a>
+        <a class="tab" href="#tab_specialDrones">Speciální drony</a>
     </div>
     <br>
     <section id="droneCategories">
         {include file="drones_categories.tpl"}
     </section>
+    <hr>
+    <br>
+    <h4>Drony a budoucnost</h4>
+    <p>Vývoj dronů do budoucna je neustále v pohybu, přičemž technologické inovace a pokroky otevírají nové možnosti a možnosti využití. Jedním z klíčových trendů je integrace umělé inteligence do dronů, což umožňuje těmto zařízením provádět složitější úkoly autonomně a efektivněji.</p>
+    <p>Umělá inteligence umožňuje dronům analyzovat data v reálném čase, rozpoznávat vzory a objekty, a reagovat na různé situace bez potřeby neustálé lidské interakce. To může vést k vývoji autonomních dronů, které jsou schopny provádět širokou škálu úkolů, od průzkumu a monitorování po dodávání zásob a záchranné operace.</p>
+    <p>Dalším směrem vývoje je miniaturizace a zlepšování výkonu baterií, což umožní dronům létat déle a dále bez potřeby častého dobíjení. Tím se zvýší jejich efektivita a využití v různých odvětvích, jako je například průmyslová inspekce, zemědělství a doprava.</p>
 </div>
 
 <script>

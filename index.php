@@ -52,6 +52,7 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script> <!-- CK editor -->
     <script src="/src/js/ajax.js"></script>
     <script src="/src/js/tabs.js"></script>
+    <script src="/src/js/utils.js"></script>
 </head>
 
 <body>
