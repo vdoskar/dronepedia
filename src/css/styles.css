@@ -39,7 +39,16 @@ i {
     transform: scale(1.25) !important;
 }
 
+.btn-primary {
+    background-color: var(--secondaryYellow) !important;
+    color: var(--primaryBlack) !important;
+    border: none;
+}
 
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: var(--primaryYellow) !important;
+}
 
 /* nav */
 
@@ -282,12 +291,12 @@ footer {
 } */
 
 .userContainer .userDetails {
-    width: 30%;
+    min-width: 300px;
     border-right: 2px solid var(--secondaryGrey);
 }
 
 .userContainer .userOverview {
-    width: 70%;
+    width: 100%;
 }
 
 .userOverviewSections {
@@ -305,4 +314,10 @@ footer {
     padding: 2rem;
     display: flex;
     flex-direction: column;
+}
+
+.userImage img {
+    max-width: 220px;
+    aspect-ratio: 1/1;
+    transform: translateY(-15%);
 }

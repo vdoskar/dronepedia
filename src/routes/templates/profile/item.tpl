@@ -5,7 +5,7 @@
 
         <div class="userContainerCol userDetails">
             <div class="userImage text-center">
-                <img class="rounded-circle shadow" src="{$settings.pic_profile}" alt="{$user.username}" style="width: 220px; aspect-ratio: 1/1;">
+                <img class="rounded-circle shadow" src="{$settings.pic_profile}" alt="{$user.username}">
             </div>
             <div class="details">
                 <h1 class="text-center mb-4 text-bold">{$user.label}</h1>
