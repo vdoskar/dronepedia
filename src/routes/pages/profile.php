@@ -56,6 +56,10 @@ if (empty($apiAuthController->getCurrentUser())) {
 
 if (!empty($_GET["u"])) {
     $user = $profileController->getUser($_GET["u"]);
+    if (empty($user)) {
+        header("Location: /404");
+        exit();
+    }
 } else {
     $user = $apiAuthController->getCurrentUser();
 }

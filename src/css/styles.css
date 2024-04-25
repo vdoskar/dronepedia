@@ -12,6 +12,11 @@
     --secondaryGrey: #d8d8d8;
     --primaryYellow: #f7d842;
     --secondaryYellow: #ffed99;
+    --tertiaryYellow: #b19800;
+    --primaryRed: #ff0000;
+    --secondaryRed: #710404;
+    --primaryGreen: #00ff00;
+    --secondaryGreen: #007700;
 
     --fontFamilyPrimary: "Oswald", sans-serif;
     --fontFamilySecondary: "Roboto", sans-serif;
@@ -48,6 +53,29 @@ i {
 .btn-primary:hover,
 .btn-primary:active {
     background-color: var(--primaryYellow) !important;
+}
+
+.badge {
+    padding: 0.5rem 1.25rem;
+    display: block;
+    letter-spacing: 1px;
+    font-family: var(--fontFamilyPrimary);
+    font-weight: 400;
+}
+
+.badge-success {
+    background-color: var(--secondaryGreen);
+    color: var(--primaryGreen);
+}
+
+.badge-neutral {
+    background-color: var(--tertiaryYellow);
+    color: var(--secondaryYellow);
+}
+
+.badge-danger {
+    background-color: var(--secondaryRed);
+    color: var(--primaryRed);
 }
 
 /* nav */
@@ -321,3 +349,70 @@ footer {
     aspect-ratio: 1/1;
     transform: translateY(-15%);
 }
+
+
+/* forum */
+
+.forum-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.post-card {
+    border-radius: var(--borderRadiusPrimary);
+    box-shadow: var(--boxShadowPrimary);
+    display: flex;
+    flex-direction: row;
+    transition: all var(--transition-delay) ease-in-out;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--boxShadowSecondary);
+    cursor: pointer;
+}
+
+.post-card-item {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.post-card-item h4 {
+    text-align: center;
+    width: 100%;
+}
+
+.post-card .pc-author,
+.post-card .pc-content,
+.post-card .pc-category,
+.post-card .pc-date {
+    border-right: 2px solid var(--secondaryGrey);
+    width: fit-content;
+}
+
+.post-card .pc-category,
+.post-card .pc-date,
+.post-card .pc-status {
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.post-card .pc-author img {
+    max-width: 60px;
+    aspect-ratio: 1/1;
+}
+.post-card .pc-author {
+    text-align: center;
+    min-width: 120px;
+}
+
+.post-card .pc-content h4 {
+    text-align: left;
+    color: var(--tertiaryYellow);
+}
+
+
+
