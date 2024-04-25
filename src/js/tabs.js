@@ -29,7 +29,7 @@ const tabs = {
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {
             const tabSectionId = tabSection.id;
-            if (this.activeTab != tabSectionId) {
+            if (this.activeTab !== tabSectionId) {
                 tabSection.style.display = 'none';
             }
         });
@@ -37,7 +37,10 @@ const tabs = {
         // pridam dunkce na kliknuti na odkazy
         this.tabListLinks.forEach(tabLinks => {
             tabLinks.forEach(link => {
-                link.onclick = () => this.toggleTab(link.hash);
+                link.onclick = (event) => {
+                    event.preventDefault(); // zrusi scroll
+                    this.toggleTab(link.hash)
+                };
             });
         });
 
@@ -45,13 +48,13 @@ const tabs = {
 
     toggleTab(tabId = "") {
         // pokud je tab prazdny, tak se nic nestane
-        if (tabId == "") {
+        if (tabId === "") {
             return;
         }
 
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {
-            if (tabId != ("#" + tabSection.id)) {
+            if (tabId !== ("#" + tabSection.id)) {
                 tabSection.style.display = 'none';
             } else {
                 tabSection.style.display = 'flex';

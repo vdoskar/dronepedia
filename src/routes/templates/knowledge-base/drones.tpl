@@ -15,11 +15,26 @@
     <h3>Kategorie dronů</h3>
     <p>Každý dron spadá do své vlastní kategorie. Kromě formálních leteckých kateogií (OPEN, ..) lze drony řadit i podle jejich využití a náročnosti na provoz.</p>
     <div class="tabs">
-        <a class="tab" href="#tab_miniDrones">Mini drony</a>
-        <a class="tab" href="#tab_fpvDrones">FPV drony</a>
-        <a class="tab" href="#tab_profiDrones">Profesionální drony</a>
-        <a class="tab" href="#tab_armyDrones">Armádní drony</a>
-        <a class="tab" href="#tab_specialDrones">Speciální drony</a>
+        <a class="tab" href="#tab_miniDrones">
+            <i class="fa-solid fa-circle-minus"></i>
+            Mini drony
+        </a>
+        <a class="tab" href="#tab_fpvDrones">
+            <i class="fa-solid fa-binoculars"></i>
+            FPV drony
+        </a>
+        <a class="tab" href="#tab_profiDrones">
+            <i class="fa-solid fa-jet-fighter"></i>
+            Profesionální drony
+        </a>
+        <a class="tab" href="#tab_armyDrones">
+            <i class="fa-solid fa-jet-fighter"></i>
+            Armádní drony
+        </a>
+        <a class="tab" href="#tab_specialDrones">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Speciální drony
+        </a>
     </div>
     <br>
     <section id="droneCategories">
