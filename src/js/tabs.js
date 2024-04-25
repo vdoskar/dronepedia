@@ -25,6 +25,10 @@ const tabs = {
         } else {
             this.activeTab = this.tabSections[0].id;
         }
+        const activeLink = document.querySelector(`a[href="#${this.activeTab}"]`);
+        console.log(activeLink)
+        activeLink.classList.add('active');
+        console.log(activeLink)
 
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {
@@ -34,27 +38,32 @@ const tabs = {
             }
         });
 
-        // pridam dunkce na kliknuti na odkazy
+        // pridam funkce na kliknuti na odkazy
         this.tabListLinks.forEach(tabLinks => {
             tabLinks.forEach(link => {
-                link.onclick = (event) => {
-                    event.preventDefault(); // zrusi scroll
-                    this.toggleTab(link.hash)
-                };
+                link.onclick = (event) => this.toggleTab(link);
             });
         });
 
     },
 
-    toggleTab(tabId = "") {
+    toggleTab(link) {
+        // zrusim aktivni tridu u vsech odkazu a nasledne nastavim aktivni tridu u kliknuteho odkazu
+        this.tabListLinks.forEach(tabLinks => {
+            tabLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+        });
+        link.classList.add('active');
+
         // pokud je tab prazdny, tak se nic nestane
-        if (tabId === "") {
+        if (link.hash === "") {
             return;
         }
 
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {
-            if (tabId !== ("#" + tabSection.id)) {
+            if (link.hash !== ("#" + tabSection.id)) {
                 tabSection.style.display = 'none';
             } else {
                 tabSection.style.display = 'flex';

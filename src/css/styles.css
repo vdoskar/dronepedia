@@ -11,6 +11,7 @@
     --primaryGrey: #858585;
     --secondaryGrey: #d8d8d8;
     --primaryYellow: #f7d842;
+    --secondaryYellow: #ffed99;
 
     --fontFamilyPrimary: "Oswald", sans-serif;
     --fontFamilySecondary: "Roboto", sans-serif;
@@ -133,7 +134,6 @@ footer {
 }
 
 /* tabs */
-
 .tabs {
     display: flex;
     justify-content: flex-start;
@@ -153,6 +153,11 @@ footer {
     text-decoration: none;
     transition: all var(--transition-delay) ease-in-out;
     border-radius: var(--borderRadiusPrimary);
+}
+
+.tabs a.active {
+    background-color: var(--secondaryYellow);
+    color: var(--primaryBlack);
 }
 
 .tabs a:hover {
