@@ -1,13 +1,13 @@
 <?php
 
-include_once('src/services/Api/AuthController.php');
+include_once('src/services/Api/ApiAuthController.php');
 
-$loggedIn = true;
-$authController = new AuthController();
+$loggedIn = false;
+$authController = new ApiAuthController();
 $menu = json_decode(file_get_contents(__DIR__ . '/menu.json'), true);
 
 try {
-    if ($authController->validateLoginState()) {
+    if (!empty($_COOKIE["SESSION_ID"]) && $authController->validateLogin($_COOKIE["SESSION_ID"])) {
         $loggedIn = true;
     }
 } catch (Exception $e) {

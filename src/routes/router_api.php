@@ -2,43 +2,46 @@
 
 global $request;
 
-use services\Api\AuthController;
-use services\Api\PostsController;
-use services\Api\ProfileController;
+require_once 'src/services/Api/ApiAuthController.php';
+require_once 'src/services/Api/ApiPostsController.php';
+require_once 'src/services/Api/ApiProfileController.php';
 
-require_once 'src/services/Api/AuthController.php';
-require_once 'src/services/Api/PostsController.php';
-require_once 'src/services/Api/ProfileController.php';
-
-$authController = new AuthController();
-$postsController = new PostsController();
-$profileController = new ProfileController();
-
-$requestBody = file_get_contents('php://input');
-$data = json_decode($requestBody, true);
+$authController = new ApiAuthController();
+$postsController = new ApiPostsController();
+$profileController = new ApiProfileController();
 
 switch ($request) {
+
+    //
+    // AUTHENTICATION
+    //
+
+    // REGISTER TO THE WEBSITE
     case "/api/auth/register":
-        try {
-            $authController->register($data);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        break;
-    case "/api/auth/check-availible-registration":
-        try {
-            $email = "test@4trans.cz";
-            $authController->checkAvailibleRegistration($email);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $authController->register($_POST);
+        header("Location: /"); // return to main page
         break;
 
+    // LOGIN TO THE WEBSITE
+    case "/api/auth/login":
+        $authController->login($_POST);
+        header("Location: /"); // return to main page
+        break;
+
+    // LOGOUT FROM THE WEBSITE
+    case "/api/auth/logout":
+        $authController->logout();
+        break;
+
+    //
+    // POSTS
+    //
+
     case "/api/posts/create":
-        $postsController->create($data);
+        $postsController->create($_POST);
         break;
 
     case "/api/profile/update-name":
-        $profileController->updateName($data);
+        $profileController->updateName($_POST);
         break;
 }

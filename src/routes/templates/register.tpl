@@ -6,15 +6,25 @@
 
 <div class="content halfBody rounded">
     <div class="authFormGroup">
-        <form method="POST" id="form" class="authForm">
+        <form method="POST" id="registerForm" class="authForm" action="/api/auth/register">
             <div class="form-group">
             <label for="username">Uživatelské jméno</label>
-                <input type="text" id="username" name="username" class="form-control" required>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       class="form-control"
+                       required
+                >
             </div>
             <br>
             <div class="form-group">
                 <label for="usertag">User Tag (@)</label>
-                <input type="text" id="usertag" name="usertag" class="form-control" required>
+                <input type="text"
+                       id="usertag"
+                       name="usertag"
+                       class="form-control"
+                       required
+                >
             </div> 
             <br>
             <div class="form-group">
@@ -25,12 +35,24 @@
             <br>
             <div class="form-group">
                 <label for="pass1">Heslo</label>
-                <input type="password" id="pass1" name="pass1" class="form-control" required minlength="8">
+                <input type="password"
+                       id="pass1"
+                       name="pass1"
+                       class="form-control"
+                       required
+                       title="Heslo musí mít minimálně 8 znaků."
+                >
             </div>
             <br>
             <div class="form-group">
                 <label for="pass2">Heslo znovu</label>
-                <input type="password" id="pass2" name="pass2" class="form-control" required minlength="8">
+                <input type="password"
+                       id="pass2"
+                       name="pass2"
+                       class="form-control"
+                       required
+                       title="Heslo musí mít minimálně 8 znaků."
+                >
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Registrovat</button>
@@ -39,36 +61,44 @@
             </div>
         </form>
         <div class="authFormImage">
-            <img src="https://picsum.photos/450/550">    
+            <img src="https://picsum.photos/450/550" alt="Registrační obrázek">
         </div>
     </div>
 </div>
 
+
 <script>
-    document.getElementById("form").onsubmit = function(event) {
+    // TODO: remove this before production
+    document.getElementById("username").value = "John doe";
+    document.getElementById("usertag").value = "john_doee";
+    document.getElementById("email").value = "vladimir.doskar@tul.cz";
+    document.getElementById("pass1").value = "A123456789";
+    document.getElementById("pass2").value = "A123456789";
+</script>
+
+<script>
+    document.getElementById("registerForm").onsubmit = function(event) {
+        event.preventDefault();
         const formData = new FormData(event.target);
+
         if (formData.get("pass1") !== formData.get("pass2")) {
             alert("Hesla se neshodují.");
             event.preventDefault();
             return;
         }
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
 
-        const emailAvailable = ajax.get("/api/auth/check-availible-registration", "GET", data.email);
-        console.log(emailAvailable);
-        event.preventDefault();
-        return;
-
-        try {
-            ajax.call("/api/auth/register", "POST", data);
-            alert("Registrace proběhla úspěšně.");
-            window.location.href = "/login";
-        } catch (e) {
-            alert("Registrace se nezdařila.");
+        if (formData.get("pass1").length < 8) {
+            alert("Heslo musí mít minimálně 8 znaků.");
             event.preventDefault();
+            return;
         }
+
+        if (formData.get("username").length < 3) {
+            alert("Uživatelské jméno musí mít minimálně 3 znaky.");
+            event.preventDefault();
+            return;
+        }
+
+        document.getElementById("registerForm").submit();
     }
 </script>

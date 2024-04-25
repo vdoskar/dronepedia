@@ -16,16 +16,16 @@ class DatabaseConnector
 
     public function __construct()
     {
-        // $this->connection = new mysqli(
-        //     $this->servername,
-        //     $this->username_admin,
-        //     $this->password_admin,
-        //     $this->db
-        // );
+         $this->connection = new mysqli(
+             $this->servername,
+             $this->username_admin,
+             $this->password_admin,
+             $this->db
+         );
 
-        // if ($this->connection->connect_error) {
-        //     die("Connection failed: " . $this->connection->connect_error);
-        // }
+         if ($this->connection->connect_error) {
+             die("Connection failed: " . $this->connection->connect_error);
+         }
     }
 
     /**
@@ -100,13 +100,17 @@ class DatabaseConnector
     /**
      * @param string $table
      * @param array $data
-     * @param string $conditionColumn
+     * @param string|null $conditionColumn
      * @param $conditionValue
      * @return void
      * @throws Exception
      */
-    public function update(string $table, array $data, string $conditionColumn, $conditionValue): void
-    {
+    public function update(
+        string $table,
+        array $data,
+        string|null $conditionColumn = null,
+        $conditionValue = null
+    ): void {
         $this->connection->begin_transaction();
         try {
             $sql = "UPDATE " . $table . " SET ";
@@ -116,7 +120,9 @@ class DatabaseConnector
             }
             $sql = rtrim($sql, ', ');
 
-            $sql .= " WHERE $conditionColumn = ?";
+            if ($conditionColumn) {
+                $sql .= " WHERE $conditionColumn = ?";
+            }
 
             $stmt = $this->connection->prepare($sql);
             if (!$stmt) {
@@ -149,7 +155,7 @@ class DatabaseConnector
     {
         $result = $this->connection->query($query);
         if (!$result || $result->num_rows === 0) {
-            throw new Exception("No results found");
+            return null;
         }
 
         $row = $result->fetch_assoc();
@@ -160,14 +166,13 @@ class DatabaseConnector
 
     /**
      * @param string $query
-     * @return string|int|float
-     * @throws Exception
+     * @return string|int|float|null
      */
-    public function selectOneValue(string $query): string|int|float
+    public function selectOneValue(string $query): string|int|float|null
     {
         $result = $this->connection->query($query);
         if (!$result || $result->num_rows === 0) {
-            throw new Exception("No results found");
+            return null;
         }
 
         $row = $result->fetch_array(MYSQLI_NUM);
@@ -196,6 +201,7 @@ class DatabaseConnector
 
     public function escape(string $string): string
     {
-        return $this->connection->real_escape_string($string);
+        // remove potentioal harmful characters from cross site scripting
+        return htmlspecialchars($this->connection->real_escape_string($string));
     }
 }

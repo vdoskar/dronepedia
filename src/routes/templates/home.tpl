@@ -34,4 +34,11 @@
             Nezapomeňte sledovat naše pravidelné aktualizace a novinky! Díky DronePedii budete vždy krok před ostatními v tomto dynamickém a rychle se rozvíjejícím světě dronů.
         </p>
     </div>
+    <div class="group text-center">
+        <h3>Již jste členem?</h3>
+        <a href="/forum" class="btn btn-primary">Přejít na fórum</a>
+        <h3>Stále nejste členem?</h3>
+        <a href="/register" class="btn btn-primary">Zaregistrovat se</a>
+        <a href="/login" class="btn btn-primary">Přihlásit se</a>
+    </div>
 </div>

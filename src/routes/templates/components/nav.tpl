@@ -19,27 +19,27 @@
         {if $loggedIn}
             <li class="nav-item">
                 <a class="nav-link" href="/contribute">
-                    <i class="fa-regular fa-square-plus"></i>
-                    Přidat
+                    &nbsp; <i class="fa-regular fa-square-plus"></i>
+                    &nbsp;Přidat &nbsp;
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/profile">
-                    <i class="fa-solid fa-user"></i>
-                    Profil
+                    &nbsp; <i class="fa-solid fa-user"></i>
+                    &nbsp;Profil &nbsp;
                 </a>
             </li>
         {else}
             <li class="nav-item">
                 <a class="nav-link" href="/login">
-                    <i class="fa-solid fa-sign-in"></i>
-                    Přihlásit
+                    &nbsp; <i class="fa-solid fa-sign-in"></i>
+                    &nbsp; Přihlásit &nbsp;
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/register">
-                    <i class="fa-solid fa-user-plus"></i>
-                    Registrovat
+                    &nbsp;<i class="fa-solid fa-user"></i>
+                    &nbsp; Registrovat &nbsp;
                 </a>
             </li>
         {/if}

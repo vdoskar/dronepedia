@@ -1,16 +1,14 @@
-<header style="background-image: url('{$user.header_picture}');">
-
-</header>
+<header style="background-image: url('{$settings.pic_banner}');"></header>
 
 <div class="content">
     <div class="userContainer">
 
         <div class="userContainerCol userDetails">
             <div class="userImage text-center">
-                <img class="rounded-circle shadow" src="{$user.profile_picture}" alt="{$user.username}">
+                <img class="rounded-circle shadow" src="{$settings.pic_profile}" alt="{$user.username}" style="width: 220px; aspect-ratio: 1/1;">
             </div>
             <div class="details">
-                <h1 class="text-center mb-4 text-bold">{$user.name}</h1>
+                <h1 class="text-center mb-4 text-bold">{$user.label}</h1>
                 <div>
                     <p>
                         <i class="fa-solid fa-user"></i>
@@ -18,15 +16,15 @@
                     </p>
                     <p>
                         <i class="fa-solid fa-calendar-days"></i>
-                        &nbsp; Registrován/a od {$user.registered}
+                        &nbsp; Registrován/a od {$user.date_created|date_format:"%d.%m.%Y"}
                     </p>
                     <p>
                         <i class="fa-solid fa-message"></i>
-                        &nbsp; {$user.post_count} příspěvků
+                        &nbsp; {$posts.count} příspěvků
                     </p>
                     <p>
                         <i class="fa-solid fa-comment"></i>
-                        &nbsp; {$user.comment_count} komentářů
+                        &nbsp; {$comments.count} komentářů
                     </p>
                 </div>
             </div>
@@ -48,25 +46,33 @@
                 <div id="tab_drones" class="tab-section">
                     <h2 class="text-bold">Drony</h2>
                     <div class="drones">
-                        {foreach $drones as $drone}
-                            <div class="drone">
-                                <a href="#">
-                                    <h3>{$drone.name}</h3>
-                                </a>
-                            </div>
-                        {/foreach}
+                        {if $drones|count > 0}
+                            {foreach $drones as $drone}
+                                <div class="drone">
+                                    <a href="#">
+                                        <h3>{$drone.name}</h3>
+                                    </a>
+                                </div>
+                            {/foreach}
+                        {else}
+                            <p">Tento uživatel zatím nepřidal žádné své drony.</p>
+                        {/if}
                     </div>
                 </div>
                 <div id="tab_posts" class="tab-section">
                     <h2 class="text-bold">Příspěvky</h2>
                     <div class="posts">
-                        {foreach $posts as $post}
-                            <div class="post">
-                                <a href="#">
-                                    <h3>{$post.title}</h3>
-                                </a>
-                            </div>
-                        {/foreach}
+                        {if $posts.posts|count > 0}
+                            {foreach $posts as $post}
+                                <div class="post">
+                                    <a href="#">
+                                        <h3>{$post.title}</h3>
+                                    </a>
+                                </div>
+                            {/foreach}
+                        {else}
+                            <p>Tento uživatel zatím nepřidal žádné příspěvky.</p>
+                        {/if}
                     </div>
                 </div>
             </div>
