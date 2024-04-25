@@ -23,6 +23,8 @@
     --boxShadowPrimary: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     --boxShadowSecondary: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 
+    --borderRadiusPrimary: 8px;
+
     --navbarHeight: 100px;
 
     --transition-delay: 200ms;
@@ -124,7 +126,7 @@ footer {
     padding: 2rem;
 }
 .authFormImage img {
-    border-radius: 5px;
+    border-radius: var(--borderRadiusPrimary);
     box-shadow: var(--boxShadowPrimary);
 }
 
@@ -135,7 +137,7 @@ footer {
     justify-content: flex-start;
     list-style-type: none;
     height: 50px;
-    margin: 1rem;
+    margin: 1rem 1rem 1rem 0;
 }
 
 .tabs a {
@@ -148,12 +150,56 @@ footer {
     margin: 0 0.5rem;
     text-decoration: none;
     transition: all var(--transition-delay) ease-in-out;
-    border-radius: 5px;
+    border-radius: var(--borderRadiusPrimary);
 }
 
 .tabs a:hover {
     background-color: var(--primaryYellow);
     color: var(--primaryBlack);
+}
+
+.tab-section {
+    flex-direction: column;
+}
+
+/* card gallery */
+
+.card-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.card-gallery .card {
+    max-width: 350px    ;
+    margin: 1rem;
+    border-radius: var(--borderRadiusPrimary);
+    box-shadow: var(--boxShadowPrimary);
+    background-color: var(--primaryWhite);
+    transition: all var(--transition-delay) ease-in-out;
+}
+
+.card-gallery .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--boxShadowSecondary);
+}
+
+.card-gallery .card .card-wrapper {
+    color: var(--primaryWhite);
+    text-decoration: none;
+    border-radius: var(--borderRadiusPrimary);
+    padding: 2rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.card-gallery .card .card-wrapper h3 {
+    font-size: var(--fontSizeMediumHeading);
+    text-align: center;
+    margin-bottom: 5rem;
 }
 
 

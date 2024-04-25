@@ -1,7 +1,7 @@
 <div class="group">
     <ul class="navbar-nav">
         <a class="navbar-brand mb-1 mt-1" style="margin-right: 4rem" href="/" title="Domů | DronePedia">
-            <img src="src/assets/logo.webp" data-copyright="https://www.vectorstock.com/royalty-free-vector/drone-icon-in-trendy-flat-style-isolated-vector-36097984" style="max-width: 60px;">
+            <img src="/src/assets/logo.webp" data-copyright="https://www.vectorstock.com/royalty-free-vector/drone-icon-in-trendy-flat-style-isolated-vector-36097984" style="max-width: 60px;">
         </a>
         {foreach $menu as $link => $item}
             {if $item.inNav}
