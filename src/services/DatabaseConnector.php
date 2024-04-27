@@ -8,7 +8,7 @@ class DatabaseConnector
     private mysqli $connection;
 
     private string $servername = "127.0.0.1";
-    private string $db = "tulwa";
+    private string $db = "dronepedia";
     private string $username_admin = "root";
     private string $password_admin = "";
     private string $username_user = "root";

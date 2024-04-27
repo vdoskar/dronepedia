@@ -7,7 +7,7 @@ class ApiAuthController
     private DatabaseConnector $databaseConnector;
     private UtilityService $utilityService;
 
-    public array $currentUser = [];
+    private array $currentUser = [];
 
     public function __construct()
     {
@@ -165,7 +165,10 @@ class ApiAuthController
         }
 
         // save for local use
-        $this->currentUser = $result;
+        $this->currentUser = $this->databaseConnector->selectOneRow("
+            SELECT * FROM users
+            WHERE uuid = '" . $result["user"] . "'"
+        );
         return true;
     }
 
@@ -179,16 +182,6 @@ class ApiAuthController
             return [];
         }
 
-        $result = $this->databaseConnector->selectOneRow("
-            SELECT * FROM users
-            WHERE uuid IN (
-                 SELECT user FROM users_logged 
-                 WHERE session_token = '" . $_COOKIE["SESSION_ID"] . "'
-            )"
-        );
-        if (empty($result)) {
-            return [];
-        }
-        return $result;
+       return $this->currentUser;
     }
 }

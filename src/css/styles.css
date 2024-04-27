@@ -78,6 +78,11 @@ i {
     color: var(--primaryRed);
 }
 
+.marker {
+    background-color: var(--primaryYellow);
+    color: var(--primaryBlack);
+}
+
 /* nav */
 
 .navbar {

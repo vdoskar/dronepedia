@@ -36,3 +36,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("email").value = "vladimir.doskar@tul.cz";
+    document.getElementById("password").value = "A123456789";
+</script>

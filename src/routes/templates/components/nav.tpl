@@ -18,12 +18,6 @@
     <ul class="navbar-nav">
         {if $loggedIn}
             <li class="nav-item">
-                <a class="nav-link" href="/contribute">
-                    &nbsp; <i class="fa-regular fa-square-plus"></i>
-                    &nbsp;Přidat &nbsp;
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/profile">
                     &nbsp; <i class="fa-solid fa-user"></i>
                     &nbsp;Profil &nbsp;

@@ -10,16 +10,16 @@ class ApiProfileController
     }
 
     /**
-     * @param string $uuid
+     * @param string $username
      * @return array
      * @throws Exception
      */
-    public function getUser(string $username): array
+    public function getUserByUsername(string $username): array
     {
         return $this->databaseConnector->selectOneRow("
-            SELECT * FROM users_settings
+            SELECT * FROM users
             WHERE username = '" . $this->databaseConnector->escape($username) . "'"
-        );
+        ) ?? [];
     }
 
     /**

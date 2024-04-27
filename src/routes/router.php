@@ -1,5 +1,9 @@
 <?php
+
 $request = $_SERVER['REQUEST_URI'];
+// get rid of GET parameters if they exist
+$request = explode("?", $request)[0];
+
 switch ($request) {
     case "/":
     case "":

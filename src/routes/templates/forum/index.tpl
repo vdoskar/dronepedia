@@ -6,6 +6,14 @@
 
 <div class="content forum-wrapper">
     <div class="group">
+        <a class="btn btn-secondary" href="/forum/create-post">
+            <i class="fa-regular fa-square-plus"></i>
+            &nbsp;Přidat příspěvek
+        </a>
+    </div>
+
+    <br>
+    <div class="group">
         <h2>Nejnovější příspěvky</h2>
         <br>
         <section class="forum-section">
