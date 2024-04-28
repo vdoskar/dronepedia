@@ -1,7 +1,5 @@
 <?php
 
-// use Exception;
-
 class UtilityService
 {
     public function __construct()
