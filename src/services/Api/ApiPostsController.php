@@ -23,9 +23,14 @@ class ApiPostsController
             throw new Exception("You need to be logged in to create a post.");
         }
 
+        $slug = $data["slug"];
+        if (!$this->isSlugAvailable($slug)) {
+            $slug = $data["slug"] . "-" . rand(999, 9999);
+        }
+
         // save to db
         $result = [
-            "slug" => $data["slug"],
+            "slug" => $slug,
             "title" => $data["title"],
             "author" => $this->authController->getCurrentUser()["uuid"] ?? throw new Exception("Current user not found, cannot save."),
             "content" => $data["content"],
@@ -40,22 +45,21 @@ class ApiPostsController
             throw new Exception($e->getMessage());
         }
 
-        // TODO
-//        $attachments = $data["attachments"] ?? [];
-//        if (!empty($attachments)) {
-//            foreach ($attachments as $attachment) {
-//                $result = [
-//                    "post_id" => $this->getPostBySlug($data["slug"])["id"],
-//                    "url" => $attachment,
-//                    "type" => "TBD",
-//                ];
-//                try {
-//                    $this->databaseConnector->insert("posts_attachments", $result);
-//                } catch (Exception $e) {
-//                    throw new Exception($e->getMessage());
-//                }
-//            }
-//        }
+        $attachments = $data["attachments"] ?? [];
+        if (!empty($attachments)) {
+            foreach ($attachments as $attachment) {
+                $result = [
+                    "post_id" => $this->getPostBySlug($slug)["id"],
+                    "url" => $attachment,
+                    "type" => "TBD",
+                ];
+                try {
+                    $this->databaseConnector->insert("posts_attachments", $result);
+                } catch (Exception $e) {
+                    throw new Exception($e->getMessage());
+                }
+            }
+        }
     }
 
     public function getPostBySlug(string $slug): array
@@ -64,5 +68,10 @@ class ApiPostsController
             SELECT * FROM posts
             WHERE slug = '" . $this->databaseConnector->escape($slug) . "'"
         ) ?? [];
+    }
+
+    private function isSlugAvailable(string $slug): bool
+    {
+        return empty($this->getPostBySlug($slug));
     }
 }

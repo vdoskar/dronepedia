@@ -37,12 +37,10 @@ switch ($request) {
     // POSTS
     //
 
+
+    // CREATE A NEW POST
     case "/api/posts/create":
         $postsController->create($_POST);
         header("Location: /forum"); // return to main page
-        break;
-
-    case "/api/profile/update-name":
-        $profileController->updateName($_POST);
         break;
 }

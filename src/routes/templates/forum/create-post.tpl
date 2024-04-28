@@ -1,6 +1,5 @@
 <div class="content halfBody">
     <h1>Nový příspěvek</h1>
-
     <form method="post" action="/api/posts/create" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Název</label>
@@ -25,18 +24,26 @@
         </div>
         <br>
         <div class="form-group">
-            <label for="attachments">URL přílohy</label>
-            <input type="text" class="form-control" id="attachments" name="attachments[]">
+            <label for="attachmentsWrapper">Přidat přílohy</label>
+            <br>
+            <div id="attachmentsWrapper">
+
+            </div>
+            <br>
+            <button class="btn btn-secondary" onclick="attachment.add(); event.preventDefault();">
+                <i class="fa-regular fa-square-plus"></i>
+                &nbsp;Nová příloha
+            </button>
         </div>
         <br>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="submit" name="submit">Odeslat</button>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary" id="submit" name="submit">Přidat nový příspěvek</button>
         </div>
     </form>
 </div>
 
 <script>
-    utils.editor.init('content');
+    editor.init('content');
 </script>
 <script>
     // create slug from title
@@ -48,4 +55,47 @@
             document.getElementById('slugPreview').innerText = '';
         }
     });
+
+    // add attachment
+    const attachment = {
+        add() {
+            const wrapper = document.createElement("div");
+            wrapper.classList.add('form-group');
+            wrapper.classList.add('attachment-item');
+
+            const attachment = document.createElement('input');
+            attachment.type = 'text';
+            attachment.name = 'attachments[]';
+            attachment.classList.add('form-control');
+            attachment.classList.add('mt-2');
+            attachment.style.maxWidth = 'calc(100% - 60px)';
+            attachment.style.display = 'inline-block';
+            attachment.placeholder = 'URL přílohy';
+
+            attachment.oninput = () => {
+                if (!this.isAvailableUrlByRegex(attachment.value)) {
+                    attachment.setCustomValidity('Neplatná URL adresa');
+                } else {
+                    attachment.setCustomValidity('');
+                }
+            }
+
+            const removeButton = document.createElement('button');
+            removeButton.classList.add('btn');
+            removeButton.classList.add('btn-danger');
+            removeButton.style.marginLeft = '0.5rem';
+            removeButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
+            removeButton.onclick = () => wrapper.remove();
+
+            wrapper.appendChild(attachment);
+            wrapper.appendChild(removeButton);
+
+            document.getElementById('attachmentsWrapper').appendChild(wrapper);
+        },
+
+        isAvailableUrlByRegex(url) {
+            const regex = new RegExp('^(http|https)://', 'i');
+            return regex.test(url);
+        }
+    }
 </script>

@@ -56,6 +56,7 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
     <script src="/src/js/ajax.js"></script>
     <script src="/src/js/tabs.js"></script>
     <script src="/src/js/utils.js"></script>
+    <script src="/src/js/editor.js"></script>
 </head>
 
 <body>
