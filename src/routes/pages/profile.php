@@ -1,8 +1,5 @@
 <?php
 
-//require_once 'src/services/Api/ApiProfileController.php';
-//require_once 'src/services/Api/ApiAuthController.php';
-
 $userDrones = [
     [
         "name" => "Drone 1",

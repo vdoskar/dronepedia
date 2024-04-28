@@ -35,7 +35,7 @@ class ApiAuthController
 
         $result = [
             "uuid" => $this->utilityService->uuidV4(),
-            "date_created" => date("Y-m-d H:i:s"),
+            "date_registered" => date("Y-m-d H:i:s"),
             "email" => $this->databaseConnector->escape($data["email"]),
             "username" => $this->databaseConnector->escape($data["usertag"]),
             "password" => $this->utilityService->hash($data["pass1"]),
@@ -58,6 +58,7 @@ class ApiAuthController
     public function login(array $data = []): void
     {
        try {
+           // zkontrolujeme jestli uzivatel existuje
            $result = $this->databaseConnector->selectOneRow("
                 SELECT * FROM users
                 WHERE email = '" . $this->databaseConnector->escape($data["email"]) . "' 
@@ -67,6 +68,7 @@ class ApiAuthController
                throw new Exception("Invalid email or password");
            }
 
+           // vytvorime nove prihlaseni
            $this->setLoggedUser($result["uuid"]);
        } catch (Exception $e) {
            throw new Exception($e->getMessage());
@@ -115,16 +117,27 @@ class ApiAuthController
     public function setLoggedUser(string $userUUID = null): void
     {
         try {
+            if (!empty($userUUID)) {
+                // smazeme pripadne stare prihlaseni
+                $this->databaseConnector->delete(
+                    "users_logged",
+                    "user",
+                    $userUUID
+                );
+            }
+
+            // vytvorime novy token a nove prihlaseni pro uzivatele
             $loginToken = $this->utilityService->uuidV4();
             $this->databaseConnector->insert(
                 "users_logged",
                 [
                     "session_token" => $loginToken,
                     "logged_since" => date("Y-m-d H:i:s"),
+                    "logged_until" => date("Y-m-d H:i:s", strtotime("+7 days")),
                     "user" => $userUUID
                 ],
             );
-            setcookie("SESSION_ID", $loginToken, time() + 3600 * 24, "/");
+            setcookie("SESSION_ID", $loginToken, time() + 3600 * 24 * 7, "/");
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -178,10 +191,12 @@ class ApiAuthController
      */
     public function getCurrentUser(): array
     {
-        if (!isset($_COOKIE["SESSION_ID"])) {
+        if (empty($_COOKIE["SESSION_ID"])) {
             return [];
         }
 
-       return $this->currentUser;
+        $this->validateLogin($_COOKIE["SESSION_ID"]);
+
+        return $this->currentUser;
     }
 }

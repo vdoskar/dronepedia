@@ -419,5 +419,11 @@ footer {
     color: var(--tertiaryYellow);
 }
 
+.post-card .pc-content {
+    width: 100% !important;
+    display:flex;
+    align-items: flex-start;
+}
+
 
 

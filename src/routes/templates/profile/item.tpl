@@ -16,7 +16,7 @@
                     </p>
                     <p>
                         <i class="fa-solid fa-calendar-days"></i>
-                        &nbsp; Registrován/a od {$user.date_created|date_format:"%d.%m.%Y"}
+                        &nbsp; Registrován/a od {$user.date_registered|date_format:"%d.%m.%Y"}
                     </p>
                     <p>
                         <i class="fa-solid fa-message"></i>

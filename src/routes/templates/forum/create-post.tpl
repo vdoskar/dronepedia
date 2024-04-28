@@ -9,11 +9,16 @@
         </div>
         <br>
         <div class="form-group">
+            <label for="short_summary">Krátké shrnutí</label>
+            <input type="text" class="form-control" id="short_summary" name="short_summary" maxlength="150" required>
+        </div>
+        <br>
+        <div class="form-group">
             <label for="category">Kategorie</label>
             <select name="category" id="category" class="form-control" required>
                 <option value="" disabled selected></option>
                 {foreach $categories as $category}
-                    <option value="{$category.id}">{$category.name}</option>
+                    <option value="{$category.name}">{$category.name}</option>
                 {/foreach}
             </select>
         </div>

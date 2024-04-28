@@ -15,12 +15,17 @@ class ApiPostsController
     }
     public function create(array $data): void
     {
-        if (empty($data["slug"]) || empty($data["title"]) || empty($data["content"]) || empty($data["category"])) {
-            throw new Exception("All fields are required.");
+        if (empty($data["slug"]) ||
+            empty($data["title"]) ||
+            empty($data["short_summary"]) ||
+            empty($data["content"]) ||
+            empty($data["category"])
+        ) {
+            throw new Exception("Nevyplnil/a jste všechny potřebné informace");
         }
 
         if (!$this->authController->validateLogin($_COOKIE["SESSION_ID"])) {
-            throw new Exception("You need to be logged in to create a post.");
+            throw new Exception("Pro vytvoření příspěvku se musíte přihlásit.");
         }
 
         $slug = $data["slug"];
@@ -32,6 +37,7 @@ class ApiPostsController
         $result = [
             "slug" => $slug,
             "title" => $data["title"],
+            "short_summary" => $data["short_summary"] ?? "",
             "author" => $this->authController->getCurrentUser()["uuid"] ?? throw new Exception("Current user not found, cannot save."),
             "content" => $data["content"],
             "category" => $data["category"],

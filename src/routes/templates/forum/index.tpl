@@ -17,14 +17,24 @@
         <h2>Nejnovější příspěvky</h2>
         <br>
         <section class="forum-section">
-            {for $i=0 to 5}
-                {include file="post-item.tpl"}
-            {/for}
+            {if $latestPosts|count > 0 }
+                {foreach $latestPosts as $post}
+                    {include file="list-item.tpl" post=$post}
+                {/foreach}
+            {/if}
         </section>
     </div>
 
     <div class="group">
         <h2>Moje aktivní příspěvky</h2>
+        <br>
+        <section class="forum-section">
+            {if $myPosts|count > 0 }
+                {foreach $latestPosts as $post}
+                    {include file="list-item.tpl" post=$post}
+                {/foreach}
+            {/if}
+        </section>
     </div>
 
     <div class="group">
