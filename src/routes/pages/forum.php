@@ -9,7 +9,6 @@ $postsController = new ApiPostsController();
 $authController = new ApiAuthController();
 
 $myPosts = [];
-$authController->validateLogin($_COOKIE["SESSION_ID"]);
 if (!empty($authController->getCurrentUser())) {
     $myPosts = $databaseConnector->selectAll("
         SELECT posts.title, 
@@ -24,6 +23,7 @@ if (!empty($authController->getCurrentUser())) {
         WHERE posts.author = '" . $authController->getCurrentUser()["uuid"] . "'
             AND posts.status = 'ACTIVE'
         ORDER BY posts.date_created DESC
+        LIMIT 10
     ");
 }
 
@@ -38,6 +38,7 @@ $latestPosts = $databaseConnector->selectAll("
     FROM posts
     INNER JOIN users ON posts.author = users.uuid
     ORDER BY posts.date_created DESC
+    LIMIT 10
 ");
 
 $smarty = new Smarty();

@@ -1,10 +1,6 @@
-<header>
-    <h1 class="text-center">
-        {$title}
-    </h1>
-</header>
 
-<div class="content halfBody rounded">
+<div class="content halfBody mt-8">
+    <h1 class="text-center">{$title}</h1>
     <div class="authFormGroup">
         <form method="POST" id="registerForm" class="authForm" action="/api/auth/register">
             <div class="form-group">
@@ -74,6 +70,12 @@
     document.getElementById("email").value = "vladimir.doskar@tul.cz";
     document.getElementById("pass1").value = "A123456789";
     document.getElementById("pass2").value = "A123456789";
+</script>
+
+<script>
+    document.getElementById("usertag").addEventListener("input", function(event) {
+        event.target.value = utils.slugify(event.target.value.replace(" ", ""));
+    });
 </script>
 
 <script>

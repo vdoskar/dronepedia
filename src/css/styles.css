@@ -324,7 +324,7 @@ footer {
 } */
 
 .userContainer .userDetails {
-    min-width: 300px;
+    min-width: 380px;
     border-right: 2px solid var(--secondaryGrey);
 }
 
@@ -412,6 +412,12 @@ footer {
 .post-card .pc-author {
     text-align: center;
     min-width: 120px;
+}
+
+.post-card .pc-author-name {
+    font-size: small;
+    font-weight: 400;
+    word-break: break-word;
 }
 
 .post-card .pc-content h4 {

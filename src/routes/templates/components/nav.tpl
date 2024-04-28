@@ -23,6 +23,12 @@
                     &nbsp;Profil &nbsp;
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/auth/logout">
+                    &nbsp; <i class="fa-solid fa-right-from-bracket"></i>
+                    &nbsp;Odhlásit &nbsp;
+                </a>
+            </li>
         {else}
             <li class="nav-item">
                 <a class="nav-link" href="/login">

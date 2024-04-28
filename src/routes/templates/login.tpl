@@ -1,10 +1,5 @@
-<header>
-    <h1 class="text-center">
-        {$title}
-    </h1>
-</header>
-
-<div class="content halfBody rounded">
+<div class="content halfBody">
+    <h1 class="text-center">{$title}</h1>
     <div class="authFormGroup">
         <form method="POST" class="authForm" action="/api/auth/login">
             <div class="form-group">
@@ -26,7 +21,10 @@
                 >
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Přihlásit se</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Přihlásit se</button>
+            </div>
+            <br>
             <div class="form-group mt-2">
                 <small>Ještě nemáte účet? Registrujte se <a href="/register">zde</a></small>
             </div>

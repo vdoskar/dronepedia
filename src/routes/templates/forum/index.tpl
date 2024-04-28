@@ -30,7 +30,7 @@
         <br>
         <section class="forum-section">
             {if $myPosts|count > 0 }
-                {foreach $latestPosts as $post}
+                {foreach $myPosts as $post}
                     {include file="list-item.tpl" post=$post}
                 {/foreach}
             {/if}

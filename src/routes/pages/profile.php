@@ -1,44 +1,5 @@
 <?php
 
-$userDrones = [
-    [
-        "name" => "Drone 1",
-        "model" => "Model 1",
-        "status" => "active"
-    ],
-    [
-        "name" => "Drone 2",
-        "model" => "Model 2",
-        "status" => "inactive"
-    ],
-    [
-        "name" => "Drone 3",
-        "model" => "Model 3",
-        "status" => "active"
-    ]
-];
-
-$userPosts = [
-    [
-        "title" => "Post 1",
-        "content" => "Content 1",
-        "created_at" => "2021-01-01",
-        "status" => "active"
-    ],
-    [
-        "title" => "Post 2",
-        "content" => "Content 2",
-        "created_at" => "2021-01-01",
-        "status" => "inactive"
-    ],
-    [
-        "title" => "Post 3",
-        "content" => "Content 3",
-        "created_at" => "2021-01-01",
-        "status" => "active"
-    ]
-];
-
 require_once 'src/services/Api/ApiAuthController.php';
 require_once 'src/services/Api/ApiProfileController.php';
 

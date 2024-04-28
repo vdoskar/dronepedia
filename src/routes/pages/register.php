@@ -2,7 +2,7 @@
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates");
-$smarty->assign("title", "Registrace na DronoPedii");
+$smarty->assign("title", "Registrace na DronePedii");
 $smarty->display("register.tpl");
 
 ?>
