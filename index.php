@@ -2,10 +2,9 @@
 
 // API controllery TBD
 
-
 $request = $_SERVER['REQUEST_URI'];
 if (str_starts_with($request, "/api")) {
-    require "src/routes/router_api.php";
+    require_once "src/routes/router_api.php";
     exit();
 }
 

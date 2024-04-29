@@ -1,9 +1,5 @@
 <?php
 
-namespace services\Api;
-use ApiAuthController;
-use DatabaseConnector;
-
 class ApiPostsCommentsController
 {
     private DatabaseConnector $databaseConnector;
