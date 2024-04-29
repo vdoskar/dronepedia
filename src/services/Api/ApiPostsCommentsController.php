@@ -16,7 +16,21 @@ class ApiPostsCommentsController
 
     public function create(array $data): void
     {
+        if (empty($data["post_id"]) ||
+            empty($data["comment_content"]) ||
+            empty($data["author"])
+        ) {
+            throw new Exception("Missing required fields", 400);
+        }
 
+        $result = [
+            "post_id" => $this->databaseConnector->escape($data["post_id"]),
+            "content" => $data["comment_content"],
+            "author" => $this->databaseConnector->escape($data["author"]),
+            "date_created" => date("Y-m-d H:i:s"),
+        ];
+
+        $this->databaseConnector->insert("posts_comments", $result);
     }
 
     public function edit(array $data): void

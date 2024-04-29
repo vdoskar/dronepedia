@@ -12,6 +12,12 @@ $postsController = new ApiPostsController();
 $profileController = new ApiProfileController();
 $commentsController = new ApiPostsCommentsController();
 
+// dalsi vrstva ochrany
+if (empty($authController->getCurrentUser())) {
+    header("Location: /");
+    exit;
+}
+
 switch ($request) {
 
     //
@@ -67,7 +73,7 @@ switch ($request) {
     // CREATE A NEW COMMENT
     case "/api/posts/comments/create":
         $commentsController->create($_POST);
-        header("Location: /forum");
+        header("Location: " . $_POST["redirectUrl"]);
         break;
 
     // EDIT A COMMENT
