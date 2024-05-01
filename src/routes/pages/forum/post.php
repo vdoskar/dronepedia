@@ -15,7 +15,6 @@ $authController = new ApiAuthController();
 
 $currentUser = $authController->getCurrentUser() ?? [];
 
-
 $post = $databaseConnector->selectOneRow("
     SELECT 
         posts.id, 
@@ -31,7 +30,6 @@ $post = $databaseConnector->selectOneRow("
     FROM posts
     INNER JOIN users ON posts.author = users.uuid
     WHERE posts.slug = '" . $_GET["p"] . "'
-        AND posts.status = 'ACTIVE'
 ");
 
 if (empty($post)) {
@@ -51,8 +49,6 @@ $comments = $databaseConnector->selectAll("
     WHERE posts_comments.post_id = " . $post["id"] . "
     ORDER BY posts_comments.date_created DESC
 ");
-
-
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum");

@@ -20,5 +20,14 @@ const editor = {
         }
 
         return data;
+    },
+
+    setData(editorInstanceName, data) {
+        const editorInstance = CKEDITOR.instances[editorInstanceName];
+        if (!editorInstance) {
+            return "No editor instance found";
+        }
+
+        editorInstance.setData(data);
     }
 }

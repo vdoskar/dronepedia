@@ -8,7 +8,7 @@
     <div class="group">
         <a class="btn btn-secondary" href="/forum/create-post">
             <i class="fa-regular fa-square-plus"></i>
-            &nbsp;Přidat příspěvek
+            &nbsp;Vytvořit příspěvek
         </a>
     </div>
 

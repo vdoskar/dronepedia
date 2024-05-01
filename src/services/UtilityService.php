@@ -8,6 +8,7 @@ class UtilityService
     }
 
     /**
+     * Generate a random UUID v4
      * @return string
      * @throws Exception
      */
@@ -21,8 +22,23 @@ class UtilityService
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
+    /**
+     * Hash the data using sha256 to keep hashing consistent
+     * @param string $data
+     * @return string
+     */
     public function hash(string $data): string
     {
         return hash("sha256", $data);
+    }
+
+    /**
+     * Remove multiple spaces, tabs, new lines and trim the string
+     * @param string $data
+     * @return string
+     */
+    public function normalizeString(string $data): string
+    {
+        return trim(preg_replace('/\s+/', ' ', $data));
     }
 }

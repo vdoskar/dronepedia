@@ -17,6 +17,14 @@ const utils = {
         // 3. Replace diacritics with their base characters
         text = text.replace(/./g, c => charMap[c] || c);
 
+        if (text.startsWith('-')) {
+            text = text.slice(1);
+        }
+
+        if (text.endsWith('-')) {
+            text = text.slice(0, -1);
+        }
+
         return text;
     },
 }

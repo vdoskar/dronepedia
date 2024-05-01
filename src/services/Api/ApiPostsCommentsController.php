@@ -23,6 +23,10 @@ class ApiPostsCommentsController
             throw new Exception("Missing required fields", 400);
         }
 
+        if (!$this->authController->validateLogin()) {
+            throw new Exception("Pro editaci příspěvku se musíte přihlásit.");
+        }
+
         $result = [
             "post_id" => $this->databaseConnector->escape($data["post_id"]),
             "content" => $data["comment_content"],
@@ -35,11 +39,15 @@ class ApiPostsCommentsController
 
     public function edit(array $data): void
     {
-
+        if (!$this->authController->validateLogin()) {
+            throw new Exception("Pro editaci příspěvku se musíte přihlásit.");
+        }
     }
 
     public function delete(array $data): void
     {
-
+        if (!$this->authController->validateLogin()) {
+            throw new Exception("Pro editaci příspěvku se musíte přihlásit.");
+        }
     }
 }

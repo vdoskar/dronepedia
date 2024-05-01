@@ -204,11 +204,9 @@ class ApiAuthController
      */
     public function getCurrentUser(): array
     {
-        if (empty($_COOKIE["SESSION_ID"])) {
+        if (!$this->validateLogin()) {
             return [];
         }
-
-        $this->validateLogin();
 
         return $this->currentUser;
     }

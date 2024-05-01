@@ -12,12 +12,6 @@ $postsController = new ApiPostsController();
 $profileController = new ApiProfileController();
 $commentsController = new ApiPostsCommentsController();
 
-// dalsi vrstva ochrany
-if (empty($authController->getCurrentUser())) {
-    header("Location: /");
-    exit;
-}
-
 switch ($request) {
 
     //
@@ -55,13 +49,13 @@ switch ($request) {
 
     // EDIT A POST
     case "/api/posts/edit":
-        $postsController->edit($_POST);
-        header("Location: /post?p=" . $_POST["slug"]);
+        $postsController->edit($_POST["slug"], $_POST);
+        header("Location: /forum/post?p=" . $_POST["slug"]);
         break;
 
     // DELETE A POST
     case "/api/posts/delete":
-        $postsController->delete($_POST);
+        $postsController->delete($_POST["slug"]);
         header("Location: /forum");
         break;
 

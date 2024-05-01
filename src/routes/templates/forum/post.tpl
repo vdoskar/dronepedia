@@ -4,6 +4,12 @@
             <i class="fa-solid arrow-back"></i>
             Zpět na fórum
         </a>
+        {if $post.status == "ACTIVE" && $currentUser.username == $post.author_tag}
+            <a href="/forum/edit-post?p={$post.slug}" class="btn btn-success">
+                <i class="fa-solid arrow-back"></i>
+                Upravit příspěvek
+            </a>
+        {/if}
     </div>
     <br>
     <h1>{$title}</h1>
@@ -20,10 +26,12 @@
     <hr>
     <div class="group">
         <h3>Komentáře k příspěvku:</h3>
-        <button class="btn btn-secondary" id="addComment">
-            <i class="fa-solid arrow-down"></i>
-            Přidat komentář
-        </button>
+        {if $post.status == "ACTIVE"}
+            <button class="btn btn-secondary" id="addComment">
+                <i class="fa-solid arrow-down"></i>
+                Přidat komentář
+            </button>
+        {/if}
         <form id="commentForm" method="POST" action="/api/posts/comments/create" style="display: none;">
             <input type="hidden" name="post_id" value="{$post.id}">
             <input type="hidden" name="author" value="{$currentUser.uuid}">
