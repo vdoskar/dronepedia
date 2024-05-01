@@ -163,12 +163,18 @@ class ApiAuthController
     }
 
     /**
-     * @param string $sessionToken
      * @return bool
      * @throws Exception
      */
-    public function validateLogin(string $sessionToken): bool
+    public function validateLogin(): bool
     {
+        // test 1 - does the session token exist?
+        $sessionToken = $_COOKIE["SESSION_ID"] ?? "";
+        if (empty($sessionToken)) {
+            return false;
+        }
+
+        // test 2 - does a db record with this session token exist?
         $result = $this->databaseConnector->selectOneRow("
             SELECT * FROM users_logged
             WHERE session_token = '" . $sessionToken . "'"
@@ -177,11 +183,18 @@ class ApiAuthController
             return false;
         }
 
+        // test 3 - is the session token expired?
+        if ($result["logged_until"] < date("Y-m-d H:i:s")) {
+            $this->logout();
+            return false;
+        }
+
         // save for local use
         $this->currentUser = $this->databaseConnector->selectOneRow("
             SELECT * FROM users
             WHERE uuid = '" . $result["user"] . "'"
         );
+
         return true;
     }
 
@@ -195,7 +208,7 @@ class ApiAuthController
             return [];
         }
 
-        $this->validateLogin($_COOKIE["SESSION_ID"]);
+        $this->validateLogin();
 
         return $this->currentUser;
     }

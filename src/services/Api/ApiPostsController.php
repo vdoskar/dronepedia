@@ -13,6 +13,12 @@ class ApiPostsController
         $this->databaseConnector = new DatabaseConnector();
         $this->authController = new ApiAuthController();
     }
+
+    /**
+     * @param array $data
+     * @return void
+     * @throws Exception
+     */
     public function create(array $data): void
     {
         if (empty($data["slug"]) ||
@@ -24,7 +30,7 @@ class ApiPostsController
             throw new Exception("Nevyplnil/a jste všechny potřebné informace");
         }
 
-        if (!$this->authController->validateLogin($_COOKIE["SESSION_ID"])) {
+        if (!$this->authController->validateLogin()) {
             throw new Exception("Pro vytvoření příspěvku se musíte přihlásit.");
         }
 
@@ -68,6 +74,31 @@ class ApiPostsController
         }
     }
 
+    /**
+     * @param $postSlug
+     * @param array $newData
+     * @return void
+     */
+    public function edit($postSlug, array $newData): void
+    {
+
+    }
+
+    /**
+     * @param $postSlug
+     * @return void
+     * @throws Exception
+     */
+    public function delete($postSlug): void
+    {
+        $this->authController->validateLogin();
+    }
+
+    /**
+     * @param string $slug
+     * @return array
+     * @throws Exception
+     */
     public function getPostBySlug(string $slug): array
     {
         return $this->databaseConnector->selectOneRow("
@@ -76,6 +107,11 @@ class ApiPostsController
         ) ?? [];
     }
 
+    /**
+     * @param string $slug
+     * @return bool
+     * @throws Exception
+     */
     private function isSlugAvailable(string $slug): bool
     {
         return empty($this->getPostBySlug($slug));

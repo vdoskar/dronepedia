@@ -5,7 +5,7 @@ require_once 'src/services/Api/ApiAuthController.php';
 
 $authController = new ApiAuthController();
 
-if (!$authController->validateLogin($_COOKIE["SESSION_ID"] ?? "")) {
+if (!$authController->validateLogin()) {
     header("Location: /login");
     exit();
 }

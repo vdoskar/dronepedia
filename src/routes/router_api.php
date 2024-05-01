@@ -56,7 +56,7 @@ switch ($request) {
     // EDIT A POST
     case "/api/posts/edit":
         $postsController->edit($_POST);
-        header("Location: /forum");
+        header("Location: /post?p=" . $_POST["slug"]);
         break;
 
     // DELETE A POST

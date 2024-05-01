@@ -7,7 +7,7 @@ $authController = new ApiAuthController();
 $menu = json_decode(file_get_contents(__DIR__ . '/menu.json'), true);
 
 try {
-    if (!empty($_COOKIE["SESSION_ID"]) && $authController->validateLogin($_COOKIE["SESSION_ID"])) {
+    if ($authController->validateLogin()) {
         $loggedIn = true;
     }
 } catch (Exception $e) {
