@@ -78,7 +78,7 @@
             attachment.placeholder = 'URL přílohy';
 
             attachment.oninput = () => {
-                if (!this.isAvailableUrlByRegex(attachment.value)) {
+                if (!utils.isAvailableUrlByRegex(attachment.value)) {
                     attachment.setCustomValidity('Neplatná URL adresa');
                 } else {
                     attachment.setCustomValidity('');
@@ -97,10 +97,5 @@
 
             document.getElementById('attachmentsWrapper').appendChild(wrapper);
         },
-
-        isAvailableUrlByRegex(url) {
-            const regex = new RegExp('^(http|https)://', 'i');
-            return regex.test(url);
-        }
     }
 </script>

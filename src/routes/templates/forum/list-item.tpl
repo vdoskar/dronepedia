@@ -1,6 +1,6 @@
 <div class="post-card" onclick="location.href = '/forum/post?p={$post.slug}'; ">
     <div class="pc-author post-card-item">
-        <img class="rounded-circle" src="https://www.ef.tul.cz/content/files/images/zamestnanci/135-th.jpg" alt="John Doe Image">
+        <img class="rounded-circle" src="{$post.author_avatar|default:"https://www.ef.tul.cz/content/files/images/zamestnanci/135-th.jpg"}" alt="John Doe Image">
         <span class="pc-author-name mt-1">
             <strong>{$post.author}</strong>
         </span>

@@ -21,19 +21,19 @@ switch ($request) {
     // REGISTER TO THE WEBSITE
     case "/api/auth/register":
         $authController->register($_POST);
-        header("Location: /"); // return to main page
+        header("Location: /");
         break;
 
     // LOGIN TO THE WEBSITE
     case "/api/auth/login":
         $authController->login($_POST);
-        header("Location: /"); // return to main page
+        header("Location: /");
         break;
 
     // LOGOUT FROM THE WEBSITE
     case "/api/auth/logout":
         $authController->logout();
-        header("Location: /"); // return to main page
+        header("Location: /");
         break;
 
 
@@ -44,7 +44,7 @@ switch ($request) {
     // CREATE A NEW POST
     case "/api/posts/create":
         $postsController->create($_POST);
-        header("Location: /forum"); // return to main page
+        header("Location: /forum");
         break;
 
     // EDIT A POST
@@ -79,6 +79,30 @@ switch ($request) {
     // DELETE A COMMENT
     case "/api/posts/comments/delete":
         $commentsController->delete($_POST);
-        header("Location: /forum"); // return to main page
+        header("Location: /forum");
         break;
+
+
+    //
+    // PROFILE
+    //
+
+    // CHANGE PASSWORD
+    case "/api/profile/contacts/change-password":
+        $profileController->changePassword($_POST["newPassword"]);
+        header("Location: /profile/edit");
+        break;
+
+    // CHANGE EMAIL
+    case "/api/profile/contacts/change-email":
+        $profileController->changeEmail($_POST["newEmail"]);
+        header("Location: /profile/edit");
+        break;
+
+    // CHANGE PROFILE SETTINGS
+    case "/api/profile/settings/change":
+        $profileController->changeSettings($_POST);
+        header("Location: /profile/edit");
+        break;
+
 }

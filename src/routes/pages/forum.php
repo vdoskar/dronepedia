@@ -8,8 +8,10 @@ $databaseConnector = new DatabaseConnector();
 $postsController = new ApiPostsController();
 $authController = new ApiAuthController();
 
+$currentUser = $authController->getCurrentUser() ?? [];
+
 $myPosts = [];
-if (!empty($authController->getCurrentUser())) {
+if (!empty($currentUser)) {
     $myPosts = $databaseConnector->selectAll("
         SELECT posts.title, 
                posts.short_summary,
@@ -17,10 +19,12 @@ if (!empty($authController->getCurrentUser())) {
                posts.date_created, 
                posts.category,
                posts.status,
-               users.username as author
+               users.username as author,
+               users_settings.pic_profile as author_avatar
         FROM posts
-        INNER JOIN users ON posts.author = users.uuid
-        WHERE posts.author = '" . $authController->getCurrentUser()["uuid"] . "'
+        LEFT JOIN users ON posts.author = users.uuid
+        LEFT JOIN users_settings ON users.uuid = users_settings.user
+        WHERE posts.author = '" . $currentUser["uuid"] . "'
             AND posts.status = 'ACTIVE'
         ORDER BY posts.date_created DESC
         LIMIT 10
@@ -34,9 +38,11 @@ $latestPosts = $databaseConnector->selectAll("
             posts.date_created, 
             posts.category,
             posts.status,
-            users.username as author
+            users.username as author,
+            users_settings.pic_profile as author_avatar
     FROM posts
-    INNER JOIN users ON posts.author = users.uuid
+    LEFT JOIN users ON posts.author = users.uuid
+    LEFT JOIN users_settings ON users.uuid = users_settings.user
     ORDER BY posts.date_created DESC
     LIMIT 10
 ");

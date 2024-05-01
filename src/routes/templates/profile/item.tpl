@@ -20,13 +20,21 @@
                     </p>
                     <p>
                         <i class="fa-solid fa-message"></i>
-                        &nbsp; {$posts.count} příspěvků
+                        &nbsp; {$posts|count} příspěvků
                     </p>
                     <p>
                         <i class="fa-solid fa-comment"></i>
-                        &nbsp; {$comments.count} komentářů
+                        &nbsp; {$comments|count} komentářů
                     </p>
                 </div>
+                {if $user.uuid == $currentUser.uuid}
+                    <div class="text-center mt-4">
+                        <a href="/profile/edit" class="btn btn-secondary">
+                            <i class="fa-solid fa-gear"></i>
+                            Upravit profil
+                        </a>
+                    </div>
+                {/if}
             </div>
         </div>
 
@@ -43,6 +51,7 @@
             </div>
 
             <div class="userOverviewSections">
+
                 <div id="tab_drones" class="tab-section">
                     <h2 class="text-bold">Drony</h2>
                     <div class="drones">
@@ -59,13 +68,14 @@
                         {/if}
                     </div>
                 </div>
+
                 <div id="tab_posts" class="tab-section">
                     <h2 class="text-bold">Příspěvky</h2>
                     <div class="posts">
-                        {if $posts.posts|count > 0}
+                        {if $posts|count > 0}
                             {foreach $posts as $post}
                                 <div class="post">
-                                    <a href="#">
+                                    <a href="/forum/post?p={$post.slug}">
                                         <h3>{$post.title}</h3>
                                     </a>
                                 </div>
@@ -75,6 +85,7 @@
                         {/if}
                     </div>
                 </div>
+
             </div>
         </div>
 

@@ -27,4 +27,29 @@ const utils = {
 
         return text;
     },
+
+    isAvailableUrlByRegex(url) {
+        const regex = new RegExp('^(http|https)://', 'i');
+        return regex.test(url);
+    },
+
+    previewImage(imageUrl, wrapperElementId) {
+        const imageElement = document.createElement('img');
+        imageElement.src = imageUrl;
+        imageElement.alt = 'Náhled obrázku';
+        imageElement.classList.add('img-fluid');
+
+        imageElement.onerror = function() {
+            imageElement.alt = "Obrázek není k dispozici";
+            imageElement.src = "";
+        };
+
+        const wrapperElement = document.getElementById(wrapperElementId);
+        if (wrapperElement) {
+            wrapperElement.innerHTML = '';
+            wrapperElement.appendChild(imageElement);
+        } else {
+            console.error("Wrapper element with id '" + wrapperElementId + "' not found.");
+        }
+    }
 }

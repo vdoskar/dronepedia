@@ -1,13 +1,13 @@
 <div class="content halfBody">
     <div class="group">
         <a href="/forum" class="btn btn-secondary">
-            <i class="fa-solid arrow-back"></i>
-            Zpět na fórum
+            <i class="fa-solid fa-circle-left"></i>
+            &nbsp; Zpět na fórum
         </a>
         {if $post.status == "ACTIVE" && $currentUser.username == $post.author_tag}
             <a href="/forum/edit-post?p={$post.slug}" class="btn btn-success">
-                <i class="fa-solid arrow-back"></i>
-                Upravit příspěvek
+                <i class="fa-solid fa-pen-to-square"></i>
+                &nbsp; Upravit příspěvek
             </a>
         {/if}
     </div>
@@ -28,8 +28,8 @@
         <h3>Komentáře k příspěvku:</h3>
         {if $post.status == "ACTIVE"}
             <button class="btn btn-secondary" id="addComment">
-                <i class="fa-solid arrow-down"></i>
-                Přidat komentář
+                <i class="fa-regular fa-square-plus"></i>
+                &nbsp;Přidat komentář
             </button>
         {/if}
         <form id="commentForm" method="POST" action="/api/posts/comments/create" style="display: none;">
@@ -62,6 +62,8 @@
                     </div>
                 </div>
             {/foreach}
+        {else}
+            <p><i>Zatím zde nejsou žádné komentáře. Buďte první, kdo příspěvek okomentuje!</i></p>
         {/if}
     </div>
 </div>

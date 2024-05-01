@@ -4,8 +4,8 @@
         <form action="/api/posts/delete" class="mt-2" method="POST">
             <input type="text" name="slug" value="{$post.slug}" hidden>
             <button type="submit" class="btn btn-danger">
-                <i class="fa-solid trash"></i>
-                Smazat příspěvek
+                <i class="fa-solid fa-trash-can"></i>
+                &nbsp; Smazat příspěvek
             </button>
         </form>
     </div>

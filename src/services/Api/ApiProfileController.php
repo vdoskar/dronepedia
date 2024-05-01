@@ -3,10 +3,76 @@
 class ApiProfileController
 {
     private DatabaseConnector $databaseConnector;
+    private ApiAuthController $authController;
+    private UtilityService $utilityService;
+
 
     public function __construct()
     {
+        require_once 'src/services/DatabaseConnector.php';
+        require_once 'src/services/Api/ApiAuthController.php';
+        require_once 'src/services/UtilityService.php';
+
         $this->databaseConnector = new DatabaseConnector();
+        $this->authController = new ApiAuthController();
+        $this->utilityService = new UtilityService();
+    }
+
+    /**
+     * @param string $newPassword
+     * @return void
+     */
+    public function changePassword(string $newPassword): void
+    {
+
+    }
+
+    /**
+     * @param string $newEmail
+     * @return void
+     */
+    public function changeEmail(string $newEmail): void
+    {
+
+    }
+
+
+    /**
+     * @param array $newSettings
+     * @return void
+     * @throws Exception
+     */
+    public function changeSettings(array $newSettings): void
+    {
+        if (empty($newSettings["avatar"]) &&
+            empty($newSettings["banner"]) &&
+            empty($newSettings["bio"])
+        ) {
+           return;
+        }
+
+        $currentUser = $this->authController->getCurrentUser() ?? [];
+        if (empty($currentUser)) {
+            throw new Exception("Pro změnu nastavení se musíte přihlásit.");
+        }
+
+        $result = [
+            "user" => $currentUser["uuid"],
+            "pic_profile" => $this->databaseConnector->escape($newSettings["avatar"]),
+            "pic_banner" => $this->databaseConnector->escape($newSettings["banner"]),
+            "bio" => $this->databaseConnector->escape($newSettings["bio"]),
+        ];
+
+        $settings = $this->getUserSettings($currentUser["uuid"]);
+        try {
+            if (empty($settings)) {
+                $this->databaseConnector->insert("users_settings", $result);
+            } else {
+                $this->databaseConnector->update("users_settings", $result, "user", $currentUser["uuid"]);
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     /**
