@@ -54,7 +54,8 @@ $userPosts = $databaseConnector->selectAll("
         p.slug, 
         p.short_summary, 
         p.date_created, 
-        p.category
+        p.category,
+        p.status
     FROM posts p
     WHERE p.author = '" . $user["uuid"] . "'
 ");

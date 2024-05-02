@@ -70,15 +70,11 @@
                 </div>
 
                 <div id="tab_posts" class="tab-section">
-                    <h2 class="text-bold">Příspěvky</h2>
+                    <h2 class="text-bold mb-4">Příspěvky</h2>
                     <div class="posts">
                         {if $posts|count > 0}
                             {foreach $posts as $post}
-                                <div class="post">
-                                    <a href="/forum/post?p={$post.slug}">
-                                        <h3>{$post.title}</h3>
-                                    </a>
-                                </div>
+                                {include file="post-item.tpl" post=$post}
                             {/foreach}
                         {else}
                             <p>Tento uživatel zatím nepřidal žádné příspěvky.</p>
