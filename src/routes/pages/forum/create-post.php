@@ -12,7 +12,7 @@ if (!$authController->validateLogin()) {
 }
 
 $smarty = new Smarty();
-$smarty->setTemplateDir("src/routes/templates/forum");
+$smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("categories", $postsController->categories);
 $smarty->display('create-post.tpl');
 

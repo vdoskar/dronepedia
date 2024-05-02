@@ -51,12 +51,10 @@ $comments = $databaseConnector->selectAll("
 ");
 
 $smarty = new Smarty();
-$smarty->setTemplateDir("src/routes/templates/forum");
+$smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("title", $post["title"]);
 $smarty->assign("bgImg", "https://picsum.photos/1920/250");
 $smarty->assign("post", $post);
 $smarty->assign("comments", $comments);
-if (!empty($currentUser)) {
-    $smarty->assign("currentUser", $currentUser);
-}
-$smarty->display("post.tpl");
+$smarty->assign("currentUser", $currentUser ?? null);
+$smarty->display("item.tpl");

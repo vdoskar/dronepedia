@@ -44,9 +44,9 @@ $attachments = $databaseConnector->selectAll("
 );
 
 $smarty = new Smarty();
-$smarty->setTemplateDir("src/routes/templates/forum");
+$smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("categories", $postsController->categories);
 $smarty->assign("post", $post);
 $smarty->assign("attachments", $attachments);
-$smarty->display('edit-post.tpl');
+$smarty->display('edit-item.tpl');
 

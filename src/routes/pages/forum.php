@@ -53,6 +53,5 @@ $smarty->assign("title", "Komunitní fórum");
 $smarty->assign("bgImg", "https://picsum.photos/1920/250");
 $smarty->assign("latestPosts", $latestPosts);
 $smarty->assign("myPosts", $myPosts);
+$smarty->assign("currentUser", $currentUser ?? null);
 $smarty->display("index.tpl");
-
-?>

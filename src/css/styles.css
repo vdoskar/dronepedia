@@ -431,5 +431,17 @@ footer {
     align-items: flex-start;
 }
 
+/* post comments */
+
+.comment {
+    border-radius: var(--borderRadiusPrimary);
+    box-shadow: var(--boxShadowPrimary);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    transition: all var(--transition-delay) ease-in-out;
+}
+
 
 

@@ -5,13 +5,14 @@
 </header>
 
 <div class="content forum-wrapper">
-    <div class="group">
-        <a class="btn btn-secondary" href="/forum/create-post">
-            <i class="fa-regular fa-square-plus"></i>
-            &nbsp;Vytvořit příspěvek
-        </a>
-    </div>
-
+    {if $currentUser}
+        <div class="group">
+            <a class="btn btn-secondary" href="/forum/create-post">
+                <i class="fa-regular fa-square-plus"></i>
+                &nbsp;Vytvořit příspěvek
+            </a>
+        </div>
+    {/if}
     <br>
     <div class="group">
         <h2>Nejnovější příspěvky</h2>
@@ -21,6 +22,8 @@
                 {foreach $latestPosts as $post}
                     {include file="list-item.tpl" post=$post}
                 {/foreach}
+            {else}
+                <p><i>Zatím zde nejsou žádné příspěvky. Buď první, kdo nějaký vytvoří!</i></p>
             {/if}
         </section>
     </div>
@@ -33,11 +36,16 @@
                 {foreach $myPosts as $post}
                     {include file="list-item.tpl" post=$post}
                 {/foreach}
+            {else}
+                <p><i>Zatím si nevytvořil žádný příspěvek, tak hurá do toho!</i></p>
             {/if}
         </section>
     </div>
 
-    <div class="group">
-        <h2>Všechny kategorie</h2>
-    </div>
+{*    <div class="group">*}
+{*        <h2>Všechny kategorie</h2>*}
+{*        <br>*}
+{*        <section>*}
+{*        </section>*}
+{*    </div>*}
 </div>
