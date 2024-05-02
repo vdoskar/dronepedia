@@ -25,10 +25,9 @@ const tabs = {
         } else {
             this.activeTab = this.tabSections[0].id;
         }
+
         const activeLink = document.querySelector(`a[href="#${this.activeTab}"]`);
-        console.log(activeLink)
         activeLink.classList.add('active');
-        console.log(activeLink)
 
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {

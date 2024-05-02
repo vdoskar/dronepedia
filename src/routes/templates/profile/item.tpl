@@ -9,7 +9,7 @@
             </div>
             <div class="details">
                 <h1 class="text-center mb-4 text-bold">{$user.label}</h1>
-                <div>
+                <div class="details-list">
                     <p>
                         <i class="fa-solid fa-user"></i>
                         &nbsp; @{$user.username}

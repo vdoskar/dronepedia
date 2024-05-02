@@ -394,7 +394,7 @@ footer {
 .post-card .pc-content,
 .post-card .pc-category,
 .post-card .pc-date {
-    border-right: 2px solid var(--secondaryGrey);
+    border-right: 1px solid var(--secondaryGrey);
     width: fit-content;
 }
 
