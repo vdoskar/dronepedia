@@ -6,6 +6,21 @@ class ApiPostsController
     private ApiAuthController $authController;
     private UtilityService $utilityService;
 
+    public array $categories = [
+        [
+            "id" => 1,
+            "name" => "Drony",
+        ],
+        [
+            "id" => 2,
+            "name" => "Drony s kamerou",
+        ],
+        [
+            "id" => 3,
+            "name" => "Drony s GPS",
+        ],
+    ];
+
     public function __construct()
     {
         require_once 'src/services/DatabaseConnector.php';

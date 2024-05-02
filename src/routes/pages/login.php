@@ -2,6 +2,7 @@
 
 require_once 'src/services/Api/ApiAuthController.php';
 $controller = new ApiAuthController();
+
 if (!empty($controller->getCurrentUser())) {
     header("Location: /");
     exit();

@@ -21,19 +21,33 @@ class ApiProfileController
     /**
      * @param string $newPassword
      * @return void
+     * @throws Exception
      */
     public function changePassword(string $newPassword): void
     {
-
+        $this->databaseConnector->update("users",
+            [
+                "password" => $this->utilityService->hash($newPassword)
+            ],
+            "uuid",
+            $this->authController->getCurrentUser()["uuid"]
+        );
     }
 
     /**
      * @param string $newEmail
      * @return void
+     * @throws Exception
      */
     public function changeEmail(string $newEmail): void
     {
-
+        $this->databaseConnector->update("users",
+            [
+                "email" => $this->databaseConnector->escape($newEmail)
+            ],
+            "uuid",
+            $this->authController->getCurrentUser()["uuid"]
+        );
     }
 
 

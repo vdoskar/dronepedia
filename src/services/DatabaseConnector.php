@@ -1,8 +1,5 @@
 <?php
 
-// use Exception;
-// use mysqli;
-
 class DatabaseConnector
 {
     private mysqli $connection;

@@ -1,32 +1,18 @@
 <?php
 
-require_once 'src/services/DatabaseConnector.php';
 require_once 'src/services/Api/ApiAuthController.php';
+require_once 'src/services/Api/ApiPostsController.php';
 
 $authController = new ApiAuthController();
+$postsController = new ApiPostsController();
 
 if (!$authController->validateLogin()) {
     header("Location: /login");
     exit();
 }
 
-$categories = [
-    [
-        "id" => 1,
-        "name" => "Drony",
-    ],
-    [
-        "id" => 2,
-        "name" => "Drony s kamerou",
-    ],
-    [
-        "id" => 3,
-        "name" => "Drony s GPS",
-    ],
-];
-
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum");
-$smarty->assign("categories", $categories);
+$smarty->assign("categories", $postsController->categories);
 $smarty->display('create-post.tpl');
 

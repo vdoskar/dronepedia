@@ -8,14 +8,11 @@ $authController = new ApiAuthController();
 $databaseConnector = new DatabaseConnector();
 $postsController = new ApiPostsController();
 
-if (!$authController->validateLogin()) {
+$currentUser = $authController->getCurrentUser();
+
+if (empty($currentUser) || empty($_GET["p"])) {
     header("Location: /login");
     exit();
-}
-
-if (empty($_GET["p"])) {
-    header("Location: /forum");
-    exit;
 }
 
 $post = $databaseConnector->selectOneRow("
@@ -32,6 +29,11 @@ $post = $databaseConnector->selectOneRow("
     WHERE p.slug = '" . $_GET["p"] . "'
 ");
 
+if ($post["author"] != $currentUser["uuid"]) {
+    header("Location: /forum");
+    exit();
+}
+
 $attachments = $databaseConnector->selectAll("
     SELECT 
         pa.id, 
@@ -41,25 +43,9 @@ $attachments = $databaseConnector->selectAll("
     WHERE pa.post_id = " . $post["id"]
 );
 
-
-$categories = [
-    [
-        "id" => 1,
-        "name" => "Drony",
-    ],
-    [
-        "id" => 2,
-        "name" => "Drony s kamerou",
-    ],
-    [
-        "id" => 3,
-        "name" => "Drony s GPS",
-    ],
-];
-
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum");
-$smarty->assign("categories", $categories);
+$smarty->assign("categories", $postsController->categories);
 $smarty->assign("post", $post);
 $smarty->assign("attachments", $attachments);
 $smarty->display('edit-post.tpl');
