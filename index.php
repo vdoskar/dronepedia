@@ -4,7 +4,11 @@
 
 $request = $_SERVER['REQUEST_URI'];
 if (str_starts_with($request, "/api")) {
-    require_once "src/routes/router_api.php";
+    if (str_starts_with($request, "/api/admin")) {
+        require_once "src/routes/router_api_admin.php";
+    } else {
+        require_once "src/routes/router_api.php";
+    }
     exit();
 }
 
