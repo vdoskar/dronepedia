@@ -27,6 +27,10 @@ const utils = {
 
     // preview image from URL
     previewImage(imageUrl, wrapperElementId) {
+        if (imageUrl === null || imageUrl === undefined || imageUrl === '') {
+            return;
+        }
+
         const imageElement = document.createElement('img');
         imageElement.src = imageUrl;
         imageElement.alt = 'Náhled obrázku';

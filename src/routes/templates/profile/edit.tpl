@@ -1,14 +1,17 @@
 <div class="content halfBody">
     <h1 class="text-center">Úprava profilu</h1>
+
     <div class="group">
         <a href="/profile?u={$currentUser.username}" class="btn btn-secondary">
             <i class="fa-solid fa-circle-left"></i>
             Zpět na profil
         </a>
     </div>
+
     <div class="group">
 
         <h2>Osobní údaje</h2>
+
         <br>
         <form method="POST" class="authForm" action="/api/profile/contacts/change-email">
             <div class="form-group">
@@ -17,6 +20,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Změnit heslo</button>
         </form>
+
         <br>
         <form method="POST" class="authForm" action="/api/profile/contacts/change-password">
             <div class="form-group">
@@ -25,6 +29,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Změnit email</button>
         </form>
+
         <br>
         <form method="POST" class="authForm" action="/api/profile/contacts/change-password">
             <div class="form-group">
@@ -34,9 +39,9 @@
             <button type="submit" class="btn btn-primary mt-2">Změnit jméno</button>
         </form>
 
-        <br>
-        <br>
+        <br><br>
         <h2>Přizpůsobení profilu</h2>
+
         <br>
         <form method="POST" class="authForm" action="/api/profile/settings/change">
             <div class="form-group">
@@ -44,12 +49,14 @@
                 <input type="text" class="form-control" name="banner" id="banner-input" value="{$settings.pic_banner|default:""}">
                 <div id="bannerPreviewWrapper" class="mt-2"></div>
             </div>
+
             <br>
             <div class="form-group">
                 <label for="avatar-input">Odkaz na avatar profilu</label>
                 <input type="text" class="form-control" name="avatar" id="avatar-input" value="{$settings.pic_profile|default:""}">
                 <div id="avatarPreviewWrapper" class="mt-2"></div>
             </div>
+
             <br>
             <div class="form-group">
                 <label for="bio">Bio</label>
@@ -57,6 +64,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Uložit změny</button>
         </form>
+
     </div>
 </div>
 <script>
