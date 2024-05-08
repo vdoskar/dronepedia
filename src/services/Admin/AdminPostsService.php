@@ -9,16 +9,20 @@ class AdminPostsService extends AdminService
      */
     public function close(string $slug): void
     {
-        $data = [
-            "status" => "CLOSED",
-        ];
+        try {
+            $data = [
+                "status" => "CLOSED",
+            ];
 
-        $this->databaseConnector->update(
-            "posts",
-            $data,
-            "slug",
-            $slug,
-        );
+            $this->databaseConnector->update(
+                "posts",
+                $data,
+                "slug",
+                $slug,
+            );
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     /**
@@ -28,16 +32,20 @@ class AdminPostsService extends AdminService
      */
     public function open(string $slug): void
     {
-        $data = [
-            "status" => "ACTIVE",
-        ];
+        try {
+            $data = [
+                "status" => "ACTIVE",
+            ];
 
-        $this->databaseConnector->update(
-            "posts",
-            $data,
-            "slug",
-            $slug,
-        );
+            $this->databaseConnector->update(
+                "posts",
+                $data,
+                "slug",
+                $slug,
+            );
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     /**
@@ -47,6 +55,10 @@ class AdminPostsService extends AdminService
      */
     public function delete(string $slug): void
     {
-        $this->postsController->delete($slug);
+        try {
+            $this->postsController->delete($slug);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

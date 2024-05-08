@@ -365,7 +365,7 @@ footer {
 
 .post-card {
     border-radius: var(--borderRadiusPrimary);
-    box-shadow: var(--boxShadowPrimary);
+    border: 1px solid var(--secondaryGrey);
     display: flex;
     flex-direction: row;
     transition: all var(--transition-delay) ease-in-out;
@@ -373,7 +373,7 @@ footer {
 
 .post-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--boxShadowSecondary);
+    box-shadow: var(--boxShadowPrimary);
     cursor: pointer;
 }
 
@@ -435,7 +435,7 @@ footer {
 
 .comment {
     border-radius: var(--borderRadiusPrimary);
-    box-shadow: var(--boxShadowPrimary);
+    border: 1px solid var(--secondaryGrey);
     display: flex;
     flex-direction: column;
     padding: 1rem;

@@ -1,5 +1,9 @@
 <?php
 
+require_once 'src/services/DatabaseConnector.php';
+require_once 'src/services/Api/ApiAuthController.php';
+require_once 'src/services/UtilityService.php';
+
 class ApiPostsController
 {
     private DatabaseConnector $databaseConnector;
@@ -23,10 +27,6 @@ class ApiPostsController
 
     public function __construct()
     {
-        require_once 'src/services/DatabaseConnector.php';
-        require_once 'src/services/Api/ApiAuthController.php';
-        require_once 'src/services/UtilityService.php';
-
         $this->databaseConnector = new DatabaseConnector();
         $this->authController = new ApiAuthController();
         $this->utilityService = new UtilityService();
@@ -57,25 +57,32 @@ class ApiPostsController
 
         // create slug that also serves as unique identifier for the post
         $slug = trim($data["slug"]);
-        while(!$this->isSlugAvailable($slug)) {
-            $slug = $this->utilityService->normalizeString($data["slug"] . "-" . rand(1000, 999999));
+        while (!$this->isSlugAvailable($slug)) {
+            $slug = $this->databaseConnector->escape(
+                $this->utilityService->normalizeString($data["slug"] . "-" . rand(1000, 999999))
+            );
         }
 
         // save to db
         $result = [
-            "slug" => $slug,
-            "title" => $this->utilityService->normalizeString($data["title"]),
-            "short_summary" => $this->utilityService->normalizeString($data["short_summary"]),
+            "slug" => $this->databaseConnector->escape($slug),
+            "title" => $this->databaseConnector->escape($this->utilityService->normalizeString($data["title"])),
+            "short_summary" => $this->databaseConnector->escape(
+                $this->utilityService->normalizeString($data["short_summary"])
+            ),
             "author" => $currentUser["uuid"],
             "content" => $data["content"],
-            "category" => $data["category"],
+            "category" => $this->databaseConnector->escape($data["category"]),
             "date_created" => date("Y-m-d H:i:s"),
             "date_updated" => date("Y-m-d H:i:s"),
             "status" => "ACTIVE",
         ];
 
         try {
-            $this->databaseConnector->insert("posts", $result);
+            $this->databaseConnector->insert(
+                table: "posts",
+                data: $result
+            );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -104,8 +111,8 @@ class ApiPostsController
         }
 
         $result = [
-            "slug" => $postSlug,
-            "short_summary" => $newData["short_summary"] ?? "",
+            "slug" => $this->databaseConnector->escape($postSlug),
+            "short_summary" => $this->databaseConnector->escape($newData["short_summary"]) ?? "",
             "content" => $newData["content"],
             "date_updated" => date("Y-m-d H:i:s"),
         ];
@@ -119,9 +126,10 @@ class ApiPostsController
         try {
             // update post
             $this->databaseConnector->update(
-                "posts", $result,
-                "slug",
-                $postSlug
+                table: "posts",
+                data: $result,
+                conditionColumn: "slug",
+                conditionValue: $postSlug,
             );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -155,9 +163,9 @@ class ApiPostsController
         // delete post
         try {
             $this->databaseConnector->delete(
-                "posts",
-                "slug",
-                $postSlug
+                table: "posts",
+                conditionColumn: "slug",
+                conditionValue: $postSlug,
             );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -166,25 +174,24 @@ class ApiPostsController
         // delete attachments
         try {
             $this->databaseConnector->delete(
-                "posts_attachments",
-                "post_id",
-                $savedPost["id"]
+                table: "posts_attachments",
+                conditionColumn: "post_id",
+                conditionValue: $savedPost["id"]
             );
         } catch (Exception $e) {
-            throw new Exception("Chyba u mazání příloh: ". $e->getMessage());
+            throw new Exception("Chyba u mazání příloh: " . $e->getMessage());
         }
 
         // delete comments
         try {
             $this->databaseConnector->delete(
-                "posts_comments",
-                "post_id",
-                $savedPost["id"]
+                table: "posts_comments",
+                conditionColumn: "post_id",
+                conditionValue: $savedPost["id"]
             );
         } catch (Exception $e) {
-            throw new Exception("Chyba u mazání komentářů: ". $e->getMessage());
+            throw new Exception("Chyba u mazání komentářů: " . $e->getMessage());
         }
-
     }
 
     /**
@@ -195,7 +202,8 @@ class ApiPostsController
      */
     public function getPostBySlug(string $slug): array
     {
-        return $this->databaseConnector->selectOneRow("
+        return $this->databaseConnector->selectOneRow(
+            "
             SELECT * FROM posts
             WHERE slug = '" . $this->databaseConnector->escape($slug) . "'"
         ) ?? [];
@@ -213,22 +221,24 @@ class ApiPostsController
         // delete all attachments if any exist
         try {
             $this->databaseConnector->delete(
-                "posts_attachments",
-                "post_id",
-                $postId
+                table: "posts_attachments",
+                conditionColumn: "post_id",
+                conditionValue: $postId,
             );
         } catch (Exception $e) {
-            throw new Exception("Chyba u mazání příloh: ". $e->getMessage());
+            throw new Exception("Chyba u mazání příloh: " . $e->getMessage());
         }
 
         foreach ($attachments as $attachment) {
-            $result = [
-                "post_id" => $postId,
-                "url" => $this->utilityService->normalizeString($attachment),
-                "type" => "TBD",
-            ];
             try {
-                $this->databaseConnector->insert("posts_attachments", $result);
+                $this->databaseConnector->insert(
+                    table: "posts_attachments",
+                    data: [
+                        "post_id" => $postId,
+                        "url" => $this->databaseConnector->escape($this->utilityService->normalizeString($attachment)),
+                        "type" => "TBD",
+                    ],
+                );
             } catch (Exception $e) {
                 throw new Exception($e->getMessage());
             }

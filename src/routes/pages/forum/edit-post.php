@@ -48,5 +48,5 @@ $smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("categories", $postsController->categories);
 $smarty->assign("post", $post);
 $smarty->assign("attachments", $attachments);
-$smarty->display('edit-item.tpl');
+$smarty->display('edit-post.tpl');
 

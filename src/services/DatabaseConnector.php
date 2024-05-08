@@ -4,7 +4,7 @@ class DatabaseConnector
 {
     private mysqli $connection;
 
-    private string $servername = "127.0.0.1";
+    private string $servername = "localhost";
     private string $db = "dronepedia";
     private string $username_admin = "root";
     private string $password_admin = "";
@@ -13,16 +13,16 @@ class DatabaseConnector
 
     public function __construct()
     {
-         $this->connection = new mysqli(
-             $this->servername,
-             $this->username_admin,
-             $this->password_admin,
-             $this->db
-         );
+        $this->connection = new mysqli(
+            $this->servername,
+            $this->username_admin,
+            $this->password_admin,
+            $this->db
+        );
 
-         if ($this->connection->connect_error) {
-             die("Connection failed: " . $this->connection->connect_error);
-         }
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
+        }
     }
 
     /**
@@ -69,11 +69,13 @@ class DatabaseConnector
      * @return void
      * @throws Exception
      */
-    public function delete(string $table, string $conditionColumn, $conditionValue): void
-    {
+    public function delete(
+        string $table,
+        string $conditionColumn,
+        $conditionValue
+    ): void {
         $this->connection->begin_transaction();
         try {
-
             $sql = "DELETE FROM " . $table . " WHERE $conditionColumn = ?";
 
             $stmt = $this->connection->prepare($sql);
@@ -105,7 +107,7 @@ class DatabaseConnector
     public function update(
         string $table,
         array $data,
-        string|null $conditionColumn = null,
+        string $conditionColumn = "",
         $conditionValue = null
     ): void {
         $this->connection->begin_transaction();
@@ -117,7 +119,7 @@ class DatabaseConnector
             }
             $sql = rtrim($sql, ', ');
 
-            if ($conditionColumn) {
+            if (!empty($conditionColumn)) {
                 $sql .= " WHERE $conditionColumn = ?";
             }
 
@@ -196,6 +198,10 @@ class DatabaseConnector
         return $rows;
     }
 
+    /**
+     * @param string $string
+     * @return string
+     */
     public function escape(string $string): string
     {
         // remove potentioal harmful characters from cross site scripting

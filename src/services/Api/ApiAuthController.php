@@ -1,5 +1,8 @@
 <?php
 
+require_once 'src/services/DatabaseConnector.php';
+require_once 'src/services/UtilityService.php';
+
 class ApiAuthController
 {
     private DatabaseConnector $databaseConnector;
@@ -9,9 +12,6 @@ class ApiAuthController
 
     public function __construct()
     {
-        require_once 'src/services/DatabaseConnector.php';
-        require_once 'src/services/UtilityService.php';
-
         $this->databaseConnector = new DatabaseConnector();
         $this->utilityService = new UtilityService();
     }
@@ -112,28 +112,35 @@ class ApiAuthController
      * @param string|null $userUUID
      * @throws Exception
      */
-    public function setLoggedUser(string $userUUID = null): void
+    private function setLoggedUser(string $userUUID = null): void
     {
         try {
             if (!empty($userUUID)) {
                 // smazeme pripadne stare prihlaseni
                 $this->databaseConnector->delete(
-                    "users_logged",
-                    "user",
-                    $userUUID
+                    table: "users_logged",
+                    conditionColumn: "user",
+                    conditionValue: $userUUID
                 );
             }
 
             // vytvorime novy token a nove prihlaseni pro uzivatele
             $loginToken = $this->utilityService->uuidV4();
             $this->databaseConnector->insert(
-                "users_logged",
-                [
+                table: "users_logged",
+                data: [
                     "session_token" => $loginToken,
                     "logged_since" => date("Y-m-d H:i:s"),
                     "logged_until" => date("Y-m-d H:i:s", strtotime("+7 days")),
                     "user" => $userUUID
                 ],
+            );
+            // last login
+            $this->databaseConnector->update(
+                table: "users",
+                data: ["date_last_login" => date("Y-m-d H:i:s")],
+                conditionColumn: "uuid",
+                conditionValue: $userUUID
             );
             setcookie("SESSION_ID", $loginToken, time() + 3600 * 24 * 7, "/");
 
@@ -150,9 +157,9 @@ class ApiAuthController
     {
        try {
            $this->databaseConnector->delete(
-               "users_logged",
-               "session_token",
-               $_COOKIE["SESSION_ID"]
+               table: "users_logged",
+               conditionColumn: "session_token",
+               conditionValue: $_COOKIE["SESSION_ID"]
            );
            setcookie("SESSION_ID", "", time() - 3600, "/");
        } catch (Exception $e) {
@@ -190,7 +197,7 @@ class ApiAuthController
         // save for local use
         $this->currentUser = $this->databaseConnector->selectOneRow("
             SELECT * FROM users
-            WHERE uuid = '" . $result["user"] . "'"
+            WHERE uuid = '" . $this->databaseConnector->escape($result["user"]) . "'"
         );
 
         return true;

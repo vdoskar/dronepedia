@@ -25,9 +25,15 @@ if (!empty($_GET["u"])) {
     $user = $currentUser;
 }
 
-$userSettings = $profileController->getUserSettings($user["uuid"]);
-$userDrones = $profileController->getUserDrones($user["uuid"]);
-$userPosts = $profileController->getUserPosts($user["uuid"]);
+try {
+    $userSettings = $profileController->getUserSettings($user["uuid"]);
+    $userDrones = $profileController->getUserDrones($user["uuid"]);
+    $userPosts = $profileController->getUserPosts($user["uuid"]);
+    $userComments = $profileController->getUserComments($user["uuid"]);
+} catch (Exception $e) {
+    echo $e->getMessage();
+    return;
+}
 
 if (empty($userSettings)) {
     $userSettings = [
@@ -35,30 +41,6 @@ if (empty($userSettings)) {
         "pic_banner" => "https://www.ef.tul.cz/content/files/images/PAGES/uvod-1672665996-7003.jpg",
     ];
 }
-
-$userComments = $databaseConnector->selectAll("
-    SELECT 
-        c.id, 
-        c.content, 
-        c.date_created, 
-        c.post_id, 
-        c.author
-    FROM posts_comments c
-    WHERE c.author = '" . $user["uuid"] . "'
-");
-
-$userPosts = $databaseConnector->selectAll("
-    SELECT 
-        p.id, 
-        p.title, 
-        p.slug, 
-        p.short_summary, 
-        p.date_created, 
-        p.category,
-        p.status
-    FROM posts p
-    WHERE p.author = '" . $user["uuid"] . "'
-");
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/profile");
@@ -69,5 +51,3 @@ $smarty->assign("drones", $userDrones);
 $smarty->assign("posts", $userPosts);
 $smarty->assign("comments", $userComments);
 $smarty->display("item.tpl");
-
-?>

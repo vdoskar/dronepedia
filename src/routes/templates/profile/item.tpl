@@ -4,12 +4,15 @@
     <div class="userContainer">
 
         <div class="userContainerCol userDetails">
-            <div class="userImage text-center">
+            <div class="userImage text-center mb-4">
                 <img class="rounded-circle shadow" src="{$settings.pic_profile}" alt="{$user.username}">
             </div>
             <div class="details">
-                <h1 class="text-center mb-4 text-bold">{$user.label}</h1>
-                <div class="details-list">
+                <h1 class="text-center mb-2 text-bold">{$user.label}</h1>
+                <div class="details-list mt-4">
+                    <p style="border-bottom: 1px solid var(--secondaryGrey);">
+                        {$settings.bio|default:""}
+                    </p>
                     <p>
                         <i class="fa-solid fa-user"></i>
                         &nbsp; @{$user.username}
