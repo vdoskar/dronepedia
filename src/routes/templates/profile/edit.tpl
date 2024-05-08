@@ -80,7 +80,7 @@
             "avatarPreviewWrapper"
         )
 
-        if (!utils.isAvailableUrlByRegex(avatarInput.value)) {
+        if (!utils.regex.isValidUrl(avatarInput.value)) {
             avatarInput.setCustomValidity('Neplatná URL adresa');
         } else {
             avatarInput.setCustomValidity('');
@@ -93,7 +93,7 @@
             "bannerPreviewWrapper"
         )
 
-        if (!utils.isAvailableUrlByRegex(bannerInput.value)) {
+        if (!utils.regex.isValidUrl(bannerInput.value)) {
             bannerInput.setCustomValidity('Neplatná URL adresa');
         } else {
             bannerInput.setCustomValidity('');

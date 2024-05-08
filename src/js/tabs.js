@@ -1,7 +1,7 @@
 const tabs = {
     // nastaveni
     tabList: [],
-    tabListLinks: [],
+    tabListLinkElements: [],
     tabSections: [],
     activeTab: null,
    
@@ -14,7 +14,7 @@ const tabs = {
             tabLinks.forEach(link => {
                 links.push(link);
             });
-            this.tabListLinks.push(links);
+            this.tabListLinkElements.push(links);
         });
 
         this.tabSections = document.querySelectorAll('.tab-section');
@@ -38,31 +38,37 @@ const tabs = {
         });
 
         // pridam funkce na kliknuti na odkazy
-        this.tabListLinks.forEach(tabLinks => {
-            tabLinks.forEach(link => {
-                link.onclick = (event) => this.toggleTab(link);
+        this.tabListLinkElements.forEach(tabLinksElements => {
+            tabLinksElements.forEach(tabLinkElement => {
+                tabLinkElement.onclick = (event) => {
+                    event.preventDefault();
+                    this.toggleTab(tabLinkElement);
+                }
             });
         });
 
     },
 
-    toggleTab(link) {
+    toggleTab(linkElement) {
         // zrusim aktivni tridu u vsech odkazu a nasledne nastavim aktivni tridu u kliknuteho odkazu
-        this.tabListLinks.forEach(tabLinks => {
-            tabLinks.forEach(link => {
-                link.classList.remove('active');
+        this.tabListLinkElements.forEach(tabLinksElements => {
+            tabLinksElements.forEach(tabLinkElement => {
+                tabLinkElement.classList.remove('active');
             });
         });
-        link.classList.add('active');
+        linkElement.classList.add('active');
+
+        // zmenim hash v url adrese
+        window.history.pushState(null, null, linkElement.hash);
 
         // pokud je tab prazdny, tak se nic nestane
-        if (link.hash === "") {
+        if (linkElement.hash === "") {
             return;
         }
 
         // schovam vsechny sekce krome aktivni
         this.tabSections.forEach(tabSection => {
-            if (link.hash !== ("#" + tabSection.id)) {
+            if (linkElement.hash !== ("#" + tabSection.id)) {
                 tabSection.style.display = 'none';
             } else {
                 tabSection.style.display = 'flex';

@@ -25,7 +25,12 @@
             <br>
             <div class="form-group">
                 <label for="email">Emailová adresa</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="form-control"
+                       required
+                >
                 <small id="emailHelp" class="form-text text-muted">Vaši e-mailovou adresu nikde nesdílíme.</small>
             </div>
             <br>
@@ -83,19 +88,21 @@
 
         if (formData.get("pass1") !== formData.get("pass2")) {
             alert("Hesla se neshodují.");
-            event.preventDefault();
             return;
         }
 
         if (formData.get("pass1").length < 8) {
             alert("Heslo musí mít minimálně 8 znaků.");
-            event.preventDefault();
             return;
         }
 
         if (formData.get("username").length < 3) {
             alert("Uživatelské jméno musí mít minimálně 3 znaky.");
-            event.preventDefault();
+            return;
+        }
+
+        if (!utils.regex.isValidEmail(formData.get("email"))) {
+            alert("Neplatný formát e-mailové adresy");
             return;
         }
 

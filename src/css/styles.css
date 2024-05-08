@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     font-optical-sizing: auto;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth !important;
 }
 
 :root {

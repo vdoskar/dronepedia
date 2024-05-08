@@ -27,8 +27,8 @@ class ApiAuthController
         }
 
         $registrationStatus = $this->checkAvailibleRegistration($data["email"], $data["usertag"]);
-        if ($registrationStatus["status"] === "NOK") {
-            throw new Exception($registrationStatus["message"], 400);
+        if ($registrationStatus["status"] == "NOK") {
+            throw new Exception($registrationStatus["message"]);
         }
 
         $result = [
@@ -100,7 +100,7 @@ class ApiAuthController
 
         if (!empty($usernameRegistered)) {
             $status["status"] = "NOK";
-            $status["message"] = "Email is already registered";
+            $status["message"] = "Username is already registered";
             return $status;
         }
 
