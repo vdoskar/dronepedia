@@ -70,15 +70,13 @@
     document.getElementById("email").value = "vladimir.doskar@tul.cz";
     document.getElementById("pass1").value = "A123456789";
     document.getElementById("pass2").value = "A123456789";
-</script>
 
-<script>
+    // Slugify usertag
     document.getElementById("usertag").addEventListener("input", function(event) {
         event.target.value = utils.slugify(event.target.value.replace(" ", ""));
     });
-</script>
 
-<script>
+    // handle form submission
     document.getElementById("registerForm").onsubmit = function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -101,6 +99,6 @@
             return;
         }
 
-        document.getElementById("registerForm").submit();
+        event.target.submit();
     }
 </script>
