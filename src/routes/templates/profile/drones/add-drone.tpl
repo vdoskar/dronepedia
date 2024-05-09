@@ -9,7 +9,7 @@
     </div>
 
     <div class="group">
-        <form method="POST" id="form" action="/api/profile/drones/add-drone">
+        <form method="POST" id="addDroneForm"  action="/api/profile/drones/add">
             <div class="form-group">
                 <label for="drone_name">Název dronu</label>
                 <input type="text"
@@ -55,7 +55,7 @@
 <script>
 
     const droneImgInput = document.getElementById("drone_img");
-    droneImgInput.addEventListener("input", function() {
+    droneImgInput.addEventListener("input", function () {
         utils.previewImage(
             droneImgInput.value,
             "droneImgPreviewWrapper"
@@ -71,9 +71,7 @@
 </script>
 
 <script>
-
     const droneForm = {
-
         availableParams: {
             max_vyska: "Maximální výška",
             max_vzdalenost: "Maximální vzdálenost",
@@ -105,58 +103,68 @@
         addParam(event) {
             event.preventDefault();
 
+            // wrapper
+            const wrapper = document.createElement("div");
+            wrapper.classList.add('form-group');
+            wrapper.classList.add('drone-param-item');
+
+            // param input field
             const param = event.target.getAttribute("data-param-add-button");
             const paramInput = document.createElement("input");
             paramInput.classList.add("form-control", "mb-2");
-            paramInput.setAttribute("name", param);
+            paramInput.style.maxWidth = 'calc(100% - 60px)';
+            paramInput.style.display = 'inline-block';
+            paramInput.setAttribute("name", "params[]");
+            paramInput.setAttribute("required", "true");
+            paramInput.setAttribute("data-param", param);
             paramInput.setAttribute("placeholder", droneForm.availableParams[param]);
-            document.getElementById("params").appendChild(paramInput);
 
             // also a remove param button
             const removeButton = document.createElement("button");
-            removeButton.classList.add("btn", "btn-danger", "mr-2", "mb-2");
-            removeButton.innerText = "X";
-            removeButton.setAttribute("data-param-rm-button", param);
-            removeButton.addEventListener("click", this.removeParam);
-            document.getElementById("params").appendChild(removeButton);
+            removeButton.classList.add("btn", "btn-danger");
+            removeButton.style.marginLeft = '0.5rem';
+            removeButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
+            removeButton.onclick = () => {
+                wrapper.remove();
+                // show the button again
+                document.querySelector("button[data-param-add-button=" + param + "]").style.display = "inline-block";
+            }
+
+            wrapper.appendChild(paramInput);
+            wrapper.appendChild(removeButton);
+            document.getElementById("params").appendChild(wrapper);
 
             // hide from available params list
             document.querySelector("button[data-param-add-button=" + param + "]").style.display = "none";
-        },
-
-        // remove param input field
-        removeParam(event) {
-            event.preventDefault();
-
-            const param = event.target.getAttribute("data-param-rm-button");
-            const paramInput = document.querySelector("input[name=" + param + "]");
-            paramInput.remove();
-
-            // show the button again
-            document.querySelector("button[data-param-add-button=" + param + "]").style.display = "inline-block";
-        },
-
-        // submit form
-        submit(event) {
-
-            // get all params
-            const params = this.availableParams.forEach(param => {
-                const value = document.querySelector("input[name=" + param + "]").value;
-                console.log(param, value);
-            });
-
-            const formData = new FormData(document.getElementById("form"));
-            formData.append("params", JSON.stringify(params));
-            console.log(formData.get("params"));
-
-            event.preventDefault();
         },
     }
 
     droneForm.renderParamButtons();
 
     // submitting the form
-    document.getElementById("form").addEventListener("submit", (event) => {
-        droneForm.submit(event)
+    document.getElementById("addDroneForm").addEventListener("submit", (event) => {
+        // get all params
+        const params = [];
+        for (const [key, value] of Object.entries(droneForm.availableParams)) {
+            params.push({
+                parameterKey: key,
+                parameterValue: document.querySelector("input[data-param=" + key + "]").value
+            });
+        }
+
+        const formData = new FormData(document.getElementById("form"));
+        formData.append("params", params);
+
+        event.preventDefault();
     });
+
+
+
+</script>
+
+<script>
+    document.getElementById("drone_name").value = "Název dronu 1";
+    document.getElementById("drone_description").value = "Popis dronu 1";
+    document.getElementById("drone_img").value = "https://media.pju.si/0165/Mini-Drone-4.jpg";
+    document.getElementById("drone_img").dispatchEvent(new Event("input"));
 </script>

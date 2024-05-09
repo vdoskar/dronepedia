@@ -95,8 +95,7 @@
             }
 
             const removeButton = document.createElement('button');
-            removeButton.classList.add('btn');
-            removeButton.classList.add('btn-danger');
+            removeButton.classList.add('btn', "btn-danger");
             removeButton.style.marginLeft = '0.5rem';
             removeButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
             removeButton.onclick = () => wrapper.remove();

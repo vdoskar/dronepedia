@@ -13,7 +13,6 @@ $profileController = new ApiProfileController();
 $commentsController = new ApiPostsCommentsController();
 
 switch ($request) {
-
     //
     // AUTHENTICATION
     //
@@ -67,14 +66,14 @@ switch ($request) {
     // CREATE A NEW COMMENT
     case "/api/posts/comments/create":
         $commentsController->create($_POST);
-        header("Location: " . $_POST["redirectUrl"]);
+        header("Location: " . ($_POST["redirectUrl"] ?? "/forum"));
         break;
 
     // EDIT A COMMENT
-    case "/api/posts/comments/edit":
-        $commentsController->edit($_POST);
-        header("Location: /forum");
-        break;
+    //    case "/api/posts/comments/edit":
+    //        $commentsController->edit($_POST);
+    //        header("Location: /forum");
+    //        break;
 
     // DELETE A COMMENT
     case "/api/posts/comments/delete":
@@ -105,4 +104,24 @@ switch ($request) {
         header("Location: /profile/edit");
         break;
 
+    // ADD NEW DRONE
+    case "/api/profile/drones/add":
+        print_r($_POST);
+//        $profileController->droneAdd($_POST);
+//        header("Location: /profile");
+        break;
+
+
+    // EDIT DRONE
+    case "/api/profile/drones/edit":
+        $profileController->droneEdit($_POST);
+        header("Location: /profile/edit");
+        break;
+
+
+    // DELETE DRONE
+    case "/api/profile/drones/delete":
+        $profileController->droneDelete($_POST["drone_id"]);
+        header("Location: /profile/edit");
+        break;
 }

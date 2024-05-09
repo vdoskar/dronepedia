@@ -51,7 +51,7 @@ class ApiProfileController
     {
         return $this->databaseConnector->selectAll("
             SELECT * FROM users_drones
-            WHERE author =  '" .$this->databaseConnector->escape($uuid) . "'"
+            WHERE owner =  '" .$this->databaseConnector->escape($uuid) . "'"
         ) ?? [];
     }
 
@@ -154,5 +154,20 @@ class ApiProfileController
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+    }
+
+    public function droneAdd(array $data): void
+    {
+
+    }
+
+    public function droneEdit(array $data): void
+    {
+
+    }
+
+    public function droneDelete(int $droneId): void
+    {
+
     }
 }

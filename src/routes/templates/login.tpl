@@ -36,6 +36,7 @@
 </div>
 
 <script>
+    // TODO: remove this script before production
     document.getElementById("email").value = "vladimir.doskar@tul.cz";
     document.getElementById("password").value = "A123456789";
 </script>
