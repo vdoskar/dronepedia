@@ -319,10 +319,6 @@ footer {
     padding: 0 2rem;
 }
 
-/* .userContainerCol {
-    padding: 0 2rem;
-} */
-
 .userContainer .userDetails {
     min-width: 380px;
     border-right: 2px solid var(--secondaryGrey);
@@ -353,6 +349,45 @@ footer {
     max-width: 220px;
     aspect-ratio: 1/1;
     transform: translateY(-15%);
+}
+
+.drone-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.drone-card {
+    max-width: 300px;
+    border: 1px solid var(--secondaryGrey);
+    border-radius: var(--borderRadiusPrimary);
+    transition: all var(--transition-delay) ease-in-out;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.drone-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--boxShadowPrimary);
+}
+
+.drone-card-active img {
+    max-width: 450px;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: var(--borderRadiusPrimary) !important;
+}
+
+.dc-img img {
+    border-radius: var(--borderRadiusPrimary);
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    max-width: 300px;
+}
+
+.dc-content {
+    padding: 1rem;
 }
 
 

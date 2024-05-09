@@ -106,9 +106,8 @@ switch ($request) {
 
     // ADD NEW DRONE
     case "/api/profile/drones/add":
-        print_r($_POST);
-//        $profileController->droneAdd($_POST);
-//        header("Location: /profile");
+        $profileController->droneAdd($_POST);
+        header("Location: /profile");
         break;
 
 

@@ -1,5 +1,5 @@
 <div class="content halfBody">
-    <h1 class="text-center">Nový dron</h1>
+    <h1>Nový dron</h1>
 
     <div class="group">
         <a href="/profile?u={$currentUser.username}" class="btn btn-secondary">
@@ -19,6 +19,8 @@
                        required
                 >
             </div>
+
+            <br>
             <div class="form-group">
                 <label for="drone_description">Popis dronu</label>
                 <textarea class="form-control"
@@ -27,6 +29,8 @@
                           required
                 ></textarea>
             </div>
+
+            <br>
             <div class="form-group">
                 <label for="drone_img">URL na obrázek dronu</label>
                 <input type="text"
@@ -37,14 +41,17 @@
                 >
                 <div id="droneImgPreviewWrapper" class="mt-2"></div>
             </div>
+
+            <br>
             <div class="form-group">
-                <label for="params">Parametry dronu</label>
+                <label for="params">Přidat parametry dronu</label>
                 <div id="params"></div>
                 <div id="paramButtons" class="mt-2"></div>
             </div>
+
+            <br>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-plus"></i>
                     Přidat dron
                 </button>
             </div>
@@ -114,7 +121,7 @@
             paramInput.classList.add("form-control", "mb-2");
             paramInput.style.maxWidth = 'calc(100% - 60px)';
             paramInput.style.display = 'inline-block';
-            paramInput.setAttribute("name", "params[]");
+            paramInput.setAttribute("name", "params[" + param + "]");
             paramInput.setAttribute("required", "true");
             paramInput.setAttribute("data-param", param);
             paramInput.setAttribute("placeholder", droneForm.availableParams[param]);
@@ -140,31 +147,11 @@
     }
 
     droneForm.renderParamButtons();
-
-    // submitting the form
-    document.getElementById("addDroneForm").addEventListener("submit", (event) => {
-        // get all params
-        const params = [];
-        for (const [key, value] of Object.entries(droneForm.availableParams)) {
-            params.push({
-                parameterKey: key,
-                parameterValue: document.querySelector("input[data-param=" + key + "]").value
-            });
-        }
-
-        const formData = new FormData(document.getElementById("form"));
-        formData.append("params", params);
-
-        event.preventDefault();
-    });
-
-
-
 </script>
 
 <script>
-    document.getElementById("drone_name").value = "Název dronu 1";
-    document.getElementById("drone_description").value = "Popis dronu 1";
-    document.getElementById("drone_img").value = "https://media.pju.si/0165/Mini-Drone-4.jpg";
+    document.getElementById("drone_name").value = "DJI Mini 2 SE";
+    document.getElementById("drone_description").value = "Mám ten dron strašně rád uwu";
+    document.getElementById("drone_img").value = "https://cdn.mos.cms.futurecdn.net/BgUuYtgcrLjPoETNiPBGUU-1200-80.jpg";
     document.getElementById("drone_img").dispatchEvent(new Event("input"));
 </script>

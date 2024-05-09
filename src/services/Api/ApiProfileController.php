@@ -24,7 +24,8 @@ class ApiProfileController
      */
     public function getUserByUsername(string $username): array
     {
-        return $this->databaseConnector->selectOneRow("
+        return $this->databaseConnector->selectOneRow(
+            "
             SELECT * FROM users
             WHERE username = '" . $this->databaseConnector->escape($username) . "'"
         ) ?? [];
@@ -37,7 +38,8 @@ class ApiProfileController
      */
     public function getUserSettings(string $uuid): array
     {
-        return $this->databaseConnector->selectOneRow("
+        return $this->databaseConnector->selectOneRow(
+            "
             SELECT * FROM users_settings
             WHERE user =  '" . $this->databaseConnector->escape($uuid) . "'"
         ) ?? [];
@@ -49,9 +51,10 @@ class ApiProfileController
      */
     public function getUserDrones(string $uuid): array
     {
-        return $this->databaseConnector->selectAll("
+        return $this->databaseConnector->selectAll(
+            "
             SELECT * FROM users_drones
-            WHERE owner =  '" .$this->databaseConnector->escape($uuid) . "'"
+            WHERE owner =  '" . $this->databaseConnector->escape($uuid) . "'"
         ) ?? [];
     }
 
@@ -61,9 +64,10 @@ class ApiProfileController
      */
     public function getUserPosts(string $uuid): array
     {
-        return $this->databaseConnector->selectAll("
+        return $this->databaseConnector->selectAll(
+            "
             SELECT * FROM posts
-            WHERE author =  '" .$this->databaseConnector->escape($uuid) . "'"
+            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'"
         ) ?? [];
     }
 
@@ -73,9 +77,10 @@ class ApiProfileController
      */
     public function getUserComments(string $uuid): array
     {
-        return $this->databaseConnector->selectAll("
+        return $this->databaseConnector->selectAll(
+            "
             SELECT * FROM posts_comments
-            WHERE author =  '" .$this->databaseConnector->escape($uuid) . "'"
+            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'"
         ) ?? [];
     }
 
@@ -158,16 +163,41 @@ class ApiProfileController
 
     public function droneAdd(array $data): void
     {
+        if (empty($data["drone_name"]) && empty($data["drone_description"])) {
+            return;
+        }
 
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro přidání dronu musíte být přihlášený");
+            }
+
+            $result = [
+                "owner" => $currentUser["uuid"],
+                "drone_name" => $this->databaseConnector->escape($data["drone_name"]),
+                "drone_description" => $this->databaseConnector->escape($data["drone_description"]),
+                "drone_params" => $this->databaseConnector->escape(
+                    json_encode($data["params"], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+                ),
+                "drone_img" => $this->databaseConnector->escape($data["drone_img"]),
+            ];
+
+            $this->databaseConnector->insert(
+                table: "users_drones",
+                data: $result
+            );
+
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function droneEdit(array $data): void
     {
-
     }
 
     public function droneDelete(int $droneId): void
     {
-
     }
 }

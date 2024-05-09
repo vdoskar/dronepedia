@@ -58,7 +58,7 @@ class DatabaseConnector
             $this->connection->commit();
         } catch (Exception $e) {
             $this->connection->rollback();
-            throw $e;
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -92,15 +92,15 @@ class DatabaseConnector
             $this->connection->commit();
         } catch (Exception $e) {
             $this->connection->rollback();
-            throw $e;
+            throw new Exception($e->getMessage());
         }
     }
 
     /**
      * @param string $table
      * @param array $data
-     * @param string|null $conditionColumn
-     * @param $conditionValue
+     * @param string $conditionColumn
+     * @param null $conditionValue
      * @return void
      * @throws Exception
      */
@@ -141,7 +141,7 @@ class DatabaseConnector
             $this->connection->commit();
         } catch (Exception $e) {
             $this->connection->rollback();
-            throw $e;
+            throw new Exception($e->getMessage());
         }
     }
 

@@ -68,9 +68,14 @@
                     <h2 class="text-bold">Drony</h2>
                     <div class="drones">
                         {if $drones|count > 0}
-                            {foreach $drones as $drone}
-                                {include file="item-drone.tpl" drone=$drone}
-                            {/foreach}
+                            <div class="drone-gallery">
+{*                                {foreach $drones as $drone}*}
+{*                                    {include file="item-drone.tpl" drone=$drone}*}
+{*                                {/foreach}*}
+                                {for $i = 0; $i < 20; $i = $i + 1}
+                                    {include file="item-drone.tpl" drone=$drones[0]}
+                                {/for}
+                            </div>
                         {else}
                             <p">Tento uživatel zatím nepřidal žádné své drony.</p>
                         {/if}
@@ -78,6 +83,14 @@
                 </div>
 
                 <div id="tab_posts" class="tab-section">
+                    {if $user.uuid == $currentUser.uuid}
+                        <div class="mb-4">
+                            <a href="/forum/create-post" class="btn btn-secondary">
+                                <i class="fa-solid fa-plus"></i>
+                                &nbsp;Přidat příspěvek
+                            </a>
+                        </div>
+                    {/if}
                     <h2 class="text-bold mb-4">Příspěvky</h2>
                     <div class="posts">
                         {if $posts|count > 0}
@@ -98,4 +111,23 @@
 
 <script>
     tabs.init();
+</script>
+
+<script>
+
+    const droneGallery = {
+
+        allDroneCards: document.querySelectorAll('.drone-card'),
+
+        openDroneDetail(element) {
+            console.log(element)
+        }
+    }
+
+    droneGallery.allDroneCards.forEach(card => {
+        card.addEventListener('click', () => {
+            droneGallery.openDroneDetail(card)
+        })
+    })
+
 </script>
