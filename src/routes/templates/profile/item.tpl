@@ -69,15 +69,12 @@
                     <div class="drones">
                         {if $drones|count > 0}
                             <div class="drone-gallery">
-{*                                {foreach $drones as $drone}*}
-{*                                    {include file="item-drone.tpl" drone=$drone}*}
-{*                                {/foreach}*}
-                                {for $i = 0; $i < 20; $i = $i + 1}
-                                    {include file="item-drone.tpl" drone=$drones[0]}
-                                {/for}
+                                {foreach $drones as $drone}
+                                    {include file="item-drone.tpl" drone=$drone}
+                                {/foreach}
                             </div>
                         {else}
-                            <p">Tento uživatel zatím nepřidal žádné své drony.</p>
+                            <p>Tento uživatel zatím nepřidal žádné své drony.</p>
                         {/if}
                     </div>
                 </div>
@@ -105,7 +102,6 @@
 
             </div>
         </div>
-
     </div>
 </div>
 
@@ -115,19 +111,14 @@
 
 <script>
 
-    const droneGallery = {
-
-        allDroneCards: document.querySelectorAll('.drone-card'),
-
-        openDroneDetail(element) {
-            console.log(element)
-        }
-    }
-
-    droneGallery.allDroneCards.forEach(card => {
+    document.querySelectorAll('.drone-card').forEach(card => {
+        const droneId = card.getAttribute('data-drone-id');
         card.addEventListener('click', () => {
-            droneGallery.openDroneDetail(card)
+            const droneDialogElement = document.querySelector(".drone-card-dialog[data-drone-id='" + droneId + "']");
+            dialog.open(droneDialogElement.innerHTML);
         })
     })
+
+    dialog.initKeydownListener();
 
 </script>

@@ -93,32 +93,38 @@ i {
     min-height: var(--navbarHeight);
 
 }
+
 .navbar-nav {
     flex-direction: row;
 }
+
 .nav-item {
     transition: all var(--transition-delay) ease-in-out;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding-top: 5px;
 }
+
 .nav-link:after {
-    display:block;
+    display: block;
     content: '';
-    border-bottom: solid 2px var(--primaryYellow);  
-    transform: scaleX(0);  
+    border-bottom: solid 2px var(--primaryYellow);
+    transform: scaleX(0);
     transition: all var(--transition-delay) ease-in-out;
     margin-top: 5px;
 }
+
 .nav-link.active {
     transition: all var(--transition-delay) ease-in-out;
 }
+
 .nav-link:hover:after,
-.nav-link.active:after { 
-    transform: scaleX(1); 
+.nav-link.active:after {
+    transform: scaleX(1);
     color: var(--primaryYellow);
 }
+
 .nav-link {
     padding: 15px;
 }
@@ -127,13 +133,14 @@ i {
 
 header {
     height: 250px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     font-weight: 700;
     color: var(--primaryWhite);
     font-family: var(--fontFamilyPrimary);
 }
+
 #homepageHeader {
     height: calc(100vh - var(--navbarHeight));
 }
@@ -163,13 +170,15 @@ footer {
 .authForm {
     max-width: 420px !important;
 }
+
 .authFormGroup {
-    display:flex;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 2rem;
 }
+
 .authFormImage img {
     border-radius: var(--borderRadiusPrimary);
     box-shadow: var(--boxShadowPrimary);
@@ -233,17 +242,6 @@ footer {
     box-shadow: var(--boxShadowSecondary);
 }
 
-/*.img-gallery img[data-showTitle="true"] {*/
-/*    margin: 0.5rem 0.5rem 2.5rem 0.5rem !important;*/
-/*}*/
-
-/*.img-gallery img[data-showTitle="true"]::after {*/
-/*    content: "alsdjkflasd";*/
-/*    display: inline-block;*/
-/*    width: 50px;*/
-/*    background-color: var(--primaryBlack);*/
-/*}*/
-
 /* card gallery */
 
 .card-gallery {
@@ -255,7 +253,7 @@ footer {
 }
 
 .card-gallery .card {
-    max-width: 350px    ;
+    max-width: 350px;
     margin: 1rem;
     border-radius: var(--borderRadiusPrimary);
     box-shadow: var(--boxShadowPrimary);
@@ -390,6 +388,29 @@ footer {
     padding: 1rem;
 }
 
+.drone-dialog {
+    flex-direction: column;
+    background-color: var(--primaryWhite);
+    border-radius: var(--borderRadiusPrimary);
+    width: 50%;
+}
+
+.drone-dialog .row-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    border-bottom: 1px solid var(--secondaryGrey);
+}
+
+.drone-dialog .row-1 .dc-img img {
+    max-width: 500px;
+    border-top-right-radius: 0 !important;
+}
+
+.dialog-content {
+    display: flex;
+}
 
 /* forum */
 
@@ -444,6 +465,7 @@ footer {
     max-width: 60px;
     aspect-ratio: 1/1;
 }
+
 .post-card .pc-author {
     text-align: center;
     min-width: 120px;
@@ -462,7 +484,7 @@ footer {
 
 .post-card .pc-content {
     width: 100% !important;
-    display:flex;
+    display: flex;
     align-items: flex-start;
 }
 
@@ -477,6 +499,3 @@ footer {
     margin: 0.5rem 0;
     transition: all var(--transition-delay) ease-in-out;
 }
-
-
-

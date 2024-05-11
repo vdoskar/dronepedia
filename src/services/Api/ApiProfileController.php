@@ -51,11 +51,22 @@ class ApiProfileController
      */
     public function getUserDrones(string $uuid): array
     {
-        return $this->databaseConnector->selectAll(
+        $list = $this->databaseConnector->selectAll(
             "
             SELECT * FROM users_drones
             WHERE owner =  '" . $this->databaseConnector->escape($uuid) . "'"
-        ) ?? [];
+        );
+
+        if (empty($list)) {
+            return [];
+        }
+
+        // normalize drone params
+        foreach ($list as $i => $item) {
+            $list[$i]["drone_params"] = json_decode($item["drone_params"], true) ?? [];
+        }
+
+        return $list;
     }
 
     /**
@@ -161,6 +172,11 @@ class ApiProfileController
         }
     }
 
+    /**
+     * @param array $data
+     * @return void
+     * @throws Exception
+     */
     public function droneAdd(array $data): void
     {
         if (empty($data["drone_name"]) && empty($data["drone_description"])) {
@@ -187,7 +203,6 @@ class ApiProfileController
                 table: "users_drones",
                 data: $result
             );
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

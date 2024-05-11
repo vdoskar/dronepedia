@@ -62,6 +62,8 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
     <script src="/src/js/tabs.js"></script>
     <script src="/src/js/utils.js"></script>
     <script src="/src/js/editor.js"></script>
+    <script src="/src/js/dialog.js"></script>
+    <script src="/src/js/drones.js"></script>
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 </head>
 
