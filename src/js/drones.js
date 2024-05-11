@@ -1,72 +1,95 @@
 const droneForm = {
     availableParams: {
+        vaha: "Váha",
+        cena: "Cena",
         max_vyska: "Maximální výška",
         max_vzdalenost: "Maximální vzdálenost",
         max_rychlost: "Maximální rychlost",
-        vaha: "Váha",
-        cena: "Cena",
         avg_doba_letu: "Průměrná doba letu",
         max_doba_letu: "Maximální doba letu",
-        max_nosnost: "Maximální nosnost",
         max_sila_vetru: "Maximální síla větru",
+        gps: "Obsahuje GPS ve výbavě?",
+        camera: "Obsahuje kameru ve výbavě?",
+        obstacle_detection: "Obsahuje systém detekce překážek?",
+        follow_me: "Podpora funkce Follow Me",
+        return_home: "Podpora funkce Return Home",
+        waypoints: "Podpora funkce Waypoints",
+        live_stream: "Podpora funkce Live Stream",
+        vr_glasses: "Podpora VR brýlí",
+        battery_capacity: "Kapacita baterie",
         // more params can be added in the future
     },
 
     // render param buttons
     renderParamButtons() {
-        const paramButtons = document.getElementById("paramButtons");
+        const btnContainer = document.getElementById("paramButtons");
         for (const [key, value] of Object.entries(this.availableParams)) {
+            // create buttons and append them to the container
             const button = document.createElement("button");
             button.classList.add("btn", "btn-secondary");
-            button.style.margin = 0.25 + "rem";
+            button.style.margin = "0.25rem";
             button.innerText = value;
             button.setAttribute("data-param-add-button", key);
-            button.addEventListener("click", this.addParam);
-            paramButtons.appendChild(button);
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.addParam(key, null);
+            });
+
+            // check if the param is already in the form
+            const existingInput = document.querySelector("input[data-param=" + key + "]") ?? null;
+            if (existingInput) {
+                button.style.display = "none";
+            }
+
+            btnContainer.appendChild(button);
         }
     },
 
-    // TODO: render param buttons for edit form
-    renderParamButonsEdit() {
-
-    },
-
     // create a new param input field
-    addParam(event) {
-        event.preventDefault();
-
+    addParam(paramKey, paramValue) {
         // wrapper
         const wrapper = document.createElement("div");
         wrapper.classList.add('form-group');
         wrapper.classList.add('drone-param-item');
+        wrapper.setAttribute("data-param", paramKey);
 
         // param input field
-        const param = event.target.getAttribute("data-param-add-button");
         const paramInput = document.createElement("input");
         paramInput.classList.add("form-control", "mb-2");
         paramInput.style.maxWidth = 'calc(100% - 60px)';
         paramInput.style.display = 'inline-block';
-        paramInput.setAttribute("name", "params[" + param + "]");
+        paramInput.setAttribute("name", "params[" + paramKey + "]");
         paramInput.setAttribute("required", "true");
-        paramInput.setAttribute("data-param", param);
-        paramInput.setAttribute("placeholder", droneForm.availableParams[param]);
+        paramInput.setAttribute("data-param", paramKey);
+        paramInput.setAttribute("placeholder", droneForm.availableParams[paramKey]);
+        if (paramValue) {
+            paramInput.value = paramValue;
+        }
 
-        // also a remove param button
+        // remove param button
         const removeButton = document.createElement("button");
         removeButton.classList.add("btn", "btn-danger");
         removeButton.style.marginLeft = '0.5rem';
         removeButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
-        removeButton.onclick = () => {
-            wrapper.remove();
-            // show the button again
-            document.querySelector("button[data-param-add-button=" + param + "]").style.display = "inline-block";
-        }
+        removeButton.onclick = (event) => {
+            event.preventDefault();
+            this.removeParam(paramKey)
+        };
 
+        // append elements
         wrapper.appendChild(paramInput);
         wrapper.appendChild(removeButton);
         document.getElementById("params").appendChild(wrapper);
 
         // hide from available params list
-        document.querySelector("button[data-param-add-button=" + param + "]").style.display = "none";
+        const addButton = document.querySelector("button[data-param-add-button=" + paramKey + "]") ?? null;
+        if (addButton) {
+            addButton.style.display = "none";
+        }
     },
+
+    removeParam(paramKey) {
+        document.querySelector("div.drone-param-item[data-param=" + paramKey + "]").remove();
+        document.querySelector("button[data-param-add-button=" + paramKey + "]").style.display = "inline-block";
+    }
 }

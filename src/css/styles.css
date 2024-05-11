@@ -242,6 +242,14 @@ footer {
     box-shadow: var(--boxShadowSecondary);
 }
 
+/* dialog */
+
+.dialog-content {
+    display: flex;
+    max-height: 90%;
+    overflow: auto;
+}
+
 /* card gallery */
 
 .card-gallery {
@@ -320,6 +328,7 @@ footer {
 .userContainer .userDetails {
     min-width: 380px;
     border-right: 2px solid var(--secondaryGrey);
+    max-width: 500px;
 }
 
 .userContainer .userOverview {
@@ -346,7 +355,7 @@ footer {
 .userImage img {
     max-width: 220px;
     aspect-ratio: 1/1;
-    transform: translateY(-15%);
+    transform: translateY(-10vh);
 }
 
 .drone-gallery {
@@ -364,6 +373,7 @@ footer {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .drone-card:hover {
@@ -377,11 +387,18 @@ footer {
     border-bottom-left-radius: var(--borderRadiusPrimary) !important;
 }
 
+.dc-img {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--secondaryGrey);
+}
+
 .dc-img img {
     border-radius: var(--borderRadiusPrimary);
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     max-width: 300px;
+    max-height: 175px !important;
 }
 
 .dc-content {
@@ -406,10 +423,6 @@ footer {
 .drone-dialog .row-1 .dc-img img {
     max-width: 500px;
     border-top-right-radius: 0 !important;
-}
-
-.dialog-content {
-    display: flex;
 }
 
 /* forum */

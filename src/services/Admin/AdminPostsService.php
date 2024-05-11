@@ -15,10 +15,10 @@ class AdminPostsService extends AdminService
             ];
 
             $this->databaseConnector->update(
-                "posts",
-                $data,
-                "slug",
-                $slug,
+                table: "posts",
+                data: $data,
+                conditionColumn: "slug",
+                conditionValue: $slug,
             );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -38,10 +38,10 @@ class AdminPostsService extends AdminService
             ];
 
             $this->databaseConnector->update(
-                "posts",
-                $data,
-                "slug",
-                $slug,
+                table: "posts",
+                data: $data,
+                conditionColumn: "slug",
+                conditionValue: $slug,
             );
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

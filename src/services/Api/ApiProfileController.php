@@ -96,6 +96,21 @@ class ApiProfileController
     }
 
     /**
+     * @param string $newEmail
+     * @return void
+     * @throws Exception
+     */
+    public function changeEmail(string $newEmail): void
+    {
+        $this->databaseConnector->update(
+            table: "users",
+            data: ["email" => $this->databaseConnector->escape($newEmail)],
+            conditionColumn: "uuid",
+            conditionValue: $this->authController->getCurrentUser()["uuid"]
+        );
+    }
+
+    /**
      * @param string $newPassword
      * @return void
      * @throws Exception
@@ -111,15 +126,15 @@ class ApiProfileController
     }
 
     /**
-     * @param string $newEmail
+     * @param string $newName
      * @return void
      * @throws Exception
      */
-    public function changeEmail(string $newEmail): void
+    public function changeName(string $newName): void
     {
         $this->databaseConnector->update(
             table: "users",
-            data: ["email" => $this->utilityService->hash($newEmail)],
+            data: ["label" => $this->databaseConnector->escape($newName)],
             conditionColumn: "uuid",
             conditionValue: $this->authController->getCurrentUser()["uuid"]
         );
@@ -179,7 +194,7 @@ class ApiProfileController
      */
     public function droneAdd(array $data): void
     {
-        if (empty($data["drone_name"]) && empty($data["drone_description"])) {
+        if (empty($data["drone_name"]) || empty($data["drone_description"])) {
             return;
         }
 
@@ -189,13 +204,16 @@ class ApiProfileController
                 throw new Exception("Pro přidání dronu musíte být přihlášený");
             }
 
+            // normalize drone params
+            foreach ($data["params"] as $key => $value) {
+                $data["params"][$key] = $this->databaseConnector->escape($value);
+            }
+
             $result = [
                 "owner" => $currentUser["uuid"],
                 "drone_name" => $this->databaseConnector->escape($data["drone_name"]),
                 "drone_description" => $this->databaseConnector->escape($data["drone_description"]),
-                "drone_params" => $this->databaseConnector->escape(
-                    json_encode($data["params"], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-                ),
+                "drone_params" => json_encode($data["params"]),
                 "drone_img" => $this->databaseConnector->escape($data["drone_img"]),
             ];
 
@@ -208,11 +226,87 @@ class ApiProfileController
         }
     }
 
+    /**
+     * @param array $data
+     * @return void
+     * @throws Exception
+     */
     public function droneEdit(array $data): void
     {
+        if (empty($data["drone_name"]) || empty($data["drone_description"]) || empty($data["drone_id"])) {
+            return;
+        }
+
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro aktualizaci dronu musíte být přihlášený");
+            }
+
+            $currentDroneData = $this->databaseConnector->selectOneRow("
+                SELECT * FROM users_drones
+                WHERE id = '" . $this->databaseConnector->escape($data["drone_id"]) . "'"
+            ) ?? throw new Exception("Dron nebyl nalezen");
+
+            if ($currentDroneData["owner"] != $currentUser["uuid"]) {
+                throw new Exception("Nemáte oprávnění k úpravě tohoto dronu");
+            }
+
+            // normalize drone params
+            foreach ($data["params"] as $key => $value) {
+                $data["params"][$key] = $this->databaseConnector->escape($value);
+            }
+
+            $result = [
+                "drone_name" => $this->databaseConnector->escape($data["drone_name"]),
+                "drone_description" => $this->databaseConnector->escape($data["drone_description"]),
+                "drone_params" => json_encode($data["params"]),
+                "drone_img" => $this->databaseConnector->escape($data["drone_img"]),
+            ];
+
+            $this->databaseConnector->update(
+                table: "users_drones",
+                data: $result,
+                conditionColumn: "id",
+                conditionValue: $data["drone_id"],
+            );
+
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
+    /**
+     * @param int $droneId
+     * @return void
+     * @throws Exception
+     */
     public function droneDelete(int $droneId): void
     {
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro smazání dronu musíte být přihlášený");
+            }
+
+            $currentDroneData = $this->databaseConnector->selectOneRow(
+                "
+                SELECT * FROM users_drones
+                WHERE id = '" . $this->databaseConnector->escape($droneId) . "'"
+            ) ?? throw new Exception("Dron nebyl nalezen");
+
+            if ($currentDroneData["owner"] != $currentUser["uuid"]) {
+                throw new Exception("Nemáte oprávnění k úpravě tohoto dronu");
+            }
+
+            $this->databaseConnector->delete(
+                table: "users_drones",
+                conditionColumn: "id",
+                conditionValue: $droneId
+            );
+
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

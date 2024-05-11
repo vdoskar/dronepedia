@@ -86,15 +86,21 @@ switch ($request) {
     // PROFILE
     //
 
-    // CHANGE PASSWORD
-    case "/api/profile/contacts/change-password":
-        $profileController->changePassword($_POST["newPassword"]);
+    // CHANGE EMAIL
+    case "/api/profile/contacts/change-email":
+        $profileController->changeEmail($_POST["new_email"]);
         header("Location: /profile/edit");
         break;
 
-    // CHANGE EMAIL
-    case "/api/profile/contacts/change-email":
-        $profileController->changeEmail($_POST["newEmail"]);
+    // CHANGE PASSWORD
+    case "/api/profile/contacts/change-password":
+        $profileController->changePassword($_POST["new_password"]);
+        header("Location: /profile/edit");
+        break;
+
+    // CHANGE NAME
+    case "/api/profile/contacts/change-name":
+        $profileController->changeName($_POST["new_name"]);
         header("Location: /profile/edit");
         break;
 
@@ -114,13 +120,13 @@ switch ($request) {
     // EDIT DRONE
     case "/api/profile/drones/edit":
         $profileController->droneEdit($_POST);
-        header("Location: /profile/edit");
+        header("Location: /profile");
         break;
 
 
     // DELETE DRONE
     case "/api/profile/drones/delete":
         $profileController->droneDelete($_POST["drone_id"]);
-        header("Location: /profile/edit");
+        header("Location: /profile");
         break;
 }

@@ -1,14 +1,23 @@
 <div class="drone-card" data-drone-id="{$drone.id}">
+
     <div class="dc-img">
         <img src="{$drone.drone_img}" alt="{$drone.drone_name}">
     </div>
     <div class="dc-content">
         <h4>{$drone.drone_name}</h4>
         <div>{$drone.drone_description}</div>
+        {if $user.uuid == $currentUser.uuid}
+            <div class="mt-4" style="text-align: right;">
+                <a class="btn btn-secondary" href="/profile/drones/edit-drone?id={$drone.id}" >
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+            </div>
+        {/if}
     </div>
 </div>
 <br>
 
+{* dialog *}
 <div class="drone-card-dialog" style="display: none;" data-drone-id="{$drone.id}">
     <div class="dialog-content drone-dialog">
         <div class="row-1">

@@ -24,6 +24,8 @@ const dialog = {
         dialog.style.display = 'flex';
         dialog.style.justifyContent = 'center';
         dialog.style.alignItems = 'center';
+        dialog.style.zIndex = '1000';
+        dialog.style.overflow = 'auto';
         dialog.style.transform = 'scale(0)';
 
         // close dialog button
@@ -38,7 +40,7 @@ const dialog = {
         closeButton.style.color = 'white';
         closeButton.style.cursor = 'pointer';
         closeButton.style.borderRadius = "var(--borderRadiusPrimary)";
-        closeButton.addEventListener('click', this.close);
+        closeButton.addEventListener('click', () => this.close());
 
         dialog.appendChild(closeButton);
         document.body.appendChild(dialog);
@@ -56,13 +58,12 @@ const dialog = {
         setTimeout(() => {
             dialog.remove();
             this.isDialogOpen = false;
-        }, 300);
+        }, 200);
     },
 
     initKeydownListener() {
         const that = this;
         document.addEventListener("keydown", function (event) {
-            console.log(event)
             if (event.key === "Escape" && that.isDialogOpen) {
                 that.close();
             }

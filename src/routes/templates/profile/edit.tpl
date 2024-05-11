@@ -13,6 +13,15 @@
         <h2>Osobní údaje</h2>
 
         <br>
+        <form method="POST" class="authForm" action="/api/profile/contacts/change-name">
+            <div class="form-group">
+                <label for="new_name">Nové jméno (aktuální: <strong>{$currentUser.label}</strong>)</label>
+                <input type="text" class="form-control" id="new_name" name="new_name" required placeholder="Sem napište své nové jméno">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Změnit jméno</button>
+        </form>
+
+        <br>
         <form method="POST" class="authForm" action="/api/profile/contacts/change-email">
             <div class="form-group">
                 <label for="new_email">Nový email (aktuální: <strong>{$currentUser.email}</strong>)</label>
@@ -28,15 +37,6 @@
                 <input type="password" class="form-control" id="new_password" name="new_password" required placeholder="Sem napište své nové heslo">
             </div>
             <button type="submit" class="btn btn-primary mt-2">Změnit email</button>
-        </form>
-
-        <br>
-        <form method="POST" class="authForm" action="/api/profile/contacts/change-password">
-            <div class="form-group">
-                <label for="new_name">Nové jméno</label>
-                <input type="password" class="form-control" id="new_name" name="new_name" required placeholder="Sem napište své nové jméno">
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Změnit jméno</button>
         </form>
 
         <br><br>
