@@ -2,8 +2,9 @@
 
 include_once('src/services/Api/ApiAuthController.php');
 
-$loggedIn = false;
 $authController = new ApiAuthController();
+
+$loggedIn = false;
 $menu = json_decode(file_get_contents(__DIR__ . '/menu.json'), true);
 
 try {

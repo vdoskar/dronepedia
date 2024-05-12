@@ -28,7 +28,7 @@ if (!empty($currentUser)) {
             AND posts.status = 'ACTIVE'
         ORDER BY posts.date_created DESC
         LIMIT 10
-    ");
+    ") ?? [];
 }
 
 $latestPosts = $databaseConnector->selectAll("
@@ -45,7 +45,7 @@ $latestPosts = $databaseConnector->selectAll("
     LEFT JOIN users_settings ON users.uuid = users_settings.user
     ORDER BY posts.date_created DESC
     LIMIT 10
-");
+") ?? [];
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum");

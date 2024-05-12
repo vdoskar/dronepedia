@@ -18,6 +18,7 @@ class ApiProfileController
     }
 
     /**
+     * Get user data by username
      * @param string $username
      * @return array
      * @throws Exception
@@ -32,6 +33,7 @@ class ApiProfileController
     }
 
     /**
+     * Get user profile settings by UUID of the user
      * @param string $uuid
      * @return array
      * @throws Exception
@@ -46,6 +48,7 @@ class ApiProfileController
     }
 
     /**
+     * Get user drones by UUID of the user
      * @param string $uuid
      * @return array
      */
@@ -70,6 +73,7 @@ class ApiProfileController
     }
 
     /**
+     * Get user posts by UUID of the user
      * @param string $uuid
      * @return array
      */
@@ -83,6 +87,7 @@ class ApiProfileController
     }
 
     /**
+     * Get user comments by UUID of the user
      * @param string $uuid
      * @return array
      */
@@ -96,52 +101,83 @@ class ApiProfileController
     }
 
     /**
+     * Change the email of the current user
      * @param string $newEmail
      * @return void
      * @throws Exception
      */
     public function changeEmail(string $newEmail): void
     {
-        $this->databaseConnector->update(
-            table: "users",
-            data: ["email" => $this->databaseConnector->escape($newEmail)],
-            conditionColumn: "uuid",
-            conditionValue: $this->authController->getCurrentUser()["uuid"]
-        );
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro změnu emailu se musíte přihlásit.");
+            }
+
+            $this->databaseConnector->update(
+                table: "users",
+                data: ["email" => $this->databaseConnector->escape($newEmail)],
+                conditionColumn: "uuid",
+                conditionValue: $currentUser["uuid"]
+            );
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
+     * Change the password of the current user
      * @param string $newPassword
      * @return void
      * @throws Exception
      */
     public function changePassword(string $newPassword): void
     {
-        $this->databaseConnector->update(
-            table: "users",
-            data: ["password" => $this->utilityService->hash($newPassword)],
-            conditionColumn: "uuid",
-            conditionValue: $this->authController->getCurrentUser()["uuid"]
-        );
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro změnu hesla se musíte přihlásit.");
+            }
+
+            $this->databaseConnector->update(
+                table: "users",
+                data: ["password" => $this->utilityService->hash($newPassword)],
+                conditionColumn: "uuid",
+                conditionValue: $currentUser["uuid"]
+            );
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
+     * Change the name (label) of the current user
      * @param string $newName
      * @return void
      * @throws Exception
      */
     public function changeName(string $newName): void
     {
-        $this->databaseConnector->update(
-            table: "users",
-            data: ["label" => $this->databaseConnector->escape($newName)],
-            conditionColumn: "uuid",
-            conditionValue: $this->authController->getCurrentUser()["uuid"]
-        );
+        try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro změnu hesla se musíte přihlásit.");
+            }
+
+            $this->databaseConnector->update(
+                table: "users",
+                data: ["label" => $this->databaseConnector->escape($newName)],
+                conditionColumn: "uuid",
+                conditionValue: $currentUser["uuid"]
+            );
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
 
     /**
+     * Change the settings like avatar, banner and bio
      * @param array $newSettings
      * @return void
      * @throws Exception
@@ -183,11 +219,12 @@ class ApiProfileController
                 );
             }
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 
     /**
+     * Add a new drone
      * @param array $data
      * @return void
      * @throws Exception
@@ -222,11 +259,12 @@ class ApiProfileController
                 data: $result
             );
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 
     /**
+     * Edit an existing drone
      * @param array $data
      * @return void
      * @throws Exception
@@ -272,11 +310,12 @@ class ApiProfileController
             );
 
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 
     /**
+     * Delete an existing drone
      * @param int $droneId
      * @return void
      * @throws Exception
@@ -306,7 +345,7 @@ class ApiProfileController
             );
 
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            echo $e->getMessage();
         }
     }
 }

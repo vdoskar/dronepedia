@@ -13,7 +13,7 @@ $databaseConnector = new DatabaseConnector();
 $postsController = new ApiPostsController();
 $authController = new ApiAuthController();
 
-$currentUser = $authController->getCurrentUser() ?? [];
+$currentUser = $authController->getCurrentUser();
 
 $post = $databaseConnector->selectOneRow("
     SELECT 

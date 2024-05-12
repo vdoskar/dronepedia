@@ -11,18 +11,11 @@ class ApiPostsController
     private UtilityService $utilityService;
 
     public array $categories = [
-        [
-            "id" => 1,
-            "name" => "Drony",
-        ],
-        [
-            "id" => 2,
-            "name" => "Drony s kamerou",
-        ],
-        [
-            "id" => 3,
-            "name" => "Drony s GPS",
-        ],
+        ["id" => "drones", "name" => "Drony"],
+        ["id" => "accessories", "name" => "Příslušenství"],
+        ["id" => "photography", "name" => "Fotografie"],
+        ["id" => "software", "name" => "Software pro drony"],
+        ["id" => "other", "name" => "Ostatní"],
     ];
 
     public function __construct()
@@ -40,59 +33,61 @@ class ApiPostsController
      */
     public function create(array $data): void
     {
-        // check if all required fields are filled
-        if (empty($data["slug"]) ||
-            empty($data["title"]) ||
-            empty($data["short_summary"]) ||
-            empty($data["content"]) ||
-            empty($data["category"])
-        ) {
-            throw new Exception("Nevyplnil/a jste všechny potřebné informace");
-        }
-
-        $currentUser = $this->authController->getCurrentUser() ?? [];
-        if (empty($currentUser)) {
-            throw new Exception("Pro vytvoření příspěvku se musíte přihlásit.");
-        }
-
-        // create slug that also serves as unique identifier for the post
-        $slug = trim($data["slug"]);
-        while (!$this->isSlugAvailable($slug)) {
-            $slug = $this->databaseConnector->escape(
-                $this->utilityService->normalizeString($data["slug"] . "-" . rand(1000, 999999))
-            );
-        }
-
-        // save to db
-        $result = [
-            "slug" => $this->databaseConnector->escape($slug),
-            "title" => $this->databaseConnector->escape($this->utilityService->normalizeString($data["title"])),
-            "short_summary" => $this->databaseConnector->escape(
-                $this->utilityService->normalizeString($data["short_summary"])
-            ),
-            "author" => $currentUser["uuid"],
-            "content" => $data["content"],
-            "category" => $this->databaseConnector->escape($data["category"]),
-            "date_created" => date("Y-m-d H:i:s"),
-            "date_updated" => date("Y-m-d H:i:s"),
-            "status" => "ACTIVE",
-        ];
-
         try {
+            // check if all required fields are filled
+            if (empty($data["slug"]) ||
+                empty($data["title"]) ||
+                empty($data["short_summary"]) ||
+                empty($data["content"]) ||
+                empty($data["category"])
+            ) {
+                throw new Exception("Nevyplnil/a jste všechny potřebné informace");
+            }
+
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro vytvoření příspěvku se musíte přihlásit.");
+            }
+
+            // create slug that also serves as unique identifier for the post
+            $slug = trim($data["slug"]);
+            while (!$this->isSlugAvailable($slug)) {
+                $slug = $this->databaseConnector->escape(
+                    $this->utilityService->normalizeString($data["slug"] . "-" . rand(1000, 999999))
+                );
+            }
+
+            // save to db
+            $result = [
+                "slug" => $this->databaseConnector->escape($slug),
+                "title" => $this->databaseConnector->escape(
+                    $this->utilityService->normalizeString($data["title"])
+                ),
+                "short_summary" => $this->databaseConnector->escape(
+                    $this->utilityService->normalizeString($data["short_summary"])
+                ),
+                "author" => $currentUser["uuid"],
+                "content" => $data["content"],
+                "category" => $this->databaseConnector->escape($data["category"]),
+                "date_created" => date("Y-m-d H:i:s"),
+                "date_updated" => date("Y-m-d H:i:s"),
+                "status" => "ACTIVE",
+            ];
+
             $this->databaseConnector->insert(
                 table: "posts",
                 data: $result
             );
+
+            // now the post is saved, retrieve if for attachments
+            $savedPost = $this->getPostBySlug($slug);
+
+            $attachments = $data["attachments"] ?? [];
+            if (!empty($attachments)) {
+                $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
+            }
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-
-        // now the post is saved, retrieve if for attachments
-        $savedPost = $this->getPostBySlug($slug);
-
-        $attachments = $data["attachments"] ?? [];
-        if (!empty($attachments)) {
-            $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
+            echo $e->getMessage();
         }
     }
 
@@ -105,25 +100,25 @@ class ApiPostsController
      */
     public function edit(string $postSlug, array $newData): void
     {
-        $currentUser = $this->authController->getCurrentUser() ?? [];
-        if (empty($currentUser)) {
-            throw new Exception("Pro editaci příspěvku se musíte přihlásit.");
-        }
-
-        $result = [
-            "slug" => $this->databaseConnector->escape($postSlug),
-            "short_summary" => $this->databaseConnector->escape($newData["short_summary"]) ?? "",
-            "content" => $newData["content"],
-            "date_updated" => date("Y-m-d H:i:s"),
-        ];
-
-        // check if the post exists and is owned by the user
-        $savedPost = $this->getPostBySlug($postSlug);
-        if (empty($savedPost) || $savedPost["author"] != $currentUser["uuid"]) {
-            throw new Exception("Příspěvek neexistuje nebo není váš.");
-        }
-
         try {
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro editaci příspěvku se musíte přihlásit.");
+            }
+
+            $result = [
+                "slug" => $this->databaseConnector->escape($postSlug),
+                "short_summary" => $this->databaseConnector->escape($newData["short_summary"] ?? ""),
+                "content" => $newData["content"],
+                "date_updated" => date("Y-m-d H:i:s"),
+            ];
+
+            // check if the post exists and is owned by the user
+            $savedPost = $this->getPostBySlug($postSlug);
+            if (empty($savedPost) || $savedPost["author"] != $currentUser["uuid"]) {
+                throw new Exception("Příspěvek neexistuje nebo není váš.");
+            }
+
             // update post
             $this->databaseConnector->update(
                 table: "posts",
@@ -131,14 +126,14 @@ class ApiPostsController
                 conditionColumn: "slug",
                 conditionValue: $postSlug,
             );
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
 
-        // attachments
-        $attachments = $newData["attachments"] ?? [];
-        if (!empty($attachments)) {
-            $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
+            // attachments
+            $attachments = $newData["attachments"] ?? [];
+            if (!empty($attachments)) {
+                $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -150,47 +145,39 @@ class ApiPostsController
      */
     public function delete(string $postSlug): void
     {
-        $currentUser = $this->authController->getCurrentUser() ?? [];
-        if (empty($currentUser)) {
-            throw new Exception("Pro smazání příspěvku se musíte přihlásit.");
-        }
-
-        $savedPost = $this->getPostBySlug($postSlug);
-        if (empty($savedPost) || $savedPost["author"] != $currentUser["uuid"]) {
-            throw new Exception("Příspěvek neexistuje nebo není váš.");
-        }
-
-        // delete post
         try {
-            $this->databaseConnector->delete(
-                table: "posts",
-                conditionColumn: "slug",
-                conditionValue: $postSlug,
-            );
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
+            $currentUser = $this->authController->getCurrentUser() ?? [];
+            if (empty($currentUser)) {
+                throw new Exception("Pro smazání příspěvku se musíte přihlásit.");
+            }
 
-        // delete attachments
-        try {
-            $this->databaseConnector->delete(
-                table: "posts_attachments",
-                conditionColumn: "post_id",
-                conditionValue: $savedPost["id"]
-            );
-        } catch (Exception $e) {
-            throw new Exception("Chyba u mazání příloh: " . $e->getMessage());
-        }
+            $savedPost = $this->getPostBySlug($postSlug);
+            if (empty($savedPost) || $savedPost["author"] != $currentUser["uuid"]) {
+                throw new Exception("Příspěvek neexistuje nebo není váš.");
+            }
 
-        // delete comments
-        try {
-            $this->databaseConnector->delete(
-                table: "posts_comments",
-                conditionColumn: "post_id",
-                conditionValue: $savedPost["id"]
-            );
+            // delete post
+                $this->databaseConnector->delete(
+                    table: "posts",
+                    conditionColumn: "slug",
+                    conditionValue: $postSlug,
+                ) ?? throw new Exception("Chyba u mazání příspěvku.");
+
+            // delete attachments
+                $this->databaseConnector->delete(
+                    table: "posts_attachments",
+                    conditionColumn: "post_id",
+                    conditionValue: $savedPost["id"]
+                ) ?? throw new Exception("Chyba u mazání příloh.");
+
+            // delete attachments
+                $this->databaseConnector->delete(
+                    table: "posts_comments",
+                    conditionColumn: "post_id",
+                    conditionValue: $savedPost["id"]
+                ) ?? throw new Exception("Chyba u mazání komentářů.");
         } catch (Exception $e) {
-            throw new Exception("Chyba u mazání komentářů: " . $e->getMessage());
+            echo $e->getMessage();
         }
     }
 
@@ -223,25 +210,25 @@ class ApiPostsController
             $this->databaseConnector->delete(
                 table: "posts_attachments",
                 conditionColumn: "post_id",
-                conditionValue: $postId,
-            );
-        } catch (Exception $e) {
-            throw new Exception("Chyba u mazání příloh: " . $e->getMessage());
-        }
+                conditionValue: $postId
+            ) ?? throw new Exception("Chyba u mazání příloh.");
 
-        foreach ($attachments as $attachment) {
-            try {
+            foreach ($attachments as $attachment) {
+                $data = [
+                    "post_id" => $postId,
+                    "url" => $this->databaseConnector->escape(
+                        $this->utilityService->normalizeString($attachment)
+                    ),
+                    "type" => "TBD",
+                ];
+
                 $this->databaseConnector->insert(
                     table: "posts_attachments",
-                    data: [
-                        "post_id" => $postId,
-                        "url" => $this->databaseConnector->escape($this->utilityService->normalizeString($attachment)),
-                        "type" => "TBD",
-                    ],
+                    data: $data
                 );
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage());
             }
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 

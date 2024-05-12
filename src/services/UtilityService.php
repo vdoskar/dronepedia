@@ -4,7 +4,6 @@ class UtilityService
 {
     public function __construct()
     {
-
     }
 
     /**
@@ -23,7 +22,7 @@ class UtilityService
     }
 
     /**
-     * Hash the data using sha256 to keep hashing consistent
+     * Hash the data using sha256
      * @param string $data
      * @return string
      */

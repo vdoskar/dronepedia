@@ -9,7 +9,6 @@ $databaseConnector = new DatabaseConnector();
 $postsController = new ApiPostsController();
 
 $currentUser = $authController->getCurrentUser();
-
 if (empty($currentUser) || empty($_GET["p"])) {
     header("Location: /login");
     exit();

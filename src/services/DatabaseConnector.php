@@ -3,21 +3,18 @@
 class DatabaseConnector
 {
     private mysqli $connection;
-
     private string $servername = "localhost";
     private string $db = "dronepedia";
-    private string $username_admin = "root";
-    private string $password_admin = "";
-    private string $username_user = "root";
-    private string $password_user = "";
+    private string $username = "root";
+    private string $password = "";
 
     public function __construct()
     {
         $this->connection = new mysqli(
-            $this->servername,
-            $this->username_admin,
-            $this->password_admin,
-            $this->db
+            hostname: $this->servername,
+            username: $this->username,
+            password: $this->password,
+            database: $this->db
         );
 
         if ($this->connection->connect_error) {
@@ -26,6 +23,7 @@ class DatabaseConnector
     }
 
     /**
+     * Insert the data into the given table
      * @param string $table
      * @param array $data
      * @return void
@@ -63,17 +61,15 @@ class DatabaseConnector
     }
 
     /**
+     * Delete the data from the given table based on the condition
      * @param string $table
      * @param string $conditionColumn
-     * @param $conditionValue
+     * @param string|int|float $conditionValue
      * @return void
      * @throws Exception
      */
-    public function delete(
-        string $table,
-        string $conditionColumn,
-        $conditionValue
-    ): void {
+    public function delete(string $table, string $conditionColumn, string|int|float $conditionValue): void
+    {
         $this->connection->begin_transaction();
         try {
             $sql = "DELETE FROM " . $table . " WHERE $conditionColumn = ?";
@@ -97,10 +93,11 @@ class DatabaseConnector
     }
 
     /**
+     * Update the data in the given table based on the condition
      * @param string $table
      * @param array $data
      * @param string $conditionColumn
-     * @param null $conditionValue
+     * @param string|int|float|null $conditionValue
      * @return void
      * @throws Exception
      */
@@ -108,7 +105,7 @@ class DatabaseConnector
         string $table,
         array $data,
         string $conditionColumn = "",
-        $conditionValue = null
+        string|int|float|null $conditionValue = null
     ): void {
         $this->connection->begin_transaction();
         try {
@@ -146,6 +143,7 @@ class DatabaseConnector
     }
 
     /**
+     * Query that returns a single row as an associative array
      * @param string $query
      * @return array|null
      * @throws Exception
@@ -164,10 +162,11 @@ class DatabaseConnector
     }
 
     /**
+     * Query that returns a single value (e.g. MAX, COUNT, etc.)
      * @param string $query
-     * @return string|int|float|null
+     * @return mixed
      */
-    public function selectOneValue(string $query): string|int|float|null
+    public function selectOneValue(string $query): mixed
     {
         $result = $this->connection->query($query);
         if (!$result || $result->num_rows === 0) {
@@ -182,6 +181,7 @@ class DatabaseConnector
     }
 
     /**
+     * Query that returns multiple rows as an associative array
      * @param string $query
      * @return array
      */
@@ -199,12 +199,12 @@ class DatabaseConnector
     }
 
     /**
+     * Escape the string to prevent SQL injection
      * @param string $string
      * @return string
      */
     public function escape(string $string): string
     {
-        // remove potentioal harmful characters from cross site scripting
         return htmlspecialchars($this->connection->real_escape_string($string));
     }
 }
