@@ -21,9 +21,9 @@
     </div>
     <div class="pc-status post-card-item">
         {if $post.status == "ACTIVE"}
-            <span class="badge badge-success">{$post.status}</span>
+            <span class="badge badge-success">AKTIVNÍ</span>
         {else}
-            <span class="badge badge-danger">{$post.status}</span>
+            <span class="badge badge-danger">UZAVŘEN</span>
         {/if}
     </div>
 </div>

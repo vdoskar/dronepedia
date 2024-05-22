@@ -12,8 +12,7 @@ try {
         $loggedIn = true;
     }
 } catch (Exception $e) {
-    echo $e->getMessage();
-    exit();
+    echo $e->getMessage(); die();
 }
 
 $smarty = new Smarty();

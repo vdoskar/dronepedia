@@ -50,11 +50,21 @@ $comments = $databaseConnector->selectAll("
     ORDER BY posts_comments.date_created DESC
 ");
 
+$attachments = $databaseConnector->selectAll("
+    SELECT 
+        posts_attachments.id, 
+        posts_attachments.type, 
+        posts_attachments.url
+    FROM posts_attachments
+    WHERE posts_attachments.post_id = " . $post["id"]
+);
+
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("title", $post["title"]);
 $smarty->assign("bgImg", "https://picsum.photos/1920/250");
 $smarty->assign("post", $post);
 $smarty->assign("comments", $comments);
+$smarty->assign("attachments", $attachments);
 $smarty->assign("currentUser", $currentUser ?? null);
 $smarty->display("item.tpl");

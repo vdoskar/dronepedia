@@ -13,7 +13,7 @@ class ApiPostsController
     public array $categories = [
         ["id" => "drones", "name" => "Drony"],
         ["id" => "accessories", "name" => "Příslušenství"],
-        ["id" => "photography", "name" => "Fotografie"],
+        ["id" => "media", "name" => "Fotografie, videa a jiná média"],
         ["id" => "software", "name" => "Software pro drony"],
         ["id" => "other", "name" => "Ostatní"],
     ];
@@ -41,7 +41,7 @@ class ApiPostsController
                 empty($data["content"]) ||
                 empty($data["category"])
             ) {
-                throw new Exception("Nevyplnil/a jste všechny potřebné informace");
+                throw new Exception("Nevyplnil/a jste všechny potřebné informace.");
             }
 
             $currentUser = $this->authController->getCurrentUser() ?? [];
@@ -87,7 +87,7 @@ class ApiPostsController
                 $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -133,7 +133,7 @@ class ApiPostsController
                 $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -177,7 +177,7 @@ class ApiPostsController
                     conditionValue: $savedPost["id"]
                 ) ?? throw new Exception("Chyba u mazání komentářů.");
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -205,14 +205,20 @@ class ApiPostsController
      */
     private function insertOrUpdateAttachments(array $attachments, int $postId): void
     {
-        // delete all attachments if any exist
         try {
-            $this->databaseConnector->delete(
-                table: "posts_attachments",
-                conditionColumn: "post_id",
-                conditionValue: $postId
-            ) ?? throw new Exception("Chyba u mazání příloh.");
+            // delete all attachments if any exist
+            $existingAttachments = $this->databaseConnector->selectAll(
+                "SELECT * FROM posts_attachments WHERE post_id = " . $postId
+            );
+            if (!empty($existingAttachments)) {
+                $this->databaseConnector->delete(
+                    table: "posts_attachments",
+                    conditionColumn: "post_id",
+                    conditionValue: $postId
+                );
+            }
 
+            // insert new ones
             foreach ($attachments as $attachment) {
                 $data = [
                     "post_id" => $postId,
@@ -228,7 +234,7 @@ class ApiPostsController
                 );
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 

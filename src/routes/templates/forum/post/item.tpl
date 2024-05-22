@@ -16,6 +16,7 @@
     <p>{$post.short_summary}</p>
     <div class="group">
         <p>Autor článku: <a href="/profile?u={$post.author_tag}">{$post.author}</a></p>
+        <p><i>Publikováno: {$post.date_created|date_format:"%d.%m.%Y %H:%M"}</i></p>
     </div>
     <hr>
     <div class="group">
@@ -23,6 +24,15 @@
             {$post.content}
         </div>
     </div>
+    {if $attachments|count > 0}
+        <div class="group">
+            <h5 class="mb-2">Přiložené odkazy</h5>
+            {foreach $attachments as $attachment}
+                <a href="{$attachment.url}" target="_blank">{$attachment.url}</a>
+                <br>
+            {/foreach}
+        </div>
+    {/if}
     <hr>
     <div class="group">
         <h3>Komentáře k příspěvku:</h3>
@@ -54,7 +64,7 @@
         {if $comments|count > 0}
             {foreach $comments as $comment}
                 <div class="comment">
-                    <div class="comment-header mb-2">
+                    <div class="comment-header mb-3">
                         <a href="/profile?u={$comment.author_tag}" class="btn btn-primary">
                             <i class="fa-solid fa-user"></i>
                             &nbsp; {$comment.author}
@@ -69,18 +79,17 @@
                 </div>
             {/foreach}
         {else}
-            <p><i>Zatím zde nejsou žádné komentáře. Buďte první, kdo příspěvek okomentuje!</i></p>
+            <p>
+                <i>Zatím zde nejsou žádné komentáře.{if $currentUser} Buďte první, kdo příspěvek okomentuje!{/if}</i>
+            </p>
         {/if}
     </div>
 </div>
 
 <script>
-
     document.getElementById('addComment').addEventListener('click', function(ev) {
         ev.target.style.display = 'none';
         document.getElementById('commentForm').style.display = 'block';
         editor.init("comment_content");
     });
-
 </script>
-

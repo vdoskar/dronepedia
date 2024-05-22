@@ -23,7 +23,7 @@ class DatabaseConnector
     }
 
     /**
-     * Insert the data into the given table
+     * Insert the data of one row into the given table
      * @param string $table
      * @param array $data
      * @return void
@@ -41,14 +41,12 @@ class DatabaseConnector
             $sql .= str_repeat('?, ', count($data) - 1) . '?)';
 
             $stmt = $this->connection->prepare($sql);
-
             if (!$stmt) {
                 throw new Exception("Error preparing statement: " . $this->connection->error);
             }
 
             $types = str_repeat('s', count($data));
             $stmt->bind_param($types, ...array_values($data));
-
             if (!$stmt->execute()) {
                 throw new Exception("Error executing statement: " . $stmt->error);
             }
@@ -75,7 +73,6 @@ class DatabaseConnector
             $sql = "DELETE FROM " . $table . " WHERE $conditionColumn = ?";
 
             $stmt = $this->connection->prepare($sql);
-
             if (!$stmt) {
                 throw new Exception("Error preparing statement: " . $this->connection->error);
             }
@@ -110,7 +107,6 @@ class DatabaseConnector
         $this->connection->begin_transaction();
         try {
             $sql = "UPDATE " . $table . " SET ";
-
             foreach ($data as $column => $value) {
                 $sql .= "$column = ?, ";
             }
@@ -127,7 +123,6 @@ class DatabaseConnector
 
             $types = str_repeat('s', count($data));
             $types .= 's';
-
             $values = array_merge(array_values($data), [$conditionValue]);
 
             $stmt->bind_param($types, ...$values);

@@ -47,7 +47,7 @@ class ApiAuthController
             $this->setLoggedUser($result["uuid"]);
 
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -72,7 +72,7 @@ class ApiAuthController
            // vytvorime nove prihlaseni
            $this->setLoggedUser($result["uuid"]);
        } catch (Exception $e) {
-           echo $e->getMessage();
+           header("Location: /error?error=" . $e->getMessage()); exit();
        }
     }
 
@@ -91,7 +91,7 @@ class ApiAuthController
            );
            setcookie("SESSION_ID", "", time() - 3600, "/");
        } catch (Exception $e) {
-           echo $e->getMessage();
+           header("Location: /error?error=" . $e->getMessage()); exit();
        }
     }
 
@@ -209,6 +209,7 @@ class ApiAuthController
                     "user" => $userUUID
                 ],
             );
+
             // last login
             $this->databaseConnector->update(
                 table: "users",
@@ -216,10 +217,12 @@ class ApiAuthController
                 conditionColumn: "uuid",
                 conditionValue: $userUUID
             );
+
+            // set cookie
             setcookie("SESSION_ID", $loginToken, time() + 3600 * 24 * 7, "/");
 
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 }

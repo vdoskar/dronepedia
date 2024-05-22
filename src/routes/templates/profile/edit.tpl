@@ -4,15 +4,14 @@
     <div class="group">
         <a href="/profile?u={$currentUser.username}" class="btn btn-secondary">
             <i class="fa-solid fa-circle-left"></i>
-            Zpět na profil
+            &nbsp;Zpět na profil
         </a>
     </div>
 
     <div class="group">
-
         <h2>Osobní údaje</h2>
-
         <br>
+
         <form method="POST" class="authForm" action="/api/profile/contacts/change-name">
             <div class="form-group">
                 <label for="new_name">Nové jméno (aktuální: <strong>{$currentUser.label}</strong>)</label>
@@ -27,7 +26,7 @@
                 <label for="new_email">Nový email (aktuální: <strong>{$currentUser.email}</strong>)</label>
                 <input type="email" class="form-control" id="new_email" name="new_email" required placeholder="Sem napište svůj nový e-mail">
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Změnit heslo</button>
+            <button type="submit" class="btn btn-primary mt-2">Změnit email</button>
         </form>
 
         <br>
@@ -36,7 +35,7 @@
                 <label for="new_password">Nové heslo</label>
                 <input type="password" class="form-control" id="new_password" name="new_password" required placeholder="Sem napište své nové heslo">
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Změnit email</button>
+            <button type="submit" class="btn btn-primary mt-2">Změnit heslo</button>
         </form>
 
         <br><br>

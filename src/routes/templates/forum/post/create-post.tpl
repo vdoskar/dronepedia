@@ -25,7 +25,7 @@
         <br>
         <div class="form-group">
             <label for="content">Obsah</label>
-            <textarea class="form-control" id="content" name="content"  required></textarea>
+            <textarea class="form-control" id="content" name="content" required></textarea>
         </div>
         <br>
         <div class="form-group">
@@ -48,9 +48,9 @@
 </div>
 
 <script>
+    // init editor
     editor.init('content');
-</script>
-<script>
+
     // create slug from title
     document.getElementById('title').addEventListener('input', function(event) {
         document.getElementById('slug').value = utils.slugify(event.target.value);

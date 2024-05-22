@@ -31,8 +31,7 @@ try {
     $userPosts = $profileController->getUserPosts($user["uuid"]);
     $userComments = $profileController->getUserComments($user["uuid"]);
 } catch (Exception $e) {
-    echo $e->getMessage();
-    return;
+    echo $e->getMessage(); die();
 }
 
 if (empty($userSettings)) {

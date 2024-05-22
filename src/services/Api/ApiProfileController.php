@@ -121,7 +121,7 @@ class ApiProfileController
                 conditionValue: $currentUser["uuid"]
             );
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -146,7 +146,7 @@ class ApiProfileController
                 conditionValue: $currentUser["uuid"]
             );
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -171,7 +171,7 @@ class ApiProfileController
                 conditionValue: $currentUser["uuid"]
             );
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -198,9 +198,13 @@ class ApiProfileController
 
         $result = [
             "user" => $currentUser["uuid"],
-            "pic_profile" => $this->databaseConnector->escape($newSettings["avatar"]),
-            "pic_banner" => $this->databaseConnector->escape($newSettings["banner"]),
-            "bio" => $this->databaseConnector->escape($newSettings["bio"]),
+            "pic_profile" => $this->databaseConnector->escape(
+                $this->utilityService->normalizeString($newSettings["avatar"])
+            ),
+            "pic_banner" => $this->databaseConnector->escape(
+                $this->utilityService->normalizeString($newSettings["banner"])
+            ),
+            "bio" => $this->databaseConnector->escape($this->utilityService->normalizeString($newSettings["bio"])),
         ];
 
         $settings = $this->getUserSettings($currentUser["uuid"]);
@@ -219,7 +223,7 @@ class ApiProfileController
                 );
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -259,7 +263,7 @@ class ApiProfileController
                 data: $result
             );
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -281,7 +285,8 @@ class ApiProfileController
                 throw new Exception("Pro aktualizaci dronu musíte být přihlášený");
             }
 
-            $currentDroneData = $this->databaseConnector->selectOneRow("
+            $currentDroneData = $this->databaseConnector->selectOneRow(
+                "
                 SELECT * FROM users_drones
                 WHERE id = '" . $this->databaseConnector->escape($data["drone_id"]) . "'"
             ) ?? throw new Exception("Dron nebyl nalezen");
@@ -308,9 +313,8 @@ class ApiProfileController
                 conditionColumn: "id",
                 conditionValue: $data["drone_id"],
             );
-
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 
@@ -343,9 +347,8 @@ class ApiProfileController
                 conditionColumn: "id",
                 conditionValue: $droneId
             );
-
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 }

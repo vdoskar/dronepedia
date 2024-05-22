@@ -26,7 +26,7 @@ class ApiPostsCommentsController
                 empty($data["comment_content"]) ||
                 empty($data["author"])
             ) {
-                throw new Exception("Missing required fields", 400);
+                throw new Exception("Nevyplnil/a jste všechny potřebné údaje.");
             }
 
             if (!$this->authController->validateLogin()) {
@@ -45,7 +45,7 @@ class ApiPostsCommentsController
                 data: $result
             );
         } catch (Exception $e) {
-            echo $e->getMessage();
+            header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
 

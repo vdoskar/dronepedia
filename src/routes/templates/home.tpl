@@ -3,14 +3,14 @@
         DronePedia
     </h1>
     <h2 class="text-center">
-        Portál pro dronery a dronové nadšence
+        Portál pro dronové piloty a nadšence
     </h2>
 </header>
 
 <div class="content halfBody">
     <div class="group text-center">
         <h3 class="mb-4">
-            Vítejte na portálu DronePedia, který je určený pro všechny dronery a dronové nadšence. Na našem portálu najdete informace o dronové technice, zákonitostech a mnoho dalšího.
+            Vítejte na portálu DronePedia, který je určený pro všechny dronové piloty i nadšence. Na našem portálu najdete informace o dronové technice, zákonitostech a mnoho dalšího.
         </h3>
         <br>
     </div>
@@ -35,10 +35,7 @@
         </p>
     </div>
     <div class="group text-center">
-        <h3>Již jste členem?</h3>
-        <a href="/forum" class="btn btn-primary">Přejít na fórum</a>
-        <h3>Stále nejste členem?</h3>
-        <a href="/register" class="btn btn-primary">Zaregistrovat se</a>
-        <a href="/login" class="btn btn-primary">Přihlásit se</a>
+        <h3>Stále nejste členem? Zaregistrujte se a připojte se do diskuze ještě dnes!</h3>
+        <a href="/register" class="btn btn-primary" style="mb-4">Zaregistrovat se</a>
     </div>
 </div>

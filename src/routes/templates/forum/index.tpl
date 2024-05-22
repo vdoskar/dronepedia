@@ -28,24 +28,19 @@
         </section>
     </div>
 
-    <div class="group">
-        <h2>Moje aktivní příspěvky</h2>
-        <br>
-        <section class="forum-section">
-            {if $myPosts|count > 0 }
-                {foreach $myPosts as $post}
-                    {include file="list-item.tpl" post=$post}
-                {/foreach}
-            {else}
-                <p><i>Zatím si nevytvořil žádný příspěvek, tak hurá do toho!</i></p>
-            {/if}
-        </section>
-    </div>
-
-{*    <div class="group">*}
-{*        <h2>Všechny kategorie</h2>*}
-{*        <br>*}
-{*        <section>*}
-{*        </section>*}
-{*    </div>*}
+    {if $currentUser}
+        <div class="group">
+            <h2>Moje aktivní příspěvky</h2>
+            <br>
+            <section class="forum-section">
+                {if $myPosts|count > 0 }
+                    {foreach $myPosts as $post}
+                        {include file="list-item.tpl" post=$post}
+                    {/foreach}
+                {else}
+                    <p><i>Zatím jste nevytvořil/a žádný příspěvek, tak hurá do toho!</i></p>
+                {/if}
+            </section>
+        </div>
+    {/if}
 </div>

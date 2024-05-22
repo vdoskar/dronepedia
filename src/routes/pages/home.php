@@ -2,5 +2,5 @@
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates");
-$smarty->assign("bgImg", "https://picsum.photos/1920/850");
+$smarty->assign("bgImg", "https://cdn.dronepedia.krisp1k.eu/images/header_home3.jpg");
 $smarty->display("home.tpl");

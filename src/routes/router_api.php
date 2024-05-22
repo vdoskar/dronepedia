@@ -6,11 +6,13 @@ require_once 'src/services/Api/ApiAuthController.php';
 require_once 'src/services/Api/ApiPostsController.php';
 require_once 'src/services/Api/ApiProfileController.php';
 require_once 'src/services/Api/ApiPostsCommentsController.php';
+require_once 'src/services/DatabaseConnector.php';
 
 $authController = new ApiAuthController();
 $postsController = new ApiPostsController();
 $profileController = new ApiProfileController();
 $commentsController = new ApiPostsCommentsController();
+$databaseController = new DatabaseConnector();
 
 switch ($request) {
     //
@@ -42,14 +44,16 @@ switch ($request) {
 
     // CREATE A NEW POST
     case "/api/posts/create":
+        $slug = $databaseController->escape($_POST["slug"]);
         $postsController->create($_POST);
-        header("Location: /forum");
+        header("Location:/forum/post?p=" . $slug);
         break;
 
     // EDIT A POST
     case "/api/posts/edit":
-        $postsController->edit($_POST["slug"], $_POST);
-        header("Location: /forum/post?p=" . $_POST["slug"]);
+        $slug = $databaseController->escape($_POST["slug"]);
+        $postsController->edit($slug, $_POST);
+        header("Location: /forum/post?p=" . $slug);
         break;
 
     // DELETE A POST

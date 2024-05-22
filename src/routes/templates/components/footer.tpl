@@ -6,6 +6,9 @@
         <p>
             <a href="https://github.com/vdoskar/dronepedia">GitHub</a>
         </p>
+        <p>
+            <a href="/sources">Použité zdroje</a>
+        </p>
     </div>
     <div class="footer-legal">
         <p>

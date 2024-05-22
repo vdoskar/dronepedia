@@ -44,6 +44,15 @@ i {
     transform: scale(1.25) !important;
 }
 
+.btn {
+    min-height: 40px !important;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .btn-primary {
     background-color: var(--secondaryYellow) !important;
     color: var(--primaryBlack) !important;
