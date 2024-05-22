@@ -285,11 +285,13 @@ class ApiProfileController
                 throw new Exception("Pro aktualizaci dronu musíte být přihlášený");
             }
 
-            $currentDroneData = $this->databaseConnector->selectOneRow(
-                "
+            $currentDroneData = $this->databaseConnector->selectOneRow("
                 SELECT * FROM users_drones
                 WHERE id = '" . $this->databaseConnector->escape($data["drone_id"]) . "'"
-            ) ?? throw new Exception("Dron nebyl nalezen");
+            );
+            if (empty($currentDroneData)) {
+                throw new Exception("Dron nebyl nalezen");
+            }
 
             if ($currentDroneData["owner"] != $currentUser["uuid"]) {
                 throw new Exception("Nemáte oprávnění k úpravě tohoto dronu");
@@ -336,7 +338,10 @@ class ApiProfileController
                 "
                 SELECT * FROM users_drones
                 WHERE id = '" . $this->databaseConnector->escape($droneId) . "'"
-            ) ?? throw new Exception("Dron nebyl nalezen");
+            );
+            if (empty($currentDroneData)) {
+                throw new Exception("Dron nebyl nalezen");
+            }
 
             if ($currentDroneData["owner"] != $currentUser["uuid"]) {
                 throw new Exception("Nemáte oprávnění k úpravě tohoto dronu");

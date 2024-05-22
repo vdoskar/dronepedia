@@ -87,7 +87,8 @@ class ApiPostsController
                 $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
             }
         } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage()); exit();
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
         }
     }
 
@@ -133,7 +134,8 @@ class ApiPostsController
                 $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
             }
         } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage()); exit();
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
         }
     }
 
@@ -157,25 +159,25 @@ class ApiPostsController
             }
 
             // delete post
-                $this->databaseConnector->delete(
-                    table: "posts",
-                    conditionColumn: "slug",
-                    conditionValue: $postSlug,
-                ) ?? throw new Exception("Chyba u mazání příspěvku.");
+            $this->databaseConnector->delete(
+                table: "posts",
+                conditionColumn: "slug",
+                conditionValue: $postSlug,
+            );
 
             // delete attachments
-                $this->databaseConnector->delete(
-                    table: "posts_attachments",
-                    conditionColumn: "post_id",
-                    conditionValue: $savedPost["id"]
-                ) ?? throw new Exception("Chyba u mazání příloh.");
+            $this->databaseConnector->delete(
+                table: "posts_attachments",
+                conditionColumn: "post_id",
+                conditionValue: $savedPost["id"]
+            );
 
             // delete attachments
-                $this->databaseConnector->delete(
-                    table: "posts_comments",
-                    conditionColumn: "post_id",
-                    conditionValue: $savedPost["id"]
-                ) ?? throw new Exception("Chyba u mazání komentářů.");
+            $this->databaseConnector->delete(
+                table: "posts_comments",
+                conditionColumn: "post_id",
+                conditionValue: $savedPost["id"]
+            );
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage()); exit();
         }
@@ -234,7 +236,8 @@ class ApiPostsController
                 );
             }
         } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage()); exit();
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
         }
     }
 
