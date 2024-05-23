@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Databáze: `dronepedia`
@@ -87,13 +87,13 @@ CREATE TABLE `posts_comments` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `date_registered` datetime NOT NULL,
-  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `username` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `label` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `label` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `date_updated` datetime DEFAULT NULL,
   `date_last_login` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Table that stores all registered users';
@@ -129,10 +129,10 @@ CREATE TABLE `users_drones` (
 
 CREATE TABLE `users_logged` (
   `id` int(11) NOT NULL,
-  `user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `logged_since` datetime NOT NULL,
   `logged_until` datetime DEFAULT NULL,
-  `session_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `session_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -147,10 +147,10 @@ CREATE TABLE `users_logged` (
 
 CREATE TABLE `users_settings` (
   `id` int(11) NOT NULL,
-  `user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `bio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pic_profile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pic_banner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bio` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pic_profile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pic_banner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
