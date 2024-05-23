@@ -69,12 +69,6 @@
 
 
 <script>
-    // TODO: remove this before production
-    document.getElementById("username").value = "John doe";
-    document.getElementById("usertag").value = "john_doee";
-    document.getElementById("email").value = "vladimir.doskar@tul.cz";
-    document.getElementById("pass1").value = "A123456789";
-    document.getElementById("pass2").value = "A123456789";
 
     // Slugify usertag
     document.getElementById("usertag").addEventListener("input", function(event) {

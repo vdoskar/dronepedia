@@ -150,6 +150,10 @@ header {
     font-family: var(--fontFamilyPrimary);
 }
 
+header h1 {
+    text-transform: uppercase;
+}
+
 #homepageHeader {
     height: calc(100vh - var(--navbarHeight));
 }

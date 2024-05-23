@@ -50,7 +50,7 @@ $latestPosts = $databaseConnector->selectAll("
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum");
 $smarty->assign("title", "Komunitní fórum");
-$smarty->assign("bgImg", "https://picsum.photos/1920/250");
+$smarty->assign("bgImg", "https://cdn.dronepedia.krisp1k.eu/images/header_forum.webp");
 $smarty->assign("latestPosts", $latestPosts);
 $smarty->assign("myPosts", $myPosts);
 $smarty->assign("currentUser", $currentUser ?? null);
