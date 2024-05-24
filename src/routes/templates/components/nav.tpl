@@ -17,6 +17,14 @@
 <div class="group">
     <ul class="navbar-nav">
         {if $loggedIn}
+            {if $isAdmin}
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">
+                        &nbsp; <i class="fa-solid fa-code"></i>
+                        &nbsp;Administrace &nbsp;
+                    </a>
+                </li>
+            {/if}
             <li class="nav-item">
                 <a class="nav-link" href="/profile">
                     &nbsp; <i class="fa-solid fa-user"></i>

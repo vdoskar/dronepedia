@@ -34,18 +34,24 @@
         <div id="tab_users" class="tab-section">
             {if $users|count > 0}
                 {include file='users.tpl'}
+            {else}
+                <p>Žádní uživatelé</p>
             {/if}
         </div>
 
         <div id="tab_posts" class="tab-section">
             {if $posts|count > 0}
                 {include file='posts.tpl'}
+            {else}
+                <p>Žádné příspěvky</p>
             {/if}
         </div>
 
         <div id="tab_comments" class="tab-section">
             {if $comments|count > 0}
                 {include file='comments.tpl'}
+            {else}
+                <p>Žádné komentáře</p>
             {/if}
         </div>
 

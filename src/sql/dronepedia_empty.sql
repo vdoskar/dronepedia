@@ -88,12 +88,12 @@ CREATE TABLE `posts_comments` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `uuid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `date_registered` datetime NOT NULL,
   `email` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `username` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `label` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `date_registered` datetime NOT NULL,
   `date_updated` datetime DEFAULT NULL,
   `date_last_login` datetime DEFAULT NULL,
   `failed_login_attempts` INT(1) NOT NULL DEFAULT '0',
