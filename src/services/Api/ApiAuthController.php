@@ -8,6 +8,7 @@ class ApiAuthController
     private DatabaseConnector $databaseConnector;
     private UtilityService $utilityService;
     private array $currentUser = [];
+    private const MAX_LOGIN_ATTEMPTS = 5;
 
     public function __construct()
     {
@@ -45,9 +46,9 @@ class ApiAuthController
 
             $this->databaseConnector->insert("users", $result);
             $this->setLoggedUser($result["uuid"]);
-
         } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage()); exit();
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
         }
     }
 
@@ -58,22 +59,65 @@ class ApiAuthController
      */
     public function login(array $data = []): void
     {
-       try {
-           // zkontrolujeme jestli uzivatel existuje
-           $result = $this->databaseConnector->selectOneRow("
-                SELECT * FROM users
-                WHERE email = '" . $this->databaseConnector->escape($data["email"]) . "' 
-                AND password = '" . $this->utilityService->hash($data["password"]) . "'"
-           );
-           if (empty($result)) {
-               throw new Exception("Invalid email or password");
-           }
+        try {
+            // nacteme udaje o uzivateli
+            $result = $this->databaseConnector->selectOneRow(
+                "
+               SELECT * FROM users
+               WHERE email = '" . $this->databaseConnector->escape($data["email"]) . "'"
+            );
+            if (empty($result)) {
+                throw new Exception("Tento email neexistuje. Je potřeba se zaregistrovat.");
+            }
 
-           // vytvorime nove prihlaseni
-           $this->setLoggedUser($result["uuid"]);
-       } catch (Exception $e) {
-           header("Location: /error?error=" . $e->getMessage()); exit();
-       }
+            // zkontrolujeme jestli ma uzivatel zablokovane prihlaseni
+            $failedLoginAttempts = intval($result["failed_login_attempts"]);
+            if ($failedLoginAttempts >= $this::MAX_LOGIN_ATTEMPTS) {
+                // zkontrolujeme, jestli vyprsel cas blokace
+                if ($result["date_blocked_until"] > date("Y-m-d H:i:s")) {
+                    throw new Exception("Tento účet je zablokován kvůli neúspěšným pokusům o přihlášení. Další možný pokus: " . $result["date_blocked_until"]);
+                } else {
+                    // pokud vyprsel cas blokace, zrusime blokaci
+                    $this->databaseConnector->update(
+                        table: "users",
+                        data: [
+                            "failed_login_attempts" => 0,
+                            "date_blocked_until" => null,
+                        ],
+                        conditionColumn: "uuid",
+                        conditionValue: $result["uuid"]
+                    );
+                }
+            }
+
+            // zkontrolujeme heslo
+            if (!$this->utilityService->areValuesEqual(
+                $this->utilityService->hash($data["password"]),
+                $result["password"],
+            )) {
+                // zvysime pocet neuspesnych pokusu o prihlaseni
+                $failedLoginAttempts++;
+                $this->databaseConnector->update(
+                    table: "users",
+                    data: [
+                        "failed_login_attempts" => $failedLoginAttempts,
+                        "date_blocked_until" => (
+                        $failedLoginAttempts == $this::MAX_LOGIN_ATTEMPTS ?
+                            date("Y-m-d H:i:s", strtotime("+5 minutes")) : null
+                        ),
+                    ],
+                    conditionColumn: "uuid",
+                    conditionValue: $result["uuid"]
+                );
+                throw new Exception("Nesprávné heslo. Zkuste to znovu.");
+            }
+
+            // pokud vsechny testy projdou, vytvorime nove prihlaseni
+            $this->setLoggedUser($result["uuid"]);
+        } catch (Exception $e) {
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -83,16 +127,17 @@ class ApiAuthController
      */
     public function logout(): void
     {
-       try {
-           $this->databaseConnector->delete(
-               table: "users_logged",
-               conditionColumn: "session_token",
-               conditionValue: $_COOKIE["SESSION_ID"]
-           );
-           setcookie("SESSION_ID", "", time() - 3600, "/");
-       } catch (Exception $e) {
-           header("Location: /error?error=" . $e->getMessage()); exit();
-       }
+        try {
+            $this->databaseConnector->delete(
+                table: "users_logged",
+                conditionColumn: "session_token",
+                conditionValue: $_COOKIE["SESSION_ID"]
+            );
+            setcookie("SESSION_ID", "", time() - 3600, "/");
+        } catch (Exception $e) {
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -109,7 +154,8 @@ class ApiAuthController
         }
 
         // test 2 - does a db record with this session token exist?
-        $result = $this->databaseConnector->selectOneRow("
+        $result = $this->databaseConnector->selectOneRow(
+            "
             SELECT * FROM users_logged
             WHERE session_token = '" . $sessionToken . "'"
         );
@@ -125,7 +171,8 @@ class ApiAuthController
         }
 
         // save for local use
-        $this->currentUser = $this->databaseConnector->selectOneRow("
+        $this->currentUser = $this->databaseConnector->selectOneRow(
+            "
             SELECT * FROM users
             WHERE uuid = '" . $this->databaseConnector->escape($result["user"]) . "'"
         );
@@ -156,7 +203,8 @@ class ApiAuthController
     private function checkAvailibleRegistration(string $email, string $username): array
     {
         $status = [];
-        $emailRegistered = $this->databaseConnector->selectOneRow("
+        $emailRegistered = $this->databaseConnector->selectOneRow(
+            "
             SELECT email FROM users
             WHERE email = '" . $this->databaseConnector->escape($email) . "'"
         );
@@ -167,7 +215,8 @@ class ApiAuthController
             return $status;
         }
 
-        $usernameRegistered = $this->databaseConnector->selectOneRow("
+        $usernameRegistered = $this->databaseConnector->selectOneRow(
+            "
             SELECT username FROM users
             WHERE username = '" . $this->databaseConnector->escape($username) . "'"
         );
@@ -220,9 +269,9 @@ class ApiAuthController
 
             // set cookie
             setcookie("SESSION_ID", $loginToken, time() + 3600 * 24 * 7, "/");
-
         } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage()); exit();
+            header("Location: /error?error=" . $e->getMessage());
+            exit();
         }
     }
 }

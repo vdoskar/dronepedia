@@ -40,4 +40,15 @@ class UtilityService
     {
         return trim(preg_replace('/\s+/', ' ', $data));
     }
+
+    /**
+     * Compare two values
+     * @param string|int|float $value1
+     * @param string|int|float $value2
+     * @return bool
+     */
+    public function areValuesEqual(string|int|float $value1, string|int|float $value2): bool
+    {
+        return $value1 === $value2;
+    }
 }
