@@ -19,16 +19,29 @@
     {foreach $users as $user}
         <tr>
             <td>{$user.uuid}</td>
-            <td>{$user.label}</td>
-            <td>{$user.username}</td>
-            <td>{$user.email}</td>
-            <td>{$user.role}</td>
+            <td>
+                <input type="text" value="{$user.label}">
+            </td>
+            <td>
+                <input type="text" value="{$user.username}">
+            </td>
+            <td>
+                <input type="text" value="{$user.email}">
+            </td>
+            <td>
+                <select name="user_role" id="user_role">
+                    <option value="USER" {if $user.role == "USER"} selected {/if}>USER</option>
+                    <option value="ADMIN" {if $user.role == "ADMIN"} selected {/if}>ADMIN</option>
+                </select>
+            </td>
             <td>{$user.date_registered}</td>
             <td>{$user.date_updated}</td>
             <td>{$user.date_last_login}</td>
             <td>{$user.logged_until}</td>
             <td>{$user.session_token}</td>
-            <td>{$user.failed_login_attempts}</td>
+            <td>
+                <input type="number" value="{$user.failed_login_attempts}">
+            </td>
             <td>{$user.login_blocked_until|default:"-"}</td>
         </tr>
     {/foreach}

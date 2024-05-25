@@ -41,6 +41,7 @@
                        name="pass1"
                        class="form-control"
                        required
+                       autocomplete="current-password"
                        title="Heslo musí mít minimálně 8 znaků."
                 >
             </div>

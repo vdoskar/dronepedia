@@ -7,6 +7,7 @@
                 <input type="email"
                        id="email"
                        name="email"
+                       required
                        class="form-control"
                 >
             </div>
@@ -18,6 +19,7 @@
                        name="password"
                        class="form-control"
                        title="Heslo musí mít minimálně 8 znaků."
+                       required
                 >
             </div>
             <br>

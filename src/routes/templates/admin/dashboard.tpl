@@ -3,10 +3,6 @@
     .tab-section {
         overflow-x: auto;
     }
-    .adminTable {
-        min-width: 1600px;
-        border-collapse: collapse;
-    }
 </style>
 
 <div class="content">

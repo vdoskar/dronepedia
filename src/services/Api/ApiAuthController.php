@@ -74,15 +74,18 @@ class ApiAuthController
             $failedLoginAttempts = intval($result["failed_login_attempts"]);
             if ($failedLoginAttempts >= $this::MAX_LOGIN_ATTEMPTS) {
                 // zkontrolujeme, jestli vyprsel cas blokace
-                if ($result["date_blocked_until"] > date("Y-m-d H:i:s")) {
-                    throw new Exception("Tento účet je zablokován kvůli neúspěšným pokusům o přihlášení. Další možný pokus: " . $result["date_blocked_until"]);
+                if ($result["login_blocked_until"] >= date("Y-m-d H:i:s")) {
+                    throw new Exception(
+                        "Účet <b>" . $result["email"] . "</b> je zablokován kvůli neúspěšným pokusům o přihlášení.<br>Další možný pokus: <b>"
+                        . date("H:i:s", strtotime($result["login_blocked_until"])) . "</b>");
                 } else {
                     // pokud vyprsel cas blokace, zrusime blokaci
+                    $failedLoginAttempts = 0;
                     $this->databaseConnector->update(
                         table: "users",
                         data: [
-                            "failed_login_attempts" => 0,
-                            "date_blocked_until" => null,
+                            "failed_login_attempts" => $failedLoginAttempts,
+                            "login_blocked_until" => null,
                         ],
                         conditionColumn: "uuid",
                         conditionValue: $result["uuid"]
@@ -101,14 +104,15 @@ class ApiAuthController
                     table: "users",
                     data: [
                         "failed_login_attempts" => $failedLoginAttempts,
-                        "date_blocked_until" => (
-                        $failedLoginAttempts == $this::MAX_LOGIN_ATTEMPTS ?
-                            date("Y-m-d H:i:s", strtotime("+5 minutes")) : null
-                        ),
+                        "login_blocked_until" => $failedLoginAttempts == $this::MAX_LOGIN_ATTEMPTS
+                            ? date("Y-m-d H:i:s", strtotime("+5 minutes"))
+                            : null
+                        ,
                     ],
                     conditionColumn: "uuid",
                     conditionValue: $result["uuid"]
                 );
+
                 throw new Exception("Nesprávné heslo. Zkuste to znovu.");
             }
 
@@ -131,9 +135,9 @@ class ApiAuthController
             $this->databaseConnector->delete(
                 table: "users_logged",
                 conditionColumn: "session_token",
-                conditionValue: $_COOKIE["SESSION_ID"]
+                conditionValue: $_COOKIE["SESSION_TOKEN"]
             );
-            setcookie("SESSION_ID", "", time() - 3600, "/");
+            setcookie("SESSION_TOKEN", "", time() - 3600, "/");
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage());
             exit();
@@ -141,14 +145,15 @@ class ApiAuthController
     }
 
     /**
-     * Check if user is logged in. This is used for session validation in places where we don't need to work with the user data.
+     * Check if user is logged in.
+     * This is used for session validation in places where we don't need to work with the user data.
      * @return bool
      * @throws Exception
      */
     public function validateLogin(): bool
     {
         // test 1 - does the session token exist?
-        $sessionToken = $_COOKIE["SESSION_ID"] ?? "";
+        $sessionToken = $_COOKIE["SESSION_TOKEN"] ?? "";
         if (empty($sessionToken)) {
             return false;
         }
@@ -159,6 +164,7 @@ class ApiAuthController
             SELECT * FROM users_logged
             WHERE session_token = '" . $sessionToken . "'"
         );
+
         if (empty($result)) {
             $this->logout();
             return false;
@@ -171,8 +177,7 @@ class ApiAuthController
         }
 
         // save for local use
-        $this->currentUser = $this->databaseConnector->selectOneRow(
-            "
+        $this->currentUser = $this->databaseConnector->selectOneRow("
             SELECT * FROM users
             WHERE uuid = '" . $this->databaseConnector->escape($result["user"]) . "'"
         );
@@ -181,7 +186,8 @@ class ApiAuthController
     }
 
     /**
-     * Validate the login and return the user data. This is used in places where the user needs to be logged, and we need to work with the user data.
+     * Validate the login and return the user data.
+     * This is used in places where the user needs to be logged, and we need to work with the user data.
      * @return array
      * @throws Exception
      */
@@ -211,7 +217,7 @@ class ApiAuthController
 
         if (!empty($emailRegistered)) {
             $status["status"] = "NOK";
-            $status["message"] = "Email is already registered";
+            $status["message"] = "Tento email je již registrován. Pokud jste zapomněli heslo, nemůžete si ho obnovit, ale můžete použít jinou emailovou adresu :).";
             return $status;
         }
 
@@ -223,7 +229,7 @@ class ApiAuthController
 
         if (!empty($usernameRegistered)) {
             $status["status"] = "NOK";
-            $status["message"] = "Username is already registered";
+            $status["message"] = "Toto uživatelské jméno je již obsazeno. Vyberte si prosím jiné.";
             return $status;
         }
 
@@ -248,27 +254,31 @@ class ApiAuthController
             }
 
             // vytvorime novy token a nove prihlaseni pro uzivatele
-            $loginToken = $this->utilityService->uuidV4();
+            $sessionToken = $this->utilityService->hash($this->utilityService->uuidV4());
             $this->databaseConnector->insert(
                 table: "users_logged",
                 data: [
-                    "session_token" => $loginToken,
+                    "session_token" => $sessionToken,
                     "logged_since" => date("Y-m-d H:i:s"),
                     "logged_until" => date("Y-m-d H:i:s", strtotime("+7 days")),
                     "user" => $userUUID
                 ],
             );
 
-            // last login
+            // upravime tabulku users
             $this->databaseConnector->update(
                 table: "users",
-                data: ["date_last_login" => date("Y-m-d H:i:s")],
+                data: [
+                    "date_last_login" => date("Y-m-d H:i:s"),
+                    "failed_login_attempts" => 0,
+                    "login_blocked_until" => null
+                ],
                 conditionColumn: "uuid",
                 conditionValue: $userUUID
             );
 
             // set cookie
-            setcookie("SESSION_ID", $loginToken, time() + 3600 * 24 * 7, "/");
+            setcookie("SESSION_TOKEN", $sessionToken, time() + 3600 * 24 * 7, "/");
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage());
             exit();
