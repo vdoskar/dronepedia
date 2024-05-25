@@ -1,31 +1,37 @@
-<header style="background-image: url('{$bgImg}');">
-    <h1 class="text-center">
-        {$title}
-    </h1>
-</header>
-
-<div class="content">
-    <div class="card-gallery">
-        <div class="card">
-            <a href="/knowledge-base/drones"
-               class="card-wrapper"
-               title="Drony"
-               style="background-image: url('{$bgImg}');"
-            >
-                <h3>Drony</h3>
+<div class="kb_container">
+    <div class="kb_item">
+        <div class="kb_img" style="background-image: url('{$images.drones}')"></div>
+        <div class="kb_title">
+            <div>
+                <h2>Drony</h2>
+            </div>
+            <div>
                 <p>Kategorie, typy dronů, populární výrobci a další...</p>
-            </a>
+                <a href="/knowledge-base/drones"
+                   class="kb_link"
+                   title="Drony"
+                >
+                    <button class="btn btn-primary">Zobrazit</button>
+                </a>
+            </div>
         </div>
+    </div>
 
-        <div class="card">
-            <a href="/knowledge-base/safe-fly"
-               class="card-wrapper"
-               title="Safe fly"
-               style="background-image: url('{$bgImg}');"
-            >
-                <h3>Safe fly</h3>
+    <div class="kb_item">
+        <div class="kb_img" style="background-image: url('{$images.safe_fly}')"></div>
+        <div class="kb_title">
+            <div>
+                <h2>Safe Fly</h2>
+            </div>
+            <div>
                 <p>Pravidla a doporučení pro bezpečné létání každého zodpovědného pilota</p>
-            </a>
+                <a href="/knowledge-base/safe-fly"
+                   class="kb_link"
+                   title="Safe fly"
+                >
+                    <button class="btn btn-primary">Zobrazit</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

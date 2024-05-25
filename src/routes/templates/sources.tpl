@@ -13,6 +13,21 @@
             <li>
                 <a href="https://www.freepik.com/free-photo/people-working-tech-brand-together_94958514.htm#fromView=search&page=2&position=14&uuid=aeca488e-6194-43c3-82a4-53a30c15a49f">https://www.freepik.com/free-photo/people-working-tech-brand-together_94958514.htm#fromView=search&page=2&position=14&uuid=aeca488e-6194-43c3-82a4-53a30c15a49f</a>
             </li>
+            <li>
+                <a href="https://www.freepik.com/free-photo/happy-young-business-woman-secretary-holding-document-modern-office_29686879.htm#fromView=search&page=1&position=30&uuid=52933861-3efd-4963-8d53-f0a4b7b72865">https://www.freepik.com/free-photo/happy-young-business-woman-secretary-holding-document-modern-office_29686879.htm#fromView=search&page=1&position=30&uuid=52933861-3efd-4963-8d53-f0a4b7b72865</a>
+            </li>
+            <li>
+                <a href="https://www.freepik.com/free-vector/user-blue-gradient_145856969.htm#fromView=search&page=2&position=45&uuid=80b24e1e-1013-4eeb-9b58-24560b55fc5a">https://www.freepik.com/free-vector/user-blue-gradient_145856969.htm#fromView=search&page=2&position=45&uuid=80b24e1e-1013-4eeb-9b58-24560b55fc5a</a>
+            </li>
+            <li>
+                <a href="https://www.freepik.com/free-photo/book-library-with-old-open-textbook-stack-piles-literature-text-archive-reading-desk_4351444.htm#from_view=detail_alsolike">https://www.freepik.com/free-photo/book-library-with-old-open-textbook-stack-piles-literature-text-archive-reading-desk_4351444.htm#from_view=detail_alsolike</a>
+            </li>
+            <li>
+                <a href="https://www.freepik.com/free-photo/close-up-man-watching-drone_10970756.htm#fromView=search&page=1&position=0&uuid=54e13fa3-a0d8-4d99-a852-56980f1a8b15">https://www.freepik.com/free-photo/close-up-man-watching-drone_10970756.htm#fromView=search&page=1&position=0&uuid=54e13fa3-a0d8-4d99-a852-56980f1a8b15</a>
+            </li>
+            <li>
+                <a href="https://www.freepik.com/free-photo/drone-flying-foggy-snowy-high-hills-mountains_7814876.htm#fromView=search&page=1&position=22&uuid=7a2f5824-db75-430d-b0fd-171d11c72170">https://www.freepik.com/free-photo/drone-flying-foggy-snowy-high-hills-mountains_7814876.htm#fromView=search&page=1&position=22&uuid=7a2f5824-db75-430d-b0fd-171d11c72170</a>
+            </li>
         </ul>
     </div>
 

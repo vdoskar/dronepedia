@@ -31,14 +31,8 @@ try {
     $userPosts = $profileController->getUserPosts($user["uuid"]);
     $userComments = $profileController->getUserComments($user["uuid"]);
 } catch (Exception $e) {
-    echo $e->getMessage(); die();
-}
-
-if (empty($userSettings)) {
-    $userSettings = [
-        "pic_profile" => "https://www.ef.tul.cz/content/files/images/zamestnanci/135-th.jpg",
-        "pic_banner" => "https://www.ef.tul.cz/content/files/images/PAGES/uvod-1672665996-7003.jpg",
-    ];
+    echo $e->getMessage();
+    die();
 }
 
 $smarty = new Smarty();

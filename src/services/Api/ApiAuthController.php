@@ -43,8 +43,16 @@ class ApiAuthController
                 "role" => "USER",
                 "date_updated" => date("Y-m-d H:i:s")
             ];
-
             $this->databaseConnector->insert("users", $result);
+
+            $newUserSettings = [
+                "user" => $result["uuid"],
+                "pic_profile" => "https://cdn.dronepedia.krisp1k.eu/images/default_profile_picture.webp",
+                "pic_banner" => "https://cdn.dronepedia.krisp1k.eu/images/default_profile_banner.webp",
+                "bio" => "",
+            ];
+            $this->databaseConnector->insert("users_settings", $newUserSettings);
+
             $this->setLoggedUser($result["uuid"]);
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage());
