@@ -1,8 +1,8 @@
 <div id="tab_miniDrones" class="tab-section">
     <h4>Mini Drony</h4>
-    <p>Mini drony představují kompaktní a lehké verze bezpilotních letounů, které se často vyznačují malými rozměry a snadnou přenosností. Tyto drony jsou obvykle menší než běžné modely a mají omezenější výkon a schopnosti, což je vyváženo svou jednoduchostí a cenovou dostupností.</p>
-    <p>Mini drony jsou ideální pro začínající uživatele, kteří si chtějí vyzkoušet létání bezpilotních letounů bez nutnosti investovat do drahých a složitých modelů. Jsou také populární mezi dětmi a mládeží, kteří si rádi hrají se svými vlastními drony a objevují zábavné funkce a možnosti, které tyto malé stroje nabízejí.</p>
-    <p> I když jsou mini drony často spojovány se zábavnými aktivitami a hrami, mohou mít také praktické využití v různých odvětvích, jako jsou průmyslové inspekce, monitorování životního prostředí a vzdělávací účely. Díky své malé velikosti a obratnosti se mini drony mohou snadno dostat do těžko dostupných prostorů a provádět úkoly, které by byly pro větší letouny obtížné nebo nemožné.</p>
+    <p>Mini drony představují kompaktní a lehké verze bezpilotních letounů, které se často vyznačují malými rozměry a snadnou přenosností. Tyto drony jsou obvykle menší a lehčí než běžné modely (kolem 249g) a mají omezenější výkon a schopnosti, což je vyváženo svou jednoduchostí a cenovou dostupností.</p>
+    <p>Mini drony jsou ideální pro začínající piloty, kteří si chtějí vyzkoušet létání bezpilotních letounů bez nutnosti investovat do drahých a složitých modelů, pro hobbyisti a pro jakéhokoliv jiného nenáročného uživatele.</p>
+    <p> I když jsou mini drony často spojovány se zábavnými aktivitami nebo označovány pouze jako koníček, mohou mít také praktické využití v různých odvětvích, jako jsou průmyslové inspekce, monitorování životního prostředí a vzdělávací účely. Díky své malé velikosti a obratnosti se mini drony mohou snadno dostat do těžko dostupných prostorů a provádět úkoly, které by byly pro větší letouny obtížné nebo nemožné. V neposlední řadě lze mini drony používat také pro komerční užití, pokud to legislativa daného státu schvaluje.</p>
     <br>
     <h5>Ukázky mini dronů:</h5>
     <div class="img-gallery">
@@ -16,8 +16,8 @@
     <h4>FPV Drony</h4>
     <p>FPV (First Person View) drony jsou speciální typ bezpilotních letounů, které umožňují pilotovi zažít let z pohledu dronu přímo v reálném čase. To znamená, že pilot sleduje videozáznam z kamery umístěné na dronu přímo na obrazovce nebo přes speciální brýle s head-tracking technologií.</p>
     <p>Tato technologie vytváří iluzi, že pilot sedí přímo ve vnitřku dronu a má tak pocit, že létá skrze prostor sám. FPV drony jsou oblíbené mezi nadšenci závodů s drony, kteří chtějí prožít vzrušující adrenalinový zážitek přímo ze středu dění.</p>
-    <p>FPV drony jsou obvykle vybaveny vysokorychlostními kamerami s nízkou latencí, což umožňuje pilotovi reagovat na změny okamžitě a s přesností. Tyto drony často mají také speciální vysílače a antény, které umožňují přenos videa na velkou vzdálenost, což je důležité pro závodní a průzkumné účely.</p>
-    <p>Využití FPV dronů sahá od závodů a akrobatických letů až po profesionální fotografii a videografii. Pro mnohé nadšence jsou FPV drony způsobem, jak prozkoumat svět z úplně nového úhlu pohledu a prožít vzrušující adrenalinové zážitky přímo ze vzduchu.</p>
+    <p>Kamery obsažené v FPV dronech mají obvykle velmi nízkou latenci, což umožňuje pilotovi reagovat na změny okamžitě a s přesností. Tyto drony často mají také speciální vysílače a antény, které umožňují přenos videa na velkou vzdálenost, což je důležité pro závodní a průzkumné účely.</p>
+    <p>Využití FPV dronů sahá od závodů a akrobatických letů až po profesionální fotografii a videografii.</p>
     <br>
     <h5>Ukázky FPV dronů:</h5>
     <div class="img-gallery">
@@ -30,7 +30,7 @@
 <div id="tab_profiDrones" class="tab-section">
     <h4>Profesionální Drony</h4>
     <p>Profesionální drony jsou navrženy s ohledem na výkonnost a kvalitu obrazu pro komerční účely, jako jsou filmování, fotografie, průmyslové inspekce a geodetické mapování. Tyto drony jsou vybaveny pokročilými funkcemi a technologiemi, které umožňují provádět náročné úkoly s vysokou přesností a efektivitou.</p>
-    <p>Drony jsou také vybaveny různými senzory a technologiemi, včetně GPS, kamery, lidarů a termálních senzorů. Tyto technologie umožňují profesionálním dronům provádět různé úkoly, jako je mapování terénu, průmyslové inspekce, monitorování životního prostředí a mnoho dalších.</p>
+    <p>Drony jsou také vybaveny různými senzory a technologiemi, včetně GPS, kamery nebo termálních senzorů.</p>
     <br>
     <h5>Ukázky profesionálních dronů:</h5>
     <div class="img-gallery">
@@ -47,10 +47,10 @@
     <ol>
         <li><strong>Průzkumné Drony:</strong> Používány k průzkumu nepřátelských pozic, sběru informací o terénu a sledování pohybů nepřátelských sil.</li>
         <li><strong>Útočné Drony:</strong> Vybaveny zbraněmi a používány k provedení cílených útoků na nepřátelské cíle, často s vysokou přesností a minimalizací rizika pro vlastní jednotky.</li>
-        <li><strong>Zpravodajské Drony:</strong> Používány k sběru zpravodajských informací a sledování událostí na bojišti nebo v jiných oblastech zájmu.</li>
-        <li><strong>Záchranářské Drony:</strong> Používány k hledání a záchranným operacím, zejména v obtížně dostupném terénu nebo po katastrofách.</li>
+        <li><strong>Zpravodajské Drony:</strong> Používány ke sběru zpravodajských informací a sledování událostí na bojišti nebo v jiných oblastech zájmu.</li>
+        <li><strong>Záchranářské Drony:</strong> Používány ke hledání a záchranným operacím, zejména v obtížně dostupném terénu nebo po katastrofách.</li>
     </ol>
-    <p>Armádní drony jsou důležitým nástrojem pro moderní válečnictví, umožňují armádám získat strategickou výhodu a minimalizovat rizika pro své jednotky. Jejich využití se rozšiřuje s vývojem technologií a změnami ve vojenských strategiích a taktikách.</p>
+    <p>Armádní drony jsou důležitým nástrojem pro moderní válečné konflikty. Umožňují armádám získat strategickou výhodu a minimalizovat rizika pro své jednotky. Jejich využití se rozšiřuje s vývojem technologií a změnami ve vojenských strategiích a taktikách.</p>
     <br>
     <h5>Ukázky armádních dronů:</h5>
     <div class="img-gallery">
@@ -68,7 +68,7 @@
     <br>
     <h5>Ukázky armádních dronů:</h5>
     <div class="img-gallery">
-        <img src="https://d1a2ot8agkqe8w.cloudfront.net/web/2014/07/ghost-uav-iai_56257.jpg" title="" data-showTitle="true">
+        <img src="https://assets.verticalmag.com/wp-content/uploads/2022/09/DSC0286-1024x683.jpg" title="Ghost 4" data-showTitle="true">
         <img src="https://smartmania.cz/wp-content/uploads/2020/11/DJI-AGRAS-t20-drone.jpg" title="DJI Argas T30">
         <img src="https://www.startupticker.ch/assets/images/articles/sensefly.jpg" title="SenseFly eBee" data-showTitle="true">
     </div>

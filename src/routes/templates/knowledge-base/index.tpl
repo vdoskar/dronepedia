@@ -1,3 +1,5 @@
+<h1 style="display: none !important;">Znalostní báze</h1>
+
 <div class="kb_container">
     <div class="kb_item">
         <div class="kb_img" style="background-image: url('{$images.drones}')"></div>
@@ -6,7 +8,7 @@
                 <h2>Drony</h2>
             </div>
             <div>
-                <p>Kategorie, typy dronů, populární výrobci a další...</p>
+                <p>Kategorie, typy dronů, budoucnost a další...</p>
                 <a href="/knowledge-base/drones"
                    class="kb_link"
                    title="Drony"

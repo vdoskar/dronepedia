@@ -44,6 +44,10 @@ i {
     transform: scale(1.25) !important;
 }
 
+li:not(.nav-item) {
+    padding: 8px 0;
+}
+
 .btn {
     min-height: 40px !important;
     display: inline-flex;

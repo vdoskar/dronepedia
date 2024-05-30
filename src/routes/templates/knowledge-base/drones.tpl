@@ -24,7 +24,7 @@
             FPV drony
         </a>
         <a class="tab" href="#tab_profiDrones">
-            <i class="fa-solid fa-jet-fighter"></i>
+            <i class="fa-solid fa-user-tie"></i>
             Profesionální drony
         </a>
         <a class="tab" href="#tab_armyDrones">

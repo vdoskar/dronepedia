@@ -28,15 +28,21 @@
             <li>
                 <a href="https://www.freepik.com/free-photo/drone-flying-foggy-snowy-high-hills-mountains_7814876.htm#fromView=search&page=1&position=22&uuid=7a2f5824-db75-430d-b0fd-171d11c72170">https://www.freepik.com/free-photo/drone-flying-foggy-snowy-high-hills-mountains_7814876.htm#fromView=search&page=1&position=22&uuid=7a2f5824-db75-430d-b0fd-171d11c72170</a>
             </li>
+            <li>
+                <a href="https://www.freepik.com/free-photo/drone-flying-hills-with-beautiful-sunset-kenya-nairobi-samburu_9282609.htm#fromView=search&page=1&position=21&uuid=19c1431d-b94c-496b-b053-bfe4cda71aa8">https://www.freepik.com/free-photo/drone-flying-hills-with-beautiful-sunset-kenya-nairobi-samburu_9282609.htm#fromView=search&page=1&position=21&uuid=19c1431d-b94c-496b-b053-bfe4cda71aa8</a>
+            </li>
         </ul>
     </div>
 
     <div class="group">
         <h3>Texty</h3>
-        <p>
-            Stránka Safe Fly: <a href="https://www.caa.cz/provoz/bezpilotni-letadla/online-skoleni-a-informace-k-vyuziti/">https://www.caa.cz/provoz/bezpilotni-letadla/online-skoleni-a-informace-k-vyuziti/</a>
-        </p>
         <ul>
+            <li>
+                <a href="https://dronpro.cz/">https://dronpro.cz/</a>
+            </li>
+            <li>
+                <a href="https://www.rcprofi.cz/">https://www.rcprofi.cz/</a>
+            </li>
             <li>
                 <a href="https://www.caa.cz/wp-content/uploads/2023/12/eRules_UAS_CS_22-11-2023_v5-0_web.pdf?cb=1f8031442c454087fe16ec554d4a67b8">https://www.caa.cz/wp-content/uploads/2023/12/eRules_UAS_CS_22-11-2023_v5-0_web.pdf?cb=1f8031442c454087fe16ec554d4a67b8</a>
             </li>

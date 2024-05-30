@@ -15,7 +15,7 @@
     {/if}
     <br>
     <div class="group">
-        <h2>Nejnovější příspěvky</h2>
+        <h2>Poslední příspěvky</h2>
         <br>
         <section class="forum-section">
             {if $latestPosts|count > 0 }
@@ -29,6 +29,7 @@
     </div>
 
     {if $currentUser}
+        <br>
         <div class="group">
             <h2>Moje aktivní příspěvky</h2>
             <br>
