@@ -1,6 +1,6 @@
 # DronePedia - portál pro dronové piloty a nadšence
 
-Tento projekt byl vypracován jako semestrální práce pro předmět **Tvorba Webových Aplikací** bakalářského studijního programu Informační Management na Ekonomické fakultě TUL.
+Tento projekt byl vypracován jako semestrální práce pro kurz **Vývoj Webových Aplikací** bakalářského studijního programu Informační Management na Ekonomické fakultě TUL.
 <br><br>
 Zadání projektu bylo vytvoření webového blogu na libovolné téma za pomocí technologií probíraných na kurzu. Dále bylo cílem zpracovat dané téma alespoň na 4 normostrany čistého textu a ten umístit na web. 
 <hr>
