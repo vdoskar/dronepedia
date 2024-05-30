@@ -97,8 +97,7 @@ CREATE TABLE `users` (
   `date_updated` datetime DEFAULT NULL,
   `date_last_login` datetime DEFAULT NULL,
   `failed_login_attempts` INT(1) NOT NULL DEFAULT '0',
-  `login_blocked_until` DATETIME NULL ;
-
+  `login_blocked_until` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Table that stores all registered users';
 
 --
