@@ -27,7 +27,7 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
     <meta name="robots" content="index,follow"/>
     <meta name="author" content="Vladimír Doškář"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DronePedia - Portál pro dronery a dronové nadšence"/>
+    <meta name="description" content="DronePedia - Portál pro dronové piloty a nadšence. Semestrální práce pro předmět Vývoj Webových Aplikací bakalářského studijního programu Informační management na EF TUL."/>
     <meta name="keywords"
           content="dron, dronery, dronové, portál, informace, zprávy, novinky, recenze, videa, fotky, dronepedia"/>
     <meta name="robots" content="index, follow"/>
