@@ -10,6 +10,7 @@ Zadání projektu bylo vytvoření webového blogu na libovolné téma za pomoc�
 - Smarty Template Engine 4.0
 - MySQL (MariaDB) 
 - HTML, CSS, JS
+- Bootstrap 5.3
 
 
 ## Technická charakteristika
