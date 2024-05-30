@@ -48,14 +48,4 @@ class ApiPostsCommentsController
             header("Location: /error?error=" . $e->getMessage()); exit();
         }
     }
-
-    /**
-     * Deletes a comment
-     * @param array $data
-     * @return void
-     * @throws Exception
-     */
-    public function delete(array $data): void
-    {
-    }
 }

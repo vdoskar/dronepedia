@@ -16,7 +16,9 @@
     <p>{$post.short_summary}</p>
     <div class="group">
         <p>Autor článku: <a href="/profile?u={$post.author_tag}">{$post.author}</a></p>
-        <p><i>Publikováno: {$post.date_created|date_format:"%d.%m.%Y %H:%M"}</i></p>
+        <p>
+            <i>Publikováno: {$post.date_created|date_format:"%d.%m.%Y %H:%M"}</i>
+        </p>
     </div>
     <hr>
     <div class="group">
@@ -24,15 +26,6 @@
             {$post.content}
         </div>
     </div>
-    {if $attachments|count > 0}
-        <div class="group">
-            <h5 class="mb-2">Přiložené odkazy</h5>
-            {foreach $attachments as $attachment}
-                <a href="{$attachment.url}" target="_blank">{$attachment.url}</a>
-                <br>
-            {/foreach}
-        </div>
-    {/if}
     <hr>
     <div class="group">
         <h3>Komentáře k příspěvku:</h3>

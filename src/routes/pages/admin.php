@@ -21,7 +21,6 @@ $allUsers = $databaseConnector->selectAll("
 
 $allPosts = $databaseConnector->selectAll("
     SELECT * FROM posts
-    LEFT JOIN posts_attachments ON posts.id = posts_attachments.post_id
     LEFT JOIN users ON posts.author = users.uuid
 ");
 

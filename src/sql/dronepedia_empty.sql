@@ -47,23 +47,6 @@ CREATE TABLE `posts` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `posts_attachments`
---
-
-CREATE TABLE `posts_attachments` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `type` varchar(32) NOT NULL,
-  `url` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Vypisuji data pro tabulku `posts_attachments`
---
-
--- --------------------------------------------------------
-
---
 -- Struktura tabulky `posts_comments`
 --
 
@@ -171,13 +154,6 @@ ALTER TABLE `posts`
   ADD UNIQUE KEY `post_slug` (`slug`);
 
 --
--- Indexy pro tabulku `posts_attachments`
---
-ALTER TABLE `posts_attachments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `post_id` (`post_id`);
-
---
 -- Indexy pro tabulku `posts_comments`
 --
 ALTER TABLE `posts_comments`
@@ -218,12 +194,6 @@ ALTER TABLE `users_settings`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pro tabulku `posts_attachments`
---
-ALTER TABLE `posts_attachments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pro tabulku `posts_comments`

@@ -33,19 +33,9 @@ if ($post["author"] != $currentUser["uuid"]) {
     exit();
 }
 
-$attachments = $databaseConnector->selectAll("
-    SELECT 
-        pa.id, 
-        pa.type, 
-        pa.url
-    FROM posts_attachments pa
-    WHERE pa.post_id = " . $post["id"]
-);
-
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("categories", $postsController->categories);
 $smarty->assign("post", $post);
-$smarty->assign("attachments", $attachments);
 $smarty->display('edit-post.tpl');
 

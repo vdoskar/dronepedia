@@ -78,14 +78,6 @@ class ApiPostsController
                 table: "posts",
                 data: $result
             );
-
-            // now the post is saved, retrieve if for attachments
-            $savedPost = $this->getPostBySlug($slug);
-
-            $attachments = $data["attachments"] ?? [];
-            if (!empty($attachments)) {
-                $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
-            }
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage());
             exit();
@@ -127,12 +119,6 @@ class ApiPostsController
                 conditionColumn: "slug",
                 conditionValue: $postSlug,
             );
-
-            // attachments
-            $attachments = $newData["attachments"] ?? [];
-            if (!empty($attachments)) {
-                $this->insertOrUpdateAttachments($attachments, $savedPost["id"]);
-            }
         } catch (Exception $e) {
             header("Location: /error?error=" . $e->getMessage());
             exit();
@@ -140,7 +126,7 @@ class ApiPostsController
     }
 
     /**
-     * Deletes a post and all its attachments and comments
+     * Deletes a post and all its comments
      * @param string $postSlug
      * @return void
      * @throws Exception
@@ -165,14 +151,7 @@ class ApiPostsController
                 conditionValue: $postSlug,
             );
 
-            // delete attachments
-            $this->databaseConnector->delete(
-                table: "posts_attachments",
-                conditionColumn: "post_id",
-                conditionValue: $savedPost["id"]
-            );
-
-            // delete attachments
+            // delete comments
             $this->databaseConnector->delete(
                 table: "posts_comments",
                 conditionColumn: "post_id",
@@ -196,49 +175,6 @@ class ApiPostsController
             SELECT * FROM posts
             WHERE slug = '" . $this->databaseConnector->escape($slug) . "'"
         ) ?? [];
-    }
-
-    /**
-     * Inserts or updates attachments for a post
-     * @param array $attachments
-     * @param int $postId
-     * @return void
-     * @throws Exception
-     */
-    private function insertOrUpdateAttachments(array $attachments, int $postId): void
-    {
-        try {
-            // delete all attachments if any exist
-            $existingAttachments = $this->databaseConnector->selectAll(
-                "SELECT * FROM posts_attachments WHERE post_id = " . $postId
-            );
-            if (!empty($existingAttachments)) {
-                $this->databaseConnector->delete(
-                    table: "posts_attachments",
-                    conditionColumn: "post_id",
-                    conditionValue: $postId
-                );
-            }
-
-            // insert new ones
-            foreach ($attachments as $attachment) {
-                $data = [
-                    "post_id" => $postId,
-                    "url" => $this->databaseConnector->escape(
-                        $this->utilityService->normalizeString($attachment)
-                    ),
-                    "type" => "TBD",
-                ];
-
-                $this->databaseConnector->insert(
-                    table: "posts_attachments",
-                    data: $data
-                );
-            }
-        } catch (Exception $e) {
-            header("Location: /error?error=" . $e->getMessage());
-            exit();
-        }
     }
 
     /**
