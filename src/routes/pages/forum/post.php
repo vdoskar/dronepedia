@@ -13,8 +13,6 @@ $databaseConnector = new DatabaseConnector();
 $postsController = new ApiPostsController();
 $authController = new ApiAuthController();
 
-$currentUser = $authController->getCurrentUser();
-
 $post = $databaseConnector->selectOneRow("
     SELECT 
         posts.id, 
@@ -29,7 +27,7 @@ $post = $databaseConnector->selectOneRow("
         users.username as author_tag
     FROM posts
     INNER JOIN users ON posts.author = users.uuid
-    WHERE posts.slug = '" . $_GET["p"] . "'
+    WHERE posts.slug = '" . $databaseConnector->escape($_GET["p"]) . "'
 ");
 
 if (empty($post)) {
@@ -53,8 +51,7 @@ $comments = $databaseConnector->selectAll("
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/forum/post");
 $smarty->assign("title", $post["title"]);
-$smarty->assign("bgImg", "https://picsum.photos/1920/250");
 $smarty->assign("post", $post);
 $smarty->assign("comments", $comments);
-$smarty->assign("currentUser", $currentUser ?? null);
+$smarty->assign("currentUser", $authController->getCurrentUser() ?? null);
 $smarty->display("item.tpl");

@@ -68,6 +68,16 @@ li:not(.nav-item) {
     background-color: var(--primaryYellow) !important;
 }
 
+.toggleButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 5px;
+    right: 0;
+    scale: 0.75;
+    width: 15px
+}
+
 .badge {
     padding: 0.5rem 1.25rem;
     display: block;
@@ -99,12 +109,11 @@ li:not(.nav-item) {
 /* nav */
 
 .navbar {
-    padding: 0 50px;
+    padding: 0 3.5% 0 12%;
     background-color: var(--primaryBlack);
     font-family: var(--fontFamilyPrimary);
     font-style: normal;
     min-height: var(--navbarHeight);
-
 }
 
 .navbar-nav {
@@ -140,6 +149,29 @@ li:not(.nav-item) {
 
 .nav-link {
     padding: 15px;
+}
+
+#logoImage {
+    max-width: 60px;
+    transition: all var(--transition-delay) ease-in-out;
+    scale: 1.5;
+}
+
+#logoLink {
+    position: absolute;
+    left: 5%;
+    top: 10px;
+}
+
+#logoLink:hover #logoImage {
+    transform: translateX(20px) rotate(15deg);
+}
+
+#hamburger {
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    display: none;
 }
 
 /* header */
@@ -198,7 +230,8 @@ footer {
 
 .authFormImage img {
     border-radius: var(--borderRadiusPrimary);
-    box-shadow: var(--boxShadowPrimary);
+    transform: translateY(-50px);
+    max-width: 500px;
 }
 
 /* tabs */
@@ -543,7 +576,7 @@ footer {
 .kb_item {
     position: relative;
     min-width: 350px !important;
-    min-height: 65rem !important; /* TODO: nejak poresit */
+    min-height: 65rem !important;
     flex: 1;
     display: flex;
     flex-direction: column;

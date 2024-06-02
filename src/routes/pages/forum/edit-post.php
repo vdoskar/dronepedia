@@ -25,7 +25,7 @@ $post = $databaseConnector->selectOneRow("
         p.category,
         p.author
     FROM posts p
-    WHERE p.slug = '" . $_GET["p"] . "'
+    WHERE p.slug = '" . $databaseConnector->escape($_GET["p"]) . "'
 ");
 
 if ($post["author"] != $currentUser["uuid"]) {

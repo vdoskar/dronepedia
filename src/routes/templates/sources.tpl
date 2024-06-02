@@ -2,6 +2,11 @@
     <h1 class="text-center">{$title}</h1>
 
     <div class="group">
+        <h3>Logo</h3>
+        <p>Vytvořeno přes stránku <a href="https://logo.com/">https://logo.com/</a></p>
+    </div>
+
+    <div class="group">
         <h3>Obrázky</h3>
         <p>
             Použity pouze materiály s bezplatnou licencí použití z portálu FreePik: <a href="https://www.freepik.com/">https://www.freepik.com/</a>
@@ -30,6 +35,9 @@
             </li>
             <li>
                 <a href="https://www.freepik.com/free-photo/drone-flying-hills-with-beautiful-sunset-kenya-nairobi-samburu_9282609.htm#fromView=search&page=1&position=21&uuid=19c1431d-b94c-496b-b053-bfe4cda71aa8">https://www.freepik.com/free-photo/drone-flying-hills-with-beautiful-sunset-kenya-nairobi-samburu_9282609.htm#fromView=search&page=1&position=21&uuid=19c1431d-b94c-496b-b053-bfe4cda71aa8</a>
+            </li>
+            <li>
+                <a href="https://www.freepik.com/free-vector/mobile-login-concept-illustration_4957136.htm#fromView=search&page=1&position=4&uuid=b7e8a8ef-490d-4db7-aba7-1e57c52ad6f0">https://www.freepik.com/free-vector/mobile-login-concept-illustration_4957136.htm#fromView=search&page=1&position=4&uuid=b7e8a8ef-490d-4db7-aba7-1e57c52ad6f0</a>
             </li>
         </ul>
     </div>

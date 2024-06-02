@@ -36,25 +36,35 @@
             <br>
             <div class="form-group">
                 <label for="pass1">Heslo</label>
-                <input type="password"
-                       id="pass1"
-                       name="pass1"
-                       class="form-control"
-                       required
-                       autocomplete="current-password"
-                       title="Heslo musí mít minimálně 8 znaků."
-                >
+                <div style="display: flex; flex-direction: row;">
+                    <input type="password"
+                           id="pass1"
+                           name="pass1"
+                           class="form-control"
+                           required
+                           autocomplete="current-password"
+                           title="Heslo musí mít minimálně 8 znaků."
+                    >
+                    <button class="toggleButton" onclick="event.preventDefault(); utils.toggleInputContentVisible('pass1', this);">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
             <br>
             <div class="form-group">
                 <label for="pass2">Heslo znovu</label>
-                <input type="password"
-                       id="pass2"
-                       name="pass2"
-                       class="form-control"
-                       required
-                       title="Heslo musí mít minimálně 8 znaků."
-                >
+                <div style="display: flex; flex-direction: row;">
+                    <input type="password"
+                           id="pass2"
+                           name="pass2"
+                           class="form-control"
+                           required
+                           title="Heslo musí mít minimálně 8 znaků."
+                    >
+                    <button class="toggleButton" onclick="event.preventDefault(); utils.toggleInputContentVisible('pass2', this);">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Registrovat</button>
@@ -63,11 +73,10 @@
             </div>
         </form>
         <div class="authFormImage">
-            <img src="https://picsum.photos/450/550" alt="Registrační obrázek">
+            <img src="https://cdn.dronepedia.krisp1k.eu/images/form_register.jpg" alt="Obrázek registrační obrazovky">
         </div>
     </div>
 </div>
-
 
 <script>
 

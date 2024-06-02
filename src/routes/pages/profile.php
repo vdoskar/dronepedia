@@ -2,13 +2,11 @@
 
 require_once 'src/services/Api/ApiAuthController.php';
 require_once 'src/services/Api/ApiProfileController.php';
-require_once 'src/services/DatabaseConnector.php';
 
 $apiAuthController = new ApiAuthController();
 $profileController = new ApiProfileController();
-$databaseConnector = new DatabaseConnector();
 
-// if the user is not logged in, they cannot access the profile page for themselves or others
+// if the user is not logged in, they cannot access the profile page of themselves or others
 $currentUser = $apiAuthController->getCurrentUser();
 if (empty($currentUser)) {
     header("Location: /login");
@@ -25,15 +23,10 @@ if (!empty($_GET["u"])) {
     $user = $currentUser;
 }
 
-try {
-    $userSettings = $profileController->getUserSettings($user["uuid"]);
-    $userDrones = $profileController->getUserDrones($user["uuid"]);
-    $userPosts = $profileController->getUserPosts($user["uuid"]);
-    $userComments = $profileController->getUserComments($user["uuid"]);
-} catch (Exception $e) {
-    echo $e->getMessage();
-    die();
-}
+$userSettings = $profileController->getUserSettings($user["uuid"]);
+$userDrones = $profileController->getUserDrones($user["uuid"]);
+$userPosts = $profileController->getUserPosts($user["uuid"]);
+$userComments = $profileController->getUserComments($user["uuid"]);
 
 $smarty = new Smarty();
 $smarty->setTemplateDir("src/routes/templates/profile");

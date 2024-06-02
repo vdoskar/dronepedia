@@ -37,6 +37,14 @@
     .post-card-item h4 {
         font-size: 1rem;
     }
+    .authFormGroup {
+        flex-direction: column;
+        padding: 2rem 0;
+        justify-content: center;
+    }
+    .authFormImage img {
+        transform: translateY(0px);
+    }
 }
 
 @media only screen and (max-width: 800px) {
@@ -62,6 +70,23 @@
     }
     .pc-author img {
         margin-right: 0.5rem;
+    }
+
+
+    #hamburger {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-half {
+        display: none;
+    }
+    .navbar-half.active {
+        display: flex;
+    }
+    .navbar {
+        flex-direction: column;
+        padding: 75px 0 0 0;
     }
 }
 

@@ -32,7 +32,7 @@
             </div>
         </form>
         <div class="authFormImage">
-            <img src="https://picsum.photos/450/250">
+            <img src="https://cdn.dronepedia.krisp1k.eu/images/form_login.jpg" alt="Obrázek přihlašovací obrazovky">
         </div>
     </div>
 </div>

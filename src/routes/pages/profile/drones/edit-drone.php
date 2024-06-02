@@ -15,7 +15,7 @@ if (empty($currentUser)) {
 
 $drone = $databaseConnector->selectOneRow("
     SELECT * FROM users_drones 
-    WHERE id = " . $_GET['id']
+    WHERE id = '" . $databaseConnector->escape($_GET['id']) . "'"
 ) ?? [];
 
 if (empty($drone) || $drone["owner"] != $currentUser["uuid"]) {

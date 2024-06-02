@@ -87,7 +87,8 @@ const utils = {
 
         // any other page
         if (document.querySelector("h1")) {
-            document.title = document.querySelector("h1").innerText + " | DronePedia";
+            const heading = document.querySelector("h1");
+            document.title = heading.innerText[0] + heading.innerText.slice(1).toLowerCase() + " | DronePedia";
             return;
         }
 
@@ -105,5 +106,24 @@ const utils = {
             const regex = new RegExp('^(http|https):\\/\\/[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*(:[0-9]+)?(\\/\\S*)?$', 'i');
             return regex.test(url);
         },
+    },
+
+    toggleInputContentVisible(inputElementId, buttonElement) {
+        console.log(buttonElement)
+        const inputElement = document.getElementById(inputElementId);
+        if (inputElement.type === 'password') {
+            inputElement.type = 'text';
+            buttonElement.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+        } else {
+            inputElement.type = 'password';
+            buttonElement.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        }
+    },
+
+    toggleNav() {
+        const navParts = document.querySelectorAll('.navbar-half');
+        navParts.forEach(navPart => {
+            navPart.classList.toggle('active');
+        })
     }
 }

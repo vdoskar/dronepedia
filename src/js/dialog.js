@@ -11,7 +11,6 @@ const dialog = {
         const dialog = document.createElement('div');
         dialog.id = 'dialog';
         dialog.innerHTML = elementContent;
-        // TODO: dialog.addEventListener('click', this.closeDialog);
 
         // css style
         dialog.style.transition = 'all 0.3s ease-in-out';

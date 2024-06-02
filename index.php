@@ -1,7 +1,5 @@
 <?php
 
-// TODO: API controllery sem
-
 $request = $_SERVER['REQUEST_URI'];
 if (str_starts_with($request, "/api")) {
     if (str_starts_with($request, "/api/admin")) {
@@ -12,12 +10,10 @@ if (str_starts_with($request, "/api")) {
     exit();
 }
 
-// Smarty
+// Connect Smarty
 require_once('src/packages/smarty/libs/Smarty.class.php');
 
 ?>
-
-<!-- TODO: refactor to smarty-->
 
 <!DOCTYPE html>
 <html lang="cs-cz">
@@ -29,11 +25,11 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="DronePedia - Portál pro dronové piloty a nadšence. Semestrální práce pro předmět Vývoj Webových Aplikací bakalářského studijního programu Informační management na EF TUL."/>
     <meta name="keywords"
-          content="dron, dronery, dronové, portál, informace, zprávy, novinky, recenze, videa, fotky, dronepedia"/>
+          content="dron, dronové, portál, informace, zprávy, novinky, recenze, videa, fotky, dronepedia, pilot dronu, provozovatel dronu, dron wikipedie, wikipedie dronů"/>
     <meta name="robots" content="index, follow"/>
 
     <!-- icon -->
-    <link rel="icon" href="/src/assets/logo.webp" type="image/webp">
+    <link rel="icon" href="https://cdn.dronepedia.krisp1k.eu/favicon/favicon_yellow.svg" type="image/svg">
 
     <!-- title -->
     <title>DronePedia</title>
@@ -69,9 +65,7 @@ require_once('src/packages/smarty/libs/Smarty.class.php');
 
 <body>
     <div id="bodyLayout">
-        <nav class="navbar navbar-dark">
-            <?php require_once("src/components/nav.php") ?>
-        </nav>
+        <?php require_once("src/components/nav.php") ?>
         <main id="bodyMain">
             <div id="pageContent">
                 <?php require_once("src/routes/router.php"); ?>
