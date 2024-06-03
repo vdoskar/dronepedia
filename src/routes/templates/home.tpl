@@ -10,18 +10,13 @@
 <div class="content halfBody">
     <div class="group text-center">
         <h3 class="mb-4">
-            Vítejte na portálu DronePedia, který je určený pro všechny dronové piloty i nadšence. Na našem portálu najdete informace o dronové technice, zákonitostech a mnoho dalšího.
+            Vítejte na portálu DronePedia určeném pro všechny dronové piloty i nadšence. Na našem portálu najdete informace o dronové technice, zákonitostech a mnoho dalšího.
         </h3>
         <br>
     </div>
     <div class="group">
         <p>
-            Začněme od začátku. Bezpečnost je naší prioritou. Naše rozsáhlé pravidla bezpečného létání vám poskytnou nezbytné znalosti a dovednosti pro bezpečné ovládání vašeho dronu. Od dodržování místních předpisů až po správnou údržbu a prověření vašeho zařízení, naše rady vám pomohou minimalizovat rizika a maximalizovat zábavu.
-        </p>
-    </div>
-    <div class="group">
-        <p>
-            Ale DronePedia není jen o pravidlech a bezpečnosti. Jsme také vaším průvodcem světem technologie UAV. Naše články a návody vám pomohou porozumět různým typům dronů, od hobbyistických modelů po profesionální průmyslová zařízení. Chceme, abyste se cítili jako experti, když se vydáte do vzduchu.
+            Začněme od začátku. Bezpečnost je naší prioritou. Naše pravidla bezpečného létání vám poskytnou nezbytné znalosti a dovednosti pro bezpečné ovládání vašeho dronu. Od dodržování místních předpisů až po správnou údržbu a prověření vašeho zařízení, naše rady vám pomohou minimalizovat rizika a maximalizovat zábavu.
         </p>
     </div>
     <div class="group">
@@ -31,7 +26,7 @@
     </div>
     <div class="group">
         <p>
-            Nezapomeňte sledovat naše pravidelné aktualizace a novinky! Díky DronePedii budete vždy krok před ostatními v tomto dynamickém a rychle se rozvíjejícím světě dronů.
+           Díky DronePedii budete vždy krok před ostatními v tomto dynamickém a rychle se rozvíjejícím světě dronů.
         </p>
     </div>
     <div class="group text-center">

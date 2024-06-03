@@ -100,7 +100,7 @@ class ApiPostsController
             }
 
             $result = [
-                "slug" => $this->databaseConnector->escape($postSlug),
+                "title" => $this->databaseConnector->escape($newData["title"]),
                 "short_summary" => $this->databaseConnector->escape($newData["short_summary"] ?? ""),
                 "content" => $newData["content"],
                 "date_updated" => date("Y-m-d H:i:s"),

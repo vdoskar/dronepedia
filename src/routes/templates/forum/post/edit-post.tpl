@@ -13,7 +13,7 @@
         <form method="post" action="/api/posts/edit" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Název</label>
-                <input type="text" class="form-control" id="title" name="title" required value="{$post.title}" disabled>
+                <input type="text" class="form-control" id="title" name="title" required value="{$post.title}">
             </div>
             <br>
             <div class="form-group">

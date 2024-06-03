@@ -242,7 +242,7 @@ footer {
     justify-content: flex-start;
     flex-wrap: wrap;
     list-style-type: none;
-    height: 50px;
+    min-height: 50px;
     margin: 1rem 1rem 1rem 0;
 }
 
@@ -253,10 +253,11 @@ footer {
     align-items: center;
     gap: 0.5rem;
     padding: 0 18px !important;
-    margin: 0 9px !important;
+    margin: 5px 9px !important;
     text-decoration: none;
     transition: all var(--transition-delay) ease-in-out;
     border-radius: var(--borderRadiusPrimary);
+    min-height: 50px;
 }
 
 .tabs a.active {
@@ -551,6 +552,18 @@ footer {
     width: 100% !important;
     display: flex;
     align-items: flex-start;
+    word-break: break-all;
+}
+
+/* post */
+
+.post-content-raw img,
+.comment-content-raw img {
+    height: inherit !important;
+    width: inherit !important;
+    max-width: 100%;
+    max-height: 250px;
+    aspect-ratio: 1/1;
 }
 
 /* post comments */

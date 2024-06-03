@@ -79,10 +79,10 @@ class ApiProfileController
      */
     public function getUserPosts(string $uuid): array
     {
-        return $this->databaseConnector->selectAll(
-            "
+        return $this->databaseConnector->selectAll("
             SELECT * FROM posts
-            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'"
+            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'
+            ORDER BY date_created DESC"
         ) ?? [];
     }
 
@@ -96,7 +96,8 @@ class ApiProfileController
         return $this->databaseConnector->selectAll(
             "
             SELECT * FROM posts_comments
-            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'"
+            WHERE author =  '" . $this->databaseConnector->escape($uuid) . "'
+            ORDER BY date_created DESC"
         ) ?? [];
     }
 
