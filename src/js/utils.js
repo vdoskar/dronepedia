@@ -103,7 +103,7 @@ const utils = {
             return regex.test(email)
         },
         isValidUrl(url) {
-            const regex = new RegExp('^(http|https):\\/\\/[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*(:[0-9]+)?(\\/\\S*)?$', 'i');
+            const regex = new RegExp('^https?://', 'i');
             return regex.test(url);
         },
     },

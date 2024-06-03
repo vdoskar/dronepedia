@@ -10,7 +10,7 @@
             <div class="details">
                 <h1 class="text-center mb-2 text-bold">{$user.label}</h1>
                 <div class="details-list mt-4">
-                    <p style="border-bottom: 1px solid var(--secondaryGrey); padding-bottom: 10px;">
+                    <p style="border-bottom: 1px solid var(--secondaryGrey); padding-bottom: 10px; word-break: break-all;">
                         {$settings.bio|default:""}
                     </p>
                     <p>

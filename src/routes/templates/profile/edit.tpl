@@ -59,13 +59,14 @@
             <br>
             <div class="form-group">
                 <label for="bio">Bio</label>
-                <textarea class="form-control" name="bio" id="bio" rows="5">{$settings.bio|default:""}</textarea>
+                <textarea class="form-control" name="bio" id="bio" rows="5" maxlength="200">{$settings.bio|default:""}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Uložit změny</button>
+            <button type="submit" class="btn btn-primary mt-2">Uložit nastavení</button>
         </form>
 
     </div>
 </div>
+
 <script>
 
     utils.previewImage(
@@ -92,6 +93,7 @@
         } else {
             avatarInput.setCustomValidity('');
         }
+        avatarInput.reportValidity();
     })
 
     bannerInput.addEventListener("input", function() {
@@ -105,6 +107,7 @@
         } else {
             bannerInput.setCustomValidity('');
         }
+        bannerInput.reportValidity();
     })
 
 </script>
