@@ -10,7 +10,8 @@
                 {if $item.inNav}
                     <li class="nav-item" title="{$item.label} | DronePedia">
                         <a class="nav-link {if $activeTab == $link}active{/if}" href="{$link}">
-                            {$item.label}
+                            &nbsp; <i class="fa-solid {$item.icon}"></i>
+                            &nbsp; {$item.label} &nbsp;
                         </a>
                     </li>
                 {/if}
@@ -23,14 +24,14 @@
             {if $loggedIn}
                 {if $isAdmin}
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin">
+                        <a class="nav-link {if $activeTab == "/admin"}active{/if}" href="/admin">
                             &nbsp; <i class="fa-solid fa-code"></i>
                             &nbsp;Administrace &nbsp;
                         </a>
                     </li>
                 {/if}
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile">
+                    <a class="nav-link {if $activeTab == "/profile"}active{/if}" href="/profile">
                         &nbsp; <i class="fa-solid fa-user"></i>
                         &nbsp;Profil &nbsp;
                     </a>
@@ -43,13 +44,13 @@
                 </li>
             {else}
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">
+                    <a class="nav-link {if $activeTab == "/login"}active{/if}" href="/login">
                         &nbsp; <i class="fa-solid fa-sign-in"></i>
                         &nbsp; Přihlásit &nbsp;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">
+                    <a class="nav-link {if $activeTab == "/register"}active{/if}" href="/register">
                         &nbsp;<i class="fa-solid fa-user-plus"></i>
                         &nbsp; Registrovat &nbsp;
                     </a>

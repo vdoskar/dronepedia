@@ -1,4 +1,4 @@
 {
-  "/knowledge-base": { "label": "Znalostní báze", "parent": "", "icon": "", "inNav": true, "authRequired": false },
-  "/forum": { "label": "Komunitní fórum", "parent": "", "icon": "", "inNav": true, "authRequired": false }
+  "/knowledge-base": { "label": "Znalostní báze", "parent": "", "icon": "fa-book", "inNav": true, "authRequired": false },
+  "/forum": { "label": "Komunitní fórum", "parent": "", "icon": "fa-people-group", "inNav": true, "authRequired": false }
 }

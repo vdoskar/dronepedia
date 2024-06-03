@@ -149,6 +149,7 @@ li:not(.nav-item) {
 
 .nav-link {
     padding: 15px;
+    letter-spacing: 0.05rem;
 }
 
 #logoImage {
