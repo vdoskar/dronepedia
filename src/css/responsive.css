@@ -25,6 +25,9 @@
     .drone-dialog {
         width: 80%;
     }
+    .userContainer .userDetails {
+         min-width: 0;
+    }
 }
 
 @media only screen and (max-width: 1200px) {
