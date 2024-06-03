@@ -22,6 +22,9 @@
     .userOverview {
        margin-top: -8rem;
     }
+    .drone-dialog {
+        width: 80%;
+    }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -72,7 +75,6 @@
         margin-right: 0.5rem;
     }
 
-
     #hamburger {
         display: flex;
         align-items: center;
@@ -88,12 +90,43 @@
         flex-direction: column;
         padding: 75px 0 0 0;
     }
+
+    header {
+        height: 150px;
+    }
+
+    #homepageHeader {
+        height: calc(70vh - var(--navbarHeight));
+    }
+
+    #homepageHeader h1 {
+        font-size: var(--fontSizeMediumHeading);
+    }
+    #homepageHeader h2 {
+        font-size: var(--fontSizeSmallHeading);
+    }
+
+    .userImage img {
+        max-width: 180px;
+        aspect-ratio: 1 / 1;
+        transform: translateY(-7.5vh);
+    }
+
+    .content {
+        padding: 1.5rem;
+    }
 }
 
 @media only screen and (max-width: 700px) {
+    .drone-dialog {
+        width: 95%;
+    }
 }
 
 @media only screen and (max-width: 600px) {
+    .kb_item {
+        min-height: 40rem !important;
+    }
 }
 
 @media only screen and (max-width: 500px) {

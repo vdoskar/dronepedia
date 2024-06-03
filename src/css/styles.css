@@ -55,6 +55,7 @@ li:not(.nav-item) {
     justify-content: center;
     align-items: center;
     gap: 5px;
+    margin: 5px 0;
 }
 
 .btn-primary {
