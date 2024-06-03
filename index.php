@@ -1,5 +1,8 @@
 <?php
 
+// no cache
+header('Cache-Control: no-cache');
+
 $request = $_SERVER['REQUEST_URI'];
 if (str_starts_with($request, "/api")) {
     if (str_starts_with($request, "/api/admin")) {
