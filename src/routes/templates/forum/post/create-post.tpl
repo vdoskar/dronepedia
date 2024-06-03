@@ -3,7 +3,7 @@
     <form method="post" action="/api/posts/create" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Název</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+            <input type="text" class="form-control" id="title" name="title" maxlength="80" required>
             <input type="text" id="slug" name="slug" hidden>
             <p id="slugPreview" class="small mt-2 font-italic"></p>
         </div>

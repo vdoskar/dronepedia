@@ -58,10 +58,11 @@ const droneForm = {
         paramInput.classList.add("form-control", "mb-2");
         paramInput.style.maxWidth = 'calc(100% - 60px)';
         paramInput.style.display = 'inline-block';
-        paramInput.setAttribute("name", "params[" + paramKey + "]");
-        paramInput.setAttribute("required", "true");
+        paramInput.maxLength = 100;
+        paramInput.required = true;
+        paramInput.placeholder = this.availableParams[paramKey];
+        paramInput.name = "params[" + paramKey + "]";
         paramInput.setAttribute("data-param", paramKey);
-        paramInput.setAttribute("placeholder", droneForm.availableParams[paramKey]);
         if (paramValue) {
             paramInput.value = paramValue;
         }
