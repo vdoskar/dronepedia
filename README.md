@@ -6,7 +6,7 @@ Zadání projektu bylo vytvoření webového blogu na libovolné téma za pomoc�
 <hr>
 
 ## Použité technologie
-- PHP 8.3
+- PHP 8
 - Smarty Template Engine 4.0
 - MySQL (MariaDB) 
 - HTML, CSS, JS
