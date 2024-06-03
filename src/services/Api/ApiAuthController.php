@@ -24,8 +24,12 @@ class ApiAuthController
     public function register(array $data = []): void
     {
         try {
+            if (empty($data["pass1"]) || empty($data["email"]) || empty($data["usertag"]) || empty($data["username"])) {
+                throw new Exception("Nebyly vyplněny všechny povinné údaje (email, uživatelské jméno, usertag, heslo).");
+            }
+
             if ($data["pass1"] !== $data["pass2"]) {
-                throw new Exception("Passwords do not match");
+                throw new Exception("Hesla se neshodují");
             }
 
             $registrationStatus = $this->checkAvailibleRegistration($data["email"], $data["usertag"]);
@@ -243,7 +247,7 @@ class ApiAuthController
 
         if (!empty($usernameRegistered)) {
             $status["status"] = "NOK";
-            $status["message"] = "Toto uživatelské jméno je již obsazeno. Vyberte si prosím jiné.";
+            $status["message"] = "Tento usertag je již obsazen. Vyberte si prosím jiný.";
             return $status;
         }
 
