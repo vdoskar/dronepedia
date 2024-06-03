@@ -6,7 +6,7 @@
 </style>
 
 <div class="content">
-    <h1 class="text-center">Admin Dashboard</h1>
+    <h1 class="text-center">Administrace v1</h1>
 
     <div class="group">
         <div class="tabs">
@@ -17,10 +17,6 @@
             <a href="#tab_posts">
                 <i class="fa-solid fa-message"></i>
                 <span>Příspěvky</span>
-            </a>
-            <a href="#tab_comments">
-                <i class="fa-solid fa-comments"></i>
-                <span>Komentáře</span>
             </a>
         </div>
     </div>
@@ -40,14 +36,6 @@
                 {include file='posts.tpl'}
             {else}
                 <p>Žádné příspěvky</p>
-            {/if}
-        </div>
-
-        <div id="tab_comments" class="tab-section">
-            {if $comments|count > 0}
-                {include file='comments.tpl'}
-            {else}
-                <p>Žádné komentáře</p>
             {/if}
         </div>
 

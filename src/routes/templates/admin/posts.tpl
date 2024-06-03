@@ -1,37 +1,49 @@
-<table class="table adminTable">
-    <thead>
-       <tr>
-           <th>Title</th>
-           <th>Slug</th>
-           <th>Short Summary</th>
-           <th>Author</th>
-           <th>Category</th>
-           <th>Date Created</th>
-           <th>Date Updated</th>
-           <th>Status</th>
-           <th>Actions</th>
-       </tr>
-    </thead>
-    <tbody>
+<form action="/api/admin/post/save-all" method="POST">
+    <button class="btn btn-primary">
+        Uložit vše
+    </button>
+    <table class="table adminTable">
+        <thead>
+        <tr>
+            <th>Název</th>
+            <th>Slug</th>
+            <th>Autor</th>
+            <th>Krátký popis</th>
+            <th>Kategorie</th>
+            <th>Status</th>
+            <th>Vytvořeno</th>
+            <th>Aktualizováno</th>
+            <th>Akce</th>
+        </tr>
+        </thead>
+        <tbody>
         {foreach $posts as $post}
             <tr>
-                <td>{$post.title}</td>
+                <td>
+                    <input type="text" value="{$post.title}" name="post_data[{$post.slug}][title]">
+                </td>
                 <td>{$post.slug}</td>
-                <td>{$post.short_summary}</td>
                 <td>{$post.author}</td>
-                <td>{$post.category}</td>
+                <td>
+                    <input type="text" value="{$post.short_summary}" name="post_data[{$post.slug}][short_summary]">
+                </td>
+                <td>
+                    <select id="post-category" name="post_data[{$post.slug}][category]">
+                        {foreach $posts_categories as $category}
+                            <option value="{$category.name}" {if $post.category == $category.name} selected {/if}>{$category.name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+                <td>
+                    <select id="post-status" name="post_data[{$post.slug}][status]">
+                        <option value="ACTIVE" {if $post.status == "ACTIVE"} selected {/if}>ACTIVE</option>
+                        <option value="CLOSED" {if $post.status == "CLOSED"} selected {/if}>CLOSED</option>
+                    </select>
+                </td>
                 <td>{$post.date_created}</td>
                 <td>{$post.date_updated}</td>
-                <td>{$post.status}</td>
-                <td>
-                    <a href="/api/admin/post/delete?p={$post.slug}">Delete</a>
-                    {if $post.status == "ACTIVE"}
-                        <a href="/api/admin/post/close?p={$post.slug}">Close</a>
-                    {elseif $post.status == "CLOSED"}
-                        <a href="/api/admin/post/open?p={$post.slug}">Open</a>
-                    {/if}
-                </td>
             </tr>
         {/foreach}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</form>

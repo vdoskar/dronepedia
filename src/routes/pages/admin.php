@@ -2,11 +2,13 @@
 
 require_once 'src/services/Api/ApiAuthController.php';
 require_once 'src/services/Api/ApiProfileController.php';
+require_once 'src/services/Api/ApiPostsController.php';
 require_once 'src/services/DatabaseConnector.php';
 
 $apiAuthController = new ApiAuthController();
 $profileController = new ApiProfileController();
 $databaseConnector = new DatabaseConnector();
+$apiPostsController = new ApiPostsController();
 
 $currentUser = $apiAuthController->getCurrentUser();
 if (empty($currentUser) || $currentUser["role"] != "ADMIN") {
@@ -33,5 +35,6 @@ $smarty->setTemplateDir("src/routes/templates/admin");
 $smarty->assign("currentUser", $currentUser);
 $smarty->assign("users", $allUsers);
 $smarty->assign("posts", $allPosts);
+$smarty->assign("posts_categories", $apiPostsController->categories);
 $smarty->assign("comments", $allComments);
 $smarty->display("dashboard.tpl");
